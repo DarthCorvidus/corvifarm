@@ -5,34 +5,34 @@ public class CalendarTest {
 	@Test
 	public void testConstruct() {
 		Calendar cal = new Calendar();
-		Assertions.assertSame(0, cal.getSeconds());
+		Assertions.assertEquals(6*60, cal.getSeconds());
+	}
+
+	public void testGetTime() {
+		Calendar cal = new Calendar();
+		Assertions.assertEquals("06:00", cal.getTime());
+	}
+	
+	public void testGetDay() {
+		Calendar cal = new Calendar();
+		Assertions.assertEquals(1, cal.getDay());
+	}
+	
+	public void testGetSeason() {
+		Calendar cal = new Calendar();
+		Assertions.assertEquals("Spring", cal.getSeason());
+	}
+
+	public void testGetYear() {
+		Calendar cal = new Calendar();
+		Assertions.assertSame(1, cal.getYear());
+	}
+	
+	public void testGetDate() {
+		Calendar cal = new Calendar();
+		Assertions.assertEquals("Day 1 06:00 (Spring, Year 1)", cal.getDate());
 	}
 	/*
-	function testGetTime() {
-		$cal = new Calendar();
-		$this->assertSame("06:00", $cal->getTime());
-	}
-	
-	function testGetDay() {
-		$cal = new Calendar();
-		$this->assertSame(1, $cal->getDay());
-	}
-
-	function testGetSeason() {
-		$cal = new Calendar();
-		$this->assertSame("Spring", $cal->getSeason());
-	}
-
-	function testGetYear() {
-		$cal = new Calendar();
-		$this->assertSame(1, $cal->getYear());
-	}
-	
-	function testGetDate() {
-		$cal = new Calendar();
-		$this->assertSame("Day 1 06:00 (Spring, Year 1)", $cal->getDate());
-	}
-	
 	function testSleep() {
 		$cal = new Calendar();
 		$cal->sleep();

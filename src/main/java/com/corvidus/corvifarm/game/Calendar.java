@@ -6,70 +6,74 @@ class Calendar {
 	//private TerminalText $text;
 	//private Cooldown $cooldown;
 	public Calendar() {
-		this.seconds = 0;
+		this.seconds = 6*60;
+	}
+	
+	public void setSeconds(int seconds) {
+		this.seconds = seconds;
 	}
 	/*
 	function setInputObserver(WidgetInputObserver $observer): void {
-		$this->inputObserver = $observer;
+		this.inputObserver = $observer;
 	}
 	
 	function addCalendarObserver(CalendarObserver $observer) {
-		$this->observers[] = $observer;
-	}
-	
-	function getTime() {
-		$minutes = ($this->seconds % 60);
-		$hours = floor($this->seconds/60) % 24;
-	return sprintf("%02d:%02d", $hours, $minutes);
-	}
-	
-	function getJulian() {
-		return floor($this->seconds/(60*24));
-	}
-	
-	function getYear(): int {
-		return (floor($this->seconds/(60*24*28*4)))+1;
-	}
-	
-	function getDay(): int {
-		return (floor($this->seconds/(60*24)) % 28)+1;
-	}
-	
-	function getSeason(): string {
-		$season = floor($this->seconds/(60*24*28)) % 4;
-		$seasons = array("Spring", "Summer", "Fall", "Winter");
-	return $seasons[$season];
-	}
-	
-	function getDate(): string {
-		$minutes = ($this->seconds % 60);
-		$hours = floor($this->seconds/60) % 24;
-		$days = floor($this->seconds/(60*24)) % 28;
-		$season = floor($this->seconds/(60*24*28)) % 4;
-		$year = floor($this->seconds/(60*24*28*4));
-		$seasons = array("Spring", "Summer", "Fall", "Winter");
-		return sprintf("Day %d %02d:%02d (%s, Year %d)", $days+1, $hours, $minutes, $seasons[$season], $year+1);
+		this.observers[] = $observer;
 	}
 	*/
+	
+	public String getTime() {
+		int minutes = this.seconds % 60;
+		int hours = Math.floorDiv(this.seconds, 60) % 24;
+	return String.format("%02d:%02d", hours, minutes);
+	}
+	
+	public int getJulian() {
+		return Math.floorDiv(this.seconds, 60*24);
+	}
+	
+	public int getYear() {
+		return Math.floorDiv(this.seconds, 60*24*28*4)+1;
+	}
+	
+	public int getDay() {
+		return (Math.floorDiv(this.seconds, (60*24)) % 28)+1;
+	}
+
+	public String getSeason() {
+		int season = Math.floorDiv(this.seconds, (60*24*28)) % 4;
+		String[] seasons = {"Spring", "Summer", "Fall", "Winter"};
+	return seasons[season];
+	}
+	
+	
+	public String getDate() {
+		int day = this.getDay();
+		String season = this.getSeason();
+		int year = this.getYear();
+		String time = this.getTime();
+		return String.format("Day %d %s (%s, Year %d)", day, time, season, year);
+	}
+	
 	public int getSeconds() {
 		return this.seconds;
 	}
 	/*
 	function incr() {
-		$this->seconds++;
+		this.seconds++;
 	}
 	
 	function sleep() {
-		$days = $this->getJulian();
+		$days = this.getJulian();
 		$seconds = $days * 60*24;
-		if($this->seconds<=$seconds + (2*60)) {
-			$this->seconds = ($days * 60*24) + (6*60);
+		if(this.seconds<=$seconds + (2*60)) {
+			this.seconds = ($days * 60*24) + (6*60);
 		} else {
-			$this->seconds = ($days * 60*24) + (30*60);
+			this.seconds = ($days * 60*24) + (30*60);
 		}
-		foreach($this->observers as $value) {
+		foreach(this.observers as $value) {
 			$value->onWakeup($this);
-			$this->text->setText($this->getDate());
+			this.text->setText(this.getDate());
 		}
 	}
 
@@ -86,11 +90,11 @@ class Calendar {
 	}
 
 	public function __tsLoop(): bool {
-		if($this->cooldown->ready()) {
-			$this->incr();
-			foreach($this->observers as $value) {
+		if(this.cooldown->ready()) {
+			this.incr();
+			foreach(this.observers as $value) {
 				$value->onSecond($this);
-				$this->text->setText($this->getDate());
+				this.text->setText(this.getDate());
 			}
 		}
 	return true;
@@ -113,38 +117,38 @@ class Calendar {
 	}
 
 	public function getChar(int $col, int $row): string {
-		return $this->text->getChar($col, $row);
+		return this.text->getChar($col, $row);
 	}
 	
 	public function getCharData(): string {
-		return $this->text->getCharData();
+		return this.text->getCharData();
 	}
 
 	public function getHeight(): int {
-		return $this->text->getHeight();
+		return this.text->getHeight();
 	}
 
 	public function getPosX(): int {
-		return $this->text->getPosX();
+		return this.text->getPosX();
 	}
 
 	public function getPosY(): int {
-		return $this->text->getPosY();
+		return this.text->getPosY();
 	}
 
 	public function getWidth(): int {
-		return $this->text->getWidth();
+		return this.text->getWidth();
 	}
 
 	public function hasChanged(): bool {
-		return $this->text->hasChanged();
+		return this.text->hasChanged();
 	}
 
 	public function input(string $input): void {
-		if($this->inputObserver === null) {
+		if(this.inputObserver === null) {
 			return;
 		}
-		$this->inputObserver->onInput($this, $input);
+		this.inputObserver->onInput($this, $input);
 	}
 	*/
 }

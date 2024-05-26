@@ -58,25 +58,28 @@ class Calendar {
 	public int getSeconds() {
 		return this.seconds;
 	}
-	/*
-	function incr() {
+
+	public void incr() {
 		this.seconds++;
 	}
 	
-	function sleep() {
-		$days = this.getJulian();
-		$seconds = $days * 60*24;
-		if(this.seconds<=$seconds + (2*60)) {
-			this.seconds = ($days * 60*24) + (6*60);
+	public void sleep() {
+		int days = this.getJulian();
+		int seconds = days * 60*24;
+		if(this.seconds<=seconds + (2*60)) {
+			this.seconds = (days * 60*24) + (6*60);
 		} else {
-			this.seconds = ($days * 60*24) + (30*60);
+			this.seconds = (days * 60*24) + (30*60);
 		}
+		/*
 		foreach(this.observers as $value) {
 			$value->onWakeup($this);
 			this.text->setText(this.getDate());
 		}
+		*/
 	}
 
+	/*
 	public function __tsError(\Exception $e, int $step): void {
 		
 	}

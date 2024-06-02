@@ -1,7 +1,11 @@
 package com.corvidus.corvifarm.game;
+
+import java.util.ArrayList;
+
 public class Calendar {
 	private int seconds = 0;
 	private Cooldown cooldown;
+	private ArrayList<CalendarObserver> calendarObservers = new ArrayList<>();
 	//private array $observers = array();
 	//private ?WidgetInputObserver $inputObserver = null;
 	//private TerminalText $text;
@@ -14,15 +18,10 @@ public class Calendar {
 	public void setSeconds(int seconds) {
 		this.seconds = seconds;
 	}
-	/*
-	function setInputObserver(WidgetInputObserver $observer): void {
-		this.inputObserver = $observer;
+
+	public void addCalendarObserver(CalendarObserver calendarObserver) {
+		this.calendarObservers.add(calendarObserver);
 	}
-	
-	function addCalendarObserver(CalendarObserver $observer) {
-		this.observers[] = $observer;
-	}
-	*/
 	
 	public String getTime() {
 		int minutes = this.seconds % 60;
@@ -84,6 +83,9 @@ public class Calendar {
 	public void run() {
 		if(this.cooldown.ready()) {
 			this.incr();
+			for(CalendarObserver obs : this.calendarObservers) {
+				obs.onSecond(this);
+			}
 		}
 	}
 

@@ -1,12 +1,14 @@
 package com.corvidus.corvifarm.game;
-class Calendar {
+public class Calendar {
 	private int seconds = 0;
+	private Cooldown cooldown;
 	//private array $observers = array();
 	//private ?WidgetInputObserver $inputObserver = null;
 	//private TerminalText $text;
 	//private Cooldown $cooldown;
 	public Calendar() {
 		this.seconds = 6*60;
+		this.cooldown = new Cooldown(1000);
 	}
 	
 	public void setSeconds(int seconds) {
@@ -77,6 +79,12 @@ class Calendar {
 			this.text->setText(this.getDate());
 		}
 		*/
+	}
+
+	public void run() {
+		if(this.cooldown.ready()) {
+			this.incr();
+		}
 	}
 
 	/*

@@ -6,9 +6,6 @@ public class WidgetTextLines extends WidgetAbstract {
 	}
 	
 	public void addLine(int i, String line) {
-		if(i >= this.height) {
-			return;
-		}
-		this.lines[i] = line;
+		this.tg.putString(0, i, line);
 	}
 }

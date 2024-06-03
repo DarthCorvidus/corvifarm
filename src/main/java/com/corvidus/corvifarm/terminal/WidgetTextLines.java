@@ -5,7 +5,8 @@ public class WidgetTextLines extends WidgetAbstract {
 		super(posX, posY, width, height);
 	}
 	
-	public void addLine(int i, String line) {
+	public void setLine(int i, String line) {
+		this.tg.putString(0, i, " ".repeat(this.getWidth()));
 		this.tg.putString(0, i, line);
 	}
 }

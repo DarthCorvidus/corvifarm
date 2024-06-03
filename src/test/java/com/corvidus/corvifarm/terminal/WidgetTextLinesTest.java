@@ -12,15 +12,33 @@ public class WidgetTextLinesTest {
 		Assertions.assertEquals(ti.toString(), lines.getTextImage().toString());
 	}
 
-	public void testAddLines() {
+	public void testSetLines() {
 		WidgetTextLines lines = new WidgetTextLines(0, 0, 9, 3);
-		lines.addLine(0, "Cat");
-		lines.addLine(1, "Hippopotamus");
-		lines.addLine(2, "Alligator");
+		lines.setLine(0, "Cat");
+		lines.setLine(1, "Hippopotamus");
+		lines.setLine(2, "Alligator");
 		TextImage ti = new BasicTextImage(9, 3);
 		TextGraphics tg = ti.newTextGraphics();
 		tg.putString(0, 0, "Cat");
 		tg.putString(0, 1, "Hippopota");
+		tg.putString(0, 2, "Alligator");
+		Assertions.assertEquals(ti.toString(), lines.getTextImage().toString());
+	}
+
+	public void testReplaceLine() {
+		WidgetTextLines lines = new WidgetTextLines(0, 0, 9, 3);
+		lines.setLine(0, "Cat");
+		lines.setLine(1, "Hippopotamus");
+		lines.setLine(2, "Alligator");
+		
+		//Don't want to get a "Mousepotamus" here, although it surely would look
+		//cute.
+		lines.setLine(1, "Mouse");
+		
+		TextImage ti = new BasicTextImage(9, 3);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "Cat");
+		tg.putString(0, 1, "Mouse");
 		tg.putString(0, 2, "Alligator");
 		Assertions.assertEquals(ti.toString(), lines.getTextImage().toString());
 	}

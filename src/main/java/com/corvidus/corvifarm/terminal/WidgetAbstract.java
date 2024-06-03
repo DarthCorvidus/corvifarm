@@ -8,8 +8,6 @@ import com.googlecode.lanterna.graphics.TextImage;
 public abstract class WidgetAbstract implements TerminalWidget {
 	protected int posX;
 	protected int posY;
-	protected int width;
-	protected int height;
 	protected TextImage ti;
 	protected TextGraphics tg;
 	public WidgetAbstract(int posX, int posY, int width, int height) {

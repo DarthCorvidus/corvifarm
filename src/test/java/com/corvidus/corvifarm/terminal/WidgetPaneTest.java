@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Assertions;
 public class WidgetPaneTest {
 	@Test
 	public void testConstruct() {
-		WidgetTextLines lines = new WidgetTextLines(0, 0, 40, 12);
+		WidgetPane pane = new WidgetPane(0, 0, 40, 12);
 		TextImage ti = new BasicTextImage(40, 12);
-		Assertions.assertEquals(ti.toString(), lines.getTextImage().toString());
+		Assertions.assertEquals(ti.toString(), pane.getTextImage().toString());
 	}
 }

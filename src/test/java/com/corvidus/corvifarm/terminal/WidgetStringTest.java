@@ -71,5 +71,14 @@ public class WidgetStringTest {
 		tg.putString(0, 0, "Mouse");
 		Assertions.assertEquals(ti.toString(), instance.getTextImage().toString());
 	}
+	
+	@Test
+	public void testConstructWithString() {
+		WidgetString instance = new WidgetString(0, 0, 9, "Mouse");
+		TextImage ti = new BasicTextImage(9, 1);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "Mouse");
+		Assertions.assertEquals(ti.toString(), instance.getTextImage().toString());
+	}
 
 }

@@ -31,6 +31,13 @@ public class WidgetPane extends WidgetAbstract {
 	
 	@Override
 	public TextImage getTextImage() {
+		/**
+		 * We have to redraw, otherwise changes made to one of the widgets do not
+		 * apply.
+		 */
+		for(TerminalWidget widget: this.widgets) {
+			this.tg.drawImage(new TerminalPosition(widget.getPosX(), widget.getPosY()), widget.getTextImage());
+		}
 		return this.ti;
 	}
 }

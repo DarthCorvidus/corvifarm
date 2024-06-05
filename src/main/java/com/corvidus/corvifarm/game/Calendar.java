@@ -1,11 +1,17 @@
 package com.corvidus.corvifarm.game;
 
+import com.corvidus.corvifarm.terminal.TerminalWidget;
+import com.corvidus.corvifarm.terminal.WidgetInputObserver;
+import com.corvidus.corvifarm.terminal.WidgetString;
+import com.googlecode.lanterna.graphics.TextImage;
+import com.googlecode.lanterna.input.KeyStroke;
 import java.util.ArrayList;
 
-public class Calendar {
+public class Calendar implements TerminalWidget {
 	private int seconds = 0;
 	private Cooldown cooldown;
 	private ArrayList<CalendarObserver> calendarObservers = new ArrayList<>();
+	private WidgetString widgetString;
 	//private array $observers = array();
 	//private ?WidgetInputObserver $inputObserver = null;
 	//private TerminalText $text;
@@ -13,6 +19,7 @@ public class Calendar {
 	public Calendar() {
 		this.seconds = 6*60;
 		this.cooldown = new Cooldown(1000);
+		this.widgetString = new WidgetString(0, 0, 30, this.getDate());
 	}
 	
 	public void setSeconds(int seconds) {
@@ -48,7 +55,7 @@ public class Calendar {
 	}
 	
 	
-	public String getDate() {
+	public final String getDate() {
 		int day = this.getDay();
 		String season = this.getSeason();
 		int year = this.getYear();
@@ -62,6 +69,10 @@ public class Calendar {
 
 	public void incr() {
 		this.seconds++;
+		this.widgetString.setString(this.getDate());
+		for(CalendarObserver obs : this.calendarObservers) {
+			obs.onSecond(this);
+		}
 	}
 	
 	public void sleep() {
@@ -72,12 +83,10 @@ public class Calendar {
 		} else {
 			this.seconds = (days * 60*24) + (30*60);
 		}
-		/*
-		foreach(this.observers as $value) {
-			$value->onWakeup($this);
-			this.text->setText(this.getDate());
+		this.widgetString.setString(this.getDate());
+		for(CalendarObserver obs : this.calendarObservers) {
+			obs.onWakeup(this);
 		}
-		*/
 	}
 
 	public void run() {
@@ -89,6 +98,10 @@ public class Calendar {
 		}
 	}
 
+	@Override
+	public TextImage getTextImage() {
+		return this.widgetString.getTextImage();
+	}
 	/*
 	public function __tsError(\Exception $e, int $step): void {
 		
@@ -164,4 +177,39 @@ public class Calendar {
 		this.inputObserver->onInput($this, $input);
 	}
 	*/
+
+	@Override
+	public int getPosX() {
+		return this.widgetString.getPosX();
+	}
+
+	@Override
+	public int getPosY() {
+		return this.widgetString.getPosY();
+	}
+
+	@Override
+	public int getHeight() {
+		return this.widgetString.getHeight();
+	}
+
+	@Override
+	public int getWidth() {
+		return this.widgetString.getWidth();
+	}
+
+	@Override
+	public void onInput(KeyStroke keyStroke) {
+		this.widgetString.onInput(keyStroke);
+	}
+
+	@Override
+	public void addInputObserver(WidgetInputObserver inputObserver) {
+		this.widgetString.addInputObserver(inputObserver);
+	}
+
+	@Override
+	public void removeInputObserver(WidgetInputObserver inputObserver) {
+		this.widgetString.removeInputObserver(inputObserver);
+	}
 }

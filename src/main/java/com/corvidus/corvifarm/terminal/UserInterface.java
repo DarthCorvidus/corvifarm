@@ -1,6 +1,9 @@
 package com.corvidus.corvifarm.terminal;
 
+import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import java.io.IOException;
@@ -20,7 +23,9 @@ import java.io.IOException;
 public class UserInterface {
 	private Screen screen;
 	private TextGraphics tg;
+	private WidgetPane pane;
 	public UserInterface() {
+		this.pane = new WidgetPane(0, 0, 80, 24);
 		DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory();
 		try {
 			this.screen = defaultTerminalFactory.createScreen();
@@ -32,9 +37,29 @@ public class UserInterface {
 		}
 	}
 	
+	public void addWidget(TerminalWidget widget) {
+		this.pane.addWidget(widget);
+	}
+
+	public void refresh() {
+		try {
+			this.screen.refresh();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
+	}
+	
 	public void run() {
-		while(true) {
-			
+		try {
+			this.tg.drawImage(new TerminalPosition(0, 0), this.pane.getTextImage());
+			KeyStroke keyStroke = this.screen.pollInput();
+			if(keyStroke == null) {
+				return;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(0);
 		}
 	}
 }

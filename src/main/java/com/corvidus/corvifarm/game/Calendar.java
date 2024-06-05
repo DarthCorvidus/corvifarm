@@ -94,9 +94,6 @@ public class Calendar implements TerminalWidget, WidgetInputObserver {
 	public void run() {
 		if(this.cooldown.ready()) {
 			this.incr();
-			for(CalendarObserver obs : this.calendarObservers) {
-				obs.onSecond(this);
-			}
 			if(this.getTime().equals("02:00")) {
 				this.sleep();
 			}

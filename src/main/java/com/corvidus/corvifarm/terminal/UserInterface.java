@@ -25,6 +25,9 @@ public class UserInterface {
 	private TextGraphics tg;
 	private WidgetPane pane;
 	public UserInterface() {
+		/**
+		 * For now, I plan to limit the game to 80×24.
+		 */
 		this.pane = new WidgetPane(0, 0, 80, 24);
 		DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory();
 		try {
@@ -40,6 +43,14 @@ public class UserInterface {
 	
 	public void addWidget(TerminalWidget widget) {
 		this.pane.addWidget(widget);
+	}
+	
+	public void addInputObserver(WidgetInputObserver widgetInputObserver) {
+		this.pane.addInputObserver(widgetInputObserver);
+	}
+	
+	public void removeInputObserver(WidgetInputObserver widgetInputObserver) {
+		this.pane.removeInputObserver(widgetInputObserver);
 	}
 
 	public void refresh() {

@@ -31,6 +31,7 @@ public class UserInterface {
 			this.screen = defaultTerminalFactory.createScreen();
 			this.screen.startScreen();
 			this.tg = this.screen.newTextGraphics();
+			this.screen.setCursorPosition(null);
 		} catch(IOException e) {
 			e.printStackTrace();
 			System.exit(0);

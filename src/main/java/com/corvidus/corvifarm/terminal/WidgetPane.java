@@ -8,6 +8,7 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.graphics.TextImage;
+import com.googlecode.lanterna.input.KeyStroke;
 import java.util.ArrayList;
 
 /**
@@ -48,5 +49,13 @@ public class WidgetPane extends WidgetAbstract {
 			this.tg.drawImage(new TerminalPosition(widget.getPosX(), widget.getPosY()), widget.getTextImage());
 		}
 		return this.ti;
+	}
+	
+	@Override
+	public void onInput(KeyStroke keyStroke) {
+		super.onInput(keyStroke);
+		for(TerminalWidget widget : this.widgets) {
+			widget.onInput(keyStroke);
+		}
 	}
 }

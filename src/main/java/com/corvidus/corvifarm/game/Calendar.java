@@ -5,9 +5,10 @@ import com.corvidus.corvifarm.terminal.WidgetInputObserver;
 import com.corvidus.corvifarm.terminal.WidgetString;
 import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import java.util.ArrayList;
 
-public class Calendar implements TerminalWidget {
+public class Calendar implements TerminalWidget, WidgetInputObserver {
 	private int seconds = 0;
 	private Cooldown cooldown;
 	private ArrayList<CalendarObserver> calendarObservers = new ArrayList<>();
@@ -19,7 +20,8 @@ public class Calendar implements TerminalWidget {
 	public Calendar() {
 		this.seconds = 6*60;
 		this.cooldown = new Cooldown(1000);
-		this.widgetString = new WidgetString(0, 0, 30, this.getDate());
+		this.widgetString = new WidgetString(0, 0, 40, this.getDate());
+		this.widgetString.addInputObserver(this);
 	}
 	
 	public void setSeconds(int seconds) {
@@ -211,5 +213,34 @@ public class Calendar implements TerminalWidget {
 	@Override
 	public void removeInputObserver(WidgetInputObserver inputObserver) {
 		this.widgetString.removeInputObserver(inputObserver);
+	}
+
+	@Override
+	public void onInput(TerminalWidget widget, KeyStroke keyStroke) {
+		if(keyStroke.getKeyType() != KeyType.Character) {
+			return;
+		}
+		char c = keyStroke.getCharacter();
+		int delay = this.cooldown.getDelayMilliseconds();
+		if(c == '+' && delay > 100) {
+				this.cooldown.setDelayMilliseconds(delay - 100);
+			return;
+		}
+
+		if(c == '+' && delay > 10 && delay <= 100) {
+			this.cooldown.setDelayMilliseconds(delay - 10);
+			return;
+		}
+		/*
+		if(c == '-' && this.delay < 100) {
+			this.delay += 10;
+			return;
+		}
+		
+		if(c == '-' && this.delay >= 100) {
+			this.delay += 100;
+			return;
+		}
+		*/
 	}
 }

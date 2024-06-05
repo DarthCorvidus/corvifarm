@@ -57,6 +57,8 @@ public class UserInterface {
 			if(keyStroke == null) {
 				return;
 			}
+			this.pane.onInput(keyStroke);
+			this.refresh();
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(0);

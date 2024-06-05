@@ -4,9 +4,13 @@
  */
 package com.corvidus.corvifarm.game;
 
+import com.corvidus.corvifarm.terminal.TerminalWidget;
 import com.corvidus.corvifarm.terminal.UserInterface;
+import com.corvidus.corvifarm.terminal.WidgetInputObserver;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 
-public class Game implements CalendarObserver {
+public class Game implements CalendarObserver, WidgetInputObserver {
 	public Calendar calendar;
 	public UserInterface userInterface;
 	public Game() {
@@ -18,6 +22,7 @@ public class Game implements CalendarObserver {
 	
 	public void run() {
 		this.calendar.addCalendarObserver(this);
+		this.userInterface.addInputObserver(this);
 		while(true) {
 			try {
 				this.calendar.run();
@@ -38,5 +43,15 @@ public class Game implements CalendarObserver {
 	@Override
 	public void onWakeup(Calendar calendar) {
 		this.userInterface.refresh();
+	}
+
+	@Override
+	public void onInput(TerminalWidget widget, KeyStroke keyStroke) {
+		if(keyStroke.getKeyType() != KeyType.Character) {
+			return;
+		}
+		if(keyStroke.getCharacter() == 'x') {
+			System.exit(0);
+		}
 	}
 }

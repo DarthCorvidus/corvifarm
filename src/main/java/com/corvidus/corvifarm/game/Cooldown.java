@@ -10,6 +10,14 @@ class Cooldown {
 		this.milli = lengthMilliseconds;
 	}
 	
+	public int getDelayMilliseconds() {
+		return this.milli;
+	}
+	
+	public void setDelayMilliseconds(int delayMilliseconds) {
+		this.milli = delayMilliseconds;
+	}
+	
 	public boolean ready() {
 		Instant now = Instant.now();
 		Duration delta = Duration.between(this.start, now);

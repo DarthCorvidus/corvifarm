@@ -7,12 +7,11 @@ package com.corvidus.corvifarm.game;
 import com.corvidus.corvifarm.terminal.TerminalWidget;
 import com.corvidus.corvifarm.terminal.UserInterface;
 import com.corvidus.corvifarm.terminal.WidgetInputObserver;
-import com.corvidus.corvifarm.terminal.yesno.WidgetYesNo;
-import com.corvidus.corvifarm.terminal.yesno.YesNoObserver;
+import com.corvidus.corvifarm.ui.YesNoQuit;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
-public class Game implements CalendarObserver, WidgetInputObserver, YesNoObserver {
+public class Game implements CalendarObserver, WidgetInputObserver {
 	public Calendar calendar;
 	public UserInterface userInterface;
 	public Game() {
@@ -53,28 +52,8 @@ public class Game implements CalendarObserver, WidgetInputObserver, YesNoObserve
 			return;
 		}
 		if(keyStroke.getCharacter() == 'x') {
-			WidgetYesNo yesno = new WidgetYesNo(10, 5, 20, 4, "Quit (y/N)");
-			yesno.addYesNoObserver(this);
-			this.calendar.pause();
-			this.userInterface.setFocus(yesno);
-			this.userInterface.refresh();
+			YesNoQuit yesNo = new YesNoQuit(calendar, userInterface);
+			yesNo.run();
 		}
-	}
-
-	@Override
-	public void onYes(WidgetYesNo widgetYesNo) {
-		System.exit(0);
-	}
-
-	@Override
-	public void onNo(WidgetYesNo widgetYesNo) {
-		this.calendar.resume();
-		this.userInterface.removeWidget(widgetYesNo);
-	}
-
-	@Override
-	public void onInvalid(WidgetYesNo widgetYesNo) {
-		this.calendar.resume();
-		this.userInterface.removeWidget(widgetYesNo);
 	}
 }

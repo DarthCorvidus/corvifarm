@@ -24,7 +24,6 @@ public class UserInterface {
 	private Screen screen;
 	private TextGraphics tg;
 	private WidgetPane pane;
-	private TerminalWidget focus;
 	public UserInterface() {
 		/**
 		 * For now, I plan to limit the game to 80×24.
@@ -43,7 +42,7 @@ public class UserInterface {
 	}
 	
 	public void setFocus(TerminalWidget widget) {
-		this.focus = widget;
+		this.pane.setFocus(widget);
 	}
 	
 	public void addWidget(TerminalWidget widget) {
@@ -78,12 +77,7 @@ public class UserInterface {
 			if(keyStroke == null) {
 				return;
 			}
-			if(this.focus == null) {
-				this.pane.onInput(keyStroke);
-			} else {
-				this.focus.onInput(keyStroke);
-			}
-			//System.out.println("Refresh during UserInterface.run()");
+			this.pane.onInput(keyStroke);
 			this.refresh();
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -1,6 +1,7 @@
 package com.corvidus.corvifarm.game;
 
 import com.corvidus.corvifarm.terminal.TerminalWidget;
+import com.corvidus.corvifarm.terminal.TerminalWidgetObservable;
 import com.corvidus.corvifarm.terminal.WidgetInputObserver;
 import com.corvidus.corvifarm.terminal.WidgetString;
 import com.googlecode.lanterna.graphics.TextImage;
@@ -8,7 +9,7 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import java.util.ArrayList;
 
-public class Calendar implements TerminalWidget, WidgetInputObserver {
+public class Calendar implements TerminalWidget, TerminalWidgetObservable, WidgetInputObserver {
 	private int seconds = 0;
 	private Cooldown cooldown;
 	private ArrayList<CalendarObserver> calendarObservers = new ArrayList<>();

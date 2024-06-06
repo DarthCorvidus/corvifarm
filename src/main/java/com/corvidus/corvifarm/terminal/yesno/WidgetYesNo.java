@@ -1,6 +1,7 @@
 package com.corvidus.corvifarm.terminal.yesno;
 
 import com.corvidus.corvifarm.terminal.TerminalWidget;
+import com.corvidus.corvifarm.terminal.TerminalWidgetObservable;
 import com.corvidus.corvifarm.terminal.WidgetInputObserver;
 import com.corvidus.corvifarm.terminal.WidgetPane;
 import com.corvidus.corvifarm.terminal.WidgetString;
@@ -8,7 +9,7 @@ import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
 import java.util.ArrayList;
 
-public class WidgetYesNo implements TerminalWidget {
+public class WidgetYesNo implements TerminalWidget, TerminalWidgetObservable {
 	private final WidgetPane pane;
 	private final WidgetString string;
 	private final ArrayList<YesNoObserver> observers = new ArrayList<>();

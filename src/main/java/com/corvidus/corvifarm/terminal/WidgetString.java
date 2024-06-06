@@ -3,7 +3,7 @@ package com.corvidus.corvifarm.terminal;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.graphics.TextImage;
 
-public class WidgetString extends WidgetAbstract {
+public class WidgetString extends WidgetAbstractObservable {
 	public WidgetString(int posX, int posY, int width) {
 		super(posX, posY, width, 1);
 	}

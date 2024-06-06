@@ -9,6 +9,4 @@ public interface TerminalWidget {
 	public int getWidth();
 	public TextImage getTextImage();
 	public void onInput(KeyStroke keyStroke);
-	public void addInputObserver(WidgetInputObserver inputObserver);
-	public void removeInputObserver(WidgetInputObserver inputObserver);
 }

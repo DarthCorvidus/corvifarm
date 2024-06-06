@@ -1,5 +1,5 @@
 package com.corvidus.corvifarm.terminal;
-public class WidgetTextLines extends WidgetAbstract {
+public class WidgetTextLines extends WidgetAbstractObservable {
 	private String[] lines;
 	public WidgetTextLines(int posX, int posY, int width, int height) {
 		super(posX, posY, width, height);

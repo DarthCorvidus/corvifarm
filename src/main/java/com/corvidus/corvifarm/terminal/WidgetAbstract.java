@@ -44,22 +44,4 @@ public abstract class WidgetAbstract implements TerminalWidget {
 	public TextImage getTextImage() {
 		return this.ti;
 	}
-
-	@Override
-	public void onInput(KeyStroke keyStroke) {
-		for(WidgetInputObserver obs: this.inputObservers) {
-			obs.onInput(this, keyStroke);
-		}
-	}
-
-	@Override
-	public void addInputObserver(WidgetInputObserver inputObserver) {
-		this.inputObservers.add(inputObserver);
-	}
-
-	@Override
-	public void removeInputObserver(WidgetInputObserver inputObserver) {
-		this.inputObservers.remove(this.inputObservers);
-	}
-
 }

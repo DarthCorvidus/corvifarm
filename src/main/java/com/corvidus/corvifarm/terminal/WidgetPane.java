@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author hm
  */
-public class WidgetPane extends WidgetAbstract {
+public class WidgetPane extends WidgetAbstractObservable {
 	private boolean clear = false;
 	private TerminalWidget focus = null;
 	private final ArrayList<TerminalWidget> widgets = new ArrayList<>();

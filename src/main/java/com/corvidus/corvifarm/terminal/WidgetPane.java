@@ -16,6 +16,7 @@ import java.util.ArrayList;
  */
 public class WidgetPane extends WidgetAbstract {
 	private boolean clear = false;
+	private TerminalWidget focus = null;
 	private final ArrayList<TerminalWidget> widgets = new ArrayList<>();
 	public WidgetPane(int posX, int posY, int width, int height) {
 		super(posX, posY, width, height);
@@ -25,9 +26,28 @@ public class WidgetPane extends WidgetAbstract {
 		this.widgets.add(widget);
 	}
 	
+	/**
+	 * Remove widget. If widget was used as focus, set focus to null.
+	 * @param widget 
+	 */
 	public void removeWidget(TerminalWidget widget) {
 		this.clear = true;
 		this.widgets.remove(widget);
+		if(this.focus == widget) {
+			this.focus = null;
+		}
+	}
+	
+	/**
+	 * Set Focus to widget. If widget was not already added to WidgetPane, add
+	 * automatically.
+	 * @param widget 
+	 */
+	public void setFocus(TerminalWidget widget) {
+		if(!this.widgets.contains(widget)) {
+			this.addWidget(widget);
+		}
+		this.focus = widget;
 	}
 	
 	@Override
@@ -51,7 +71,21 @@ public class WidgetPane extends WidgetAbstract {
 	
 	@Override
 	public void onInput(KeyStroke keyStroke) {
+		/**
+		 * If a focus is set, call focus only.
+		 */
+		if(this.focus != null) {
+			this.focus.onInput(keyStroke);
+			return;
+		}
 		super.onInput(keyStroke);
+		/**
+		 * If a focus is set by WidgetPane's own callback, do not call onInput
+		 * on it's children.
+		 */
+		if(this.focus != null) {
+			return;
+		}
 		/**
 		 * We want to be able to add widgets out of observers, for instance
 		 * when using 'x' to quit in the main game. This will add another widget

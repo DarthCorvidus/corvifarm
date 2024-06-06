@@ -55,6 +55,7 @@ public class UserInterface {
 
 	public void refresh() {
 		try {
+			this.tg.drawImage(new TerminalPosition(0, 0), this.pane.getTextImage());
 			this.screen.refresh();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -64,7 +65,6 @@ public class UserInterface {
 	
 	public void run() {
 		try {
-			this.tg.drawImage(new TerminalPosition(0, 0), this.pane.getTextImage());
 			KeyStroke keyStroke = this.screen.pollInput();
 			if(keyStroke == null) {
 				return;

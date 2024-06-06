@@ -13,15 +13,20 @@ public class Calendar implements TerminalWidget, WidgetInputObserver {
 	private Cooldown cooldown;
 	private ArrayList<CalendarObserver> calendarObservers = new ArrayList<>();
 	private WidgetString widgetString;
-	//private array $observers = array();
-	//private ?WidgetInputObserver $inputObserver = null;
-	//private TerminalText $text;
-	//private Cooldown $cooldown;
+	private boolean paused = false;
 	public Calendar() {
 		this.seconds = 6*60;
 		this.cooldown = new Cooldown(1000);
 		this.widgetString = new WidgetString(0, 0, 40, this.getDate());
 		this.widgetString.addInputObserver(this);
+	}
+	
+	public void pause() {
+		this.paused = true;
+	}
+	
+	public void resume() {
+		this.paused = false;
 	}
 	
 	public void setSeconds(int seconds) {
@@ -92,7 +97,7 @@ public class Calendar implements TerminalWidget, WidgetInputObserver {
 	}
 
 	public void run() {
-		if(this.cooldown.ready()) {
+		if(this.cooldown.ready() && !this.paused) {
 			this.incr();
 			if(this.getTime().equals("02:00")) {
 				this.sleep();
@@ -104,81 +109,6 @@ public class Calendar implements TerminalWidget, WidgetInputObserver {
 	public TextImage getTextImage() {
 		return this.widgetString.getTextImage();
 	}
-	/*
-	public function __tsError(\Exception $e, int $step): void {
-		
-	}
-
-	public function __tsFinish(): void {
-		
-	}
-
-	public function __tsKill(): void {
-		
-	}
-
-	public function __tsLoop(): bool {
-		if(this.cooldown->ready()) {
-			this.incr();
-			foreach(this.observers as $value) {
-				$value->onSecond($this);
-				this.text->setText(this.getDate());
-			}
-		}
-	return true;
-	}
-
-	public function __tsPause(): void {
-		
-	}
-
-	public function __tsResume(): void {
-		
-	}
-
-	public function __tsStart(): void {
-		
-	}
-
-	public function __tsTerminate(): bool {
-		return true;
-	}
-
-	public function getChar(int $col, int $row): string {
-		return this.text->getChar($col, $row);
-	}
-	
-	public function getCharData(): string {
-		return this.text->getCharData();
-	}
-
-	public function getHeight(): int {
-		return this.text->getHeight();
-	}
-
-	public function getPosX(): int {
-		return this.text->getPosX();
-	}
-
-	public function getPosY(): int {
-		return this.text->getPosY();
-	}
-
-	public function getWidth(): int {
-		return this.text->getWidth();
-	}
-
-	public function hasChanged(): bool {
-		return this.text->hasChanged();
-	}
-
-	public function input(string $input): void {
-		if(this.inputObserver === null) {
-			return;
-		}
-		this.inputObserver->onInput($this, $input);
-	}
-	*/
 
 	@Override
 	public int getPosX() {

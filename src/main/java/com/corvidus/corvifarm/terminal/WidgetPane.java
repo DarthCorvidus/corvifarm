@@ -5,7 +5,6 @@
 package com.corvidus.corvifarm.terminal;
 
 import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -17,8 +16,7 @@ import java.util.ArrayList;
  */
 public class WidgetPane extends WidgetAbstract {
 	private boolean clear = false;
-	private ArrayList<TerminalWidget> widgets = new ArrayList<>();
-			
+	private final ArrayList<TerminalWidget> widgets = new ArrayList<>();
 	public WidgetPane(int posX, int posY, int width, int height) {
 		super(posX, posY, width, height);
 	}
@@ -54,7 +52,15 @@ public class WidgetPane extends WidgetAbstract {
 	@Override
 	public void onInput(KeyStroke keyStroke) {
 		super.onInput(keyStroke);
-		for(TerminalWidget widget : this.widgets) {
+		/**
+		 * We want to be able to add widgets out of observers, for instance
+		 * when using 'x' to quit in the main game. This will add another widget
+		 * to this.widgets while onInput is still iterating over the list of
+		 * widgets, which causes a concurrency error with ArrayList.
+		 * Therefore, we create a copy named tmp and iterate over it.
+		 */
+		ArrayList<TerminalWidget> tmp = new ArrayList<>(this.widgets);
+		for(TerminalWidget widget : tmp) {
 			widget.onInput(keyStroke);
 		}
 	}

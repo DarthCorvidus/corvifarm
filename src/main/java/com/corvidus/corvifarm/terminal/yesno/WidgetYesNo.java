@@ -9,7 +9,7 @@ import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
 import java.util.ArrayList;
 
-public class WidgetYesNo implements TerminalWidget, TerminalWidgetObservable {
+public class WidgetYesNo implements TerminalWidget {
 	private final WidgetPane pane;
 	private final WidgetString string;
 	private final ArrayList<YesNoObserver> observers = new ArrayList<>();
@@ -58,16 +58,6 @@ public class WidgetYesNo implements TerminalWidget, TerminalWidgetObservable {
 		}
 	}
 
-	@Override
-	public void addInputObserver(WidgetInputObserver inputObserver) {
-		throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-	}
-
-	@Override
-	public void removeInputObserver(WidgetInputObserver inputObserver) {
-		throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-	}
-	
 	public void addYesNoObserver(YesNoObserver yesNoObserver) {
 		this.observers.add(yesNoObserver);
 	}

@@ -21,6 +21,14 @@ public class Game implements CalendarObserver, WidgetInputObserver {
 		this.userInterface.refresh();
 	}
 	
+	public UserInterface getUserInterface() {
+		return this.userInterface;
+	}
+	
+	public Calendar getCalendar() {
+		return this.calendar;
+	}
+	
 	public void run() {
 		this.calendar.addCalendarObserver(this);
 		this.userInterface.addInputObserver(this);
@@ -33,7 +41,11 @@ public class Game implements CalendarObserver, WidgetInputObserver {
 				
 			}
 		}
-
+	}
+	
+	public void gracefulQuit() {
+		//Not so graceful quit for the moment ;-).
+		System.exit(0);
 	}
 
 	@Override
@@ -52,7 +64,7 @@ public class Game implements CalendarObserver, WidgetInputObserver {
 			return;
 		}
 		if(keyStroke.getCharacter() == 'x') {
-			YesNoQuit yesNo = new YesNoQuit(calendar, userInterface);
+			YesNoQuit yesNo = new YesNoQuit(this);
 			yesNo.run();
 		}
 	}

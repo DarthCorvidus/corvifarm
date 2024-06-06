@@ -5,20 +5,19 @@ import com.corvidus.corvifarm.terminal.UserInterface;
 import com.corvidus.corvifarm.terminal.yesno.WidgetYesNo;
 import com.corvidus.corvifarm.terminal.yesno.YesNoObserver;
 public class YesNoQuit  implements YesNoObserver {
-	private Calendar calendar;
-	private UserInterface userInterface;
+	private final Calendar calendar;
+	private final UserInterface userInterface;
+	private final Game game;
 	private final WidgetYesNo yesNo;
-	public YesNoQuit(Calendar calendar, UserInterface userInterface){
+	public YesNoQuit(Game game){
+		this.game = game;
 		this.yesNo = new WidgetYesNo(10, 5, 20, 4, "Quit (y/N)");
-		this.userInterface = userInterface;
-		this.calendar = calendar;
+		this.userInterface = this.game.getUserInterface();
+		this.calendar = this.game.getCalendar();
 		this.calendar.pause();
 		
 		this.userInterface.refresh();
 
-		this.calendar = calendar;
-		
-		this.userInterface = userInterface;
 		this.userInterface.setFocus(this.yesNo);
 	}
 	
@@ -30,7 +29,7 @@ public class YesNoQuit  implements YesNoObserver {
 	
 	@Override
 	public void onYes(WidgetYesNo widgetYesNo) {
-		System.exit(0);
+		this.game.gracefulQuit();
 	}
 
 	@Override

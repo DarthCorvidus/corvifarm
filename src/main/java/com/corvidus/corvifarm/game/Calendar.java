@@ -1,25 +1,22 @@
 package com.corvidus.corvifarm.game;
 
 import com.corvidus.corvifarm.terminal.TerminalWidget;
-import com.corvidus.corvifarm.terminal.TerminalWidgetObservable;
-import com.corvidus.corvifarm.terminal.WidgetInputObserver;
 import com.corvidus.corvifarm.terminal.WidgetString;
 import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import java.util.ArrayList;
 
-public class Calendar implements TerminalWidget, TerminalWidgetObservable, WidgetInputObserver {
+public class Calendar implements TerminalWidget {
 	private int seconds = 0;
-	private Cooldown cooldown;
-	private ArrayList<CalendarObserver> calendarObservers = new ArrayList<>();
-	private WidgetString widgetString;
+	private final Cooldown cooldown;
+	private final ArrayList<CalendarObserver> calendarObservers = new ArrayList<>();
+	private final WidgetString widgetString;
 	private boolean paused = false;
 	public Calendar() {
 		this.seconds = 6*60;
 		this.cooldown = new Cooldown(1000);
 		this.widgetString = new WidgetString(0, 0, 40, this.getDate());
-		this.widgetString.addInputObserver(this);
 	}
 	
 	public void pause() {
@@ -133,21 +130,6 @@ public class Calendar implements TerminalWidget, TerminalWidgetObservable, Widge
 
 	@Override
 	public void onInput(KeyStroke keyStroke) {
-		this.widgetString.onInput(keyStroke);
-	}
-
-	@Override
-	public void addInputObserver(WidgetInputObserver inputObserver) {
-		this.widgetString.addInputObserver(inputObserver);
-	}
-
-	@Override
-	public void removeInputObserver(WidgetInputObserver inputObserver) {
-		this.widgetString.removeInputObserver(inputObserver);
-	}
-
-	@Override
-	public void onInput(TerminalWidget widget, KeyStroke keyStroke) {
 		if(keyStroke.getKeyType() != KeyType.Character) {
 			return;
 		}

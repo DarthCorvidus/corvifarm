@@ -6,6 +6,7 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import java.util.ArrayList;
 
 public class WASDSelect extends WidgetAbstract {
@@ -13,6 +14,9 @@ public class WASDSelect extends WidgetAbstract {
 	private int visible = 0;
 	private WidgetString[] strWidgets;
 	private ArrayList<WASDSelectElement> elements = new ArrayList<>();
+	private int offset;
+	private int selected = 0;
+	private int screenSelected = 0;
 	//private ArrayList<WidgetString> strWidgets = new ArrayList<>();
 	public WASDSelect(int posX, int posY, int width, int height, int colwidth) {
 		super(posX, posY, width, height);
@@ -49,9 +53,24 @@ public class WASDSelect extends WidgetAbstract {
 		this.elements.add(element);
 	}
 	
+	public void removeElement(WASDSelectElement element) {
+		this.elements.remove(element);
+	}
+	
 	@Override
 	public void onInput(KeyStroke keyStroke) {
+		if(keyStroke.getKeyType() != KeyType.Character) {
+			return;
+		}
 		
+		if(keyStroke.getCharacter() == 's' && this.screenSelected < this.strWidgets.length - 1) {
+			this.screenSelected++;
+		}
+		
+		if(keyStroke.getCharacter() == 'w' && this.screenSelected > 0) {
+			this.screenSelected--;
+		}
+
 	}
 	
 	private void rewriteStrings(TextGraphics th) {
@@ -64,7 +83,7 @@ public class WASDSelect extends WidgetAbstract {
 				
 			}
 			
-			if(i == 0) {
+			if(i == this.screenSelected) {
 				strWidget.setString("* "+elementName);
 			} else {
 				strWidget.setString("  "+elementName);

@@ -92,6 +92,7 @@ public class WASDSelectTest {
 	/**
 	 * Go down one using 's'.
 	 */
+	@Test
 	public void testDown() {
 		WASDSelect wasd = this.createDefault();
 		this.fill(wasd, 4);
@@ -107,6 +108,7 @@ public class WASDSelectTest {
 	/**
 	 * Go down to the last entry.
 	 */
+	@Test
 	public void testDownEnd() {
 		WASDSelect wasd = this.createDefault();
 		this.fill(wasd, 4);
@@ -124,6 +126,7 @@ public class WASDSelectTest {
 	/**
 	 * 'Bump' to the last entry, ie try to go farther than there are entries.
 	 */
+	@Test
 	public void testDownEndBump() {
 		WASDSelect wasd = this.createDefault();
 		this.fill(wasd, 4);
@@ -141,6 +144,7 @@ public class WASDSelectTest {
 	/**
 	 * Move up.
 	 */
+	@Test
 	public void testUp() {
 		WASDSelect wasd = this.createDefault();
 		this.fill(wasd, 4);
@@ -159,6 +163,7 @@ public class WASDSelectTest {
 	/**
 	 * Move up from 0, ie bump to the upperleftmost position.
 	 */
+	@Test
 	public void testUpBump() {
 		WASDSelect wasd = this.createDefault();
 		this.fill(wasd, 4);
@@ -170,4 +175,63 @@ public class WASDSelectTest {
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 	}
+	
+	@Test
+	public void testMoveRight() {
+		WASDSelect wasd = this.createDefault();
+		this.fill(wasd, 4);
+		wasd.onInput(new KeyStroke(new Character('d'), true, true));
+		TextImage ti = new BasicTextImage(23, 3);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "  TST00 * TST03        ");
+		tg.putString(0, 1, "  TST01                ");
+		tg.putString(0, 2, "  TST02                ");
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+	}
+
+	@Test
+	public void testMoveRightBump() {
+		WASDSelect wasd = this.createDefault();
+		this.fill(wasd, 4);
+		wasd.onInput(new KeyStroke(new Character('d'), true, true));
+		wasd.onInput(new KeyStroke(new Character('d'), true, true));
+		wasd.onInput(new KeyStroke(new Character('d'), true, true));
+		TextImage ti = new BasicTextImage(23, 3);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "  TST00   TST03 *      ");
+		tg.putString(0, 1, "  TST01                ");
+		tg.putString(0, 2, "  TST02                ");
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+	}
+
+	@Test
+	public void testMoveLeft() {
+		WASDSelect wasd = this.createDefault();
+		this.fill(wasd, 4);
+		wasd.onInput(new KeyStroke(new Character('d'), true, true));
+		wasd.onInput(new KeyStroke(new Character('d'), true, true));
+		wasd.onInput(new KeyStroke(new Character('d'), true, true));
+		wasd.onInput(new KeyStroke(new Character('a'), true, true));
+		wasd.onInput(new KeyStroke(new Character('a'), true, true));
+		TextImage ti = new BasicTextImage(23, 3);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "* TST00   TST03        ");
+		tg.putString(0, 1, "  TST01                ");
+		tg.putString(0, 2, "  TST02                ");
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+	}
+
+	@Test
+	public void testMoveLeftBump() {
+		WASDSelect wasd = this.createDefault();
+		this.fill(wasd, 4);
+		wasd.onInput(new KeyStroke(new Character('a'), true, true));
+		TextImage ti = new BasicTextImage(23, 3);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "* TST00   TST03        ");
+		tg.putString(0, 1, "  TST01                ");
+		tg.putString(0, 2, "  TST02                ");
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+	}
+
 }

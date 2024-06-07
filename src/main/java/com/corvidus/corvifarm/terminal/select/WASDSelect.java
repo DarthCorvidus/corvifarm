@@ -17,6 +17,7 @@ public class WASDSelect extends WidgetAbstract {
 	private int offset;
 	private int selected = 0;
 	private int screenSelected = 0;
+	private int visibleColumns;
 	//private ArrayList<WidgetString> strWidgets = new ArrayList<>();
 	public WASDSelect(int posX, int posY, int width, int height, int colwidth) {
 		super(posX, posY, width, height);
@@ -32,6 +33,7 @@ public class WASDSelect extends WidgetAbstract {
 		int columns = Math.floorDiv(this.getWidth()+1, wideWidth);
 		int rows = this.getHeight();
 		this.visible = rows*columns;
+		this.visibleColumns = columns;
 		this.strWidgets = new WidgetString[this.visible];
 		int k = 0;
 		/**
@@ -69,6 +71,14 @@ public class WASDSelect extends WidgetAbstract {
 		
 		if(keyStroke.getCharacter() == 'w' && this.screenSelected > 0) {
 			this.screenSelected--;
+		}
+
+		if(keyStroke.getCharacter() == 'd' && this.screenSelected + this.visibleColumns < this.strWidgets.length -1) {
+			this.screenSelected += this.visibleColumns;
+		}
+
+		if(keyStroke.getCharacter() == 'a' && this.screenSelected - this.visibleColumns >= 0) {
+			this.screenSelected -= this.visibleColumns;
 		}
 
 	}

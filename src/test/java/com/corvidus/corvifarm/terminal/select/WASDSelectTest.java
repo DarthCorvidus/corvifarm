@@ -272,7 +272,7 @@ public class WASDSelectTest {
 	 * Move left 100 times, end up at the last column.
 	 */
 	@Test
-	public void testMoveLeftPageBumpFull() {
+	public void testMoveRightPageBumpFull() {
 		WASDSelect wasd = this.createDefault();
 		this.fill(wasd, 81);
 		// Up the antes a little bit.
@@ -289,7 +289,7 @@ public class WASDSelectTest {
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 	}
 	
-	public void testMoveLeftPageBumpPartly() {
+	public void testMoveRightPageBumpPartly() {
 		WASDSelect wasd = this.createDefault();
 		this.fill(wasd, 80);
 		// Up the antes a little bit.

@@ -11,13 +11,13 @@ import java.util.ArrayList;
 
 public class WASDSelect extends WidgetAbstract {
 	private int colwidth;
-	private int visible = 0;
+	private int stringsVisible = 0;
 	private WidgetString[] strWidgets;
 	private ArrayList<WASDSelectElement> elements = new ArrayList<>();
 	private int offset;
 	private int selected = 0;
 	private int screenSelected = 0;
-	private int visibleColumns;
+	private int columnsVisible;
 	//private ArrayList<WidgetString> strWidgets = new ArrayList<>();
 	public WASDSelect(int posX, int posY, int width, int height, int colwidth) {
 		super(posX, posY, width, height);
@@ -30,17 +30,16 @@ public class WASDSelect extends WidgetAbstract {
 		 * blank to get a correct result for "how many columns of width w fit into
 		 * total width tw."
 		 */
-		int columns = Math.floorDiv(this.getWidth()+1, wideWidth);
+		this.columnsVisible = Math.floorDiv(this.getWidth()+1, wideWidth);
 		int rows = this.getHeight();
-		this.visible = rows*columns;
-		this.visibleColumns = columns;
-		this.strWidgets = new WidgetString[this.visible];
+		this.stringsVisible =  rows*this.columnsVisible;
+		this.strWidgets = new WidgetString[this.stringsVisible];
 		int k = 0;
 		/**
 		 * Loop to create the maximum amount of fields which can be visible on
 		 * the screen at one time.
 		 */
-		for(int col = 0; col<columns;col++) {
+		for(int col = 0; col<this.columnsVisible;col++) {
 			for(int row = 0;row < this.getHeight(); row++) {
 				this.strWidgets[k] = new WidgetString((col*wideWidth), row, wideWidth);
 				if(k == 0) {
@@ -73,12 +72,12 @@ public class WASDSelect extends WidgetAbstract {
 			this.screenSelected--;
 		}
 
-		if(keyStroke.getCharacter() == 'd' && this.screenSelected + this.visibleColumns < this.strWidgets.length -1) {
-			this.screenSelected += this.visibleColumns;
+		if(keyStroke.getCharacter() == 'd' && this.screenSelected + this.columnsVisible < this.strWidgets.length -1) {
+			this.screenSelected += this.columnsVisible;
 		}
 
-		if(keyStroke.getCharacter() == 'a' && this.screenSelected - this.visibleColumns >= 0) {
-			this.screenSelected -= this.visibleColumns;
+		if(keyStroke.getCharacter() == 'a' && this.screenSelected - this.columnsVisible >= 0) {
+			this.screenSelected -= this.columnsVisible;
 		}
 
 	}

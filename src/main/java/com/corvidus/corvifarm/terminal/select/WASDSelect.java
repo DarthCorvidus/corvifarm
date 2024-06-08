@@ -69,24 +69,36 @@ public class WASDSelect extends WidgetAbstract {
 	private void cursorDown() {
 		if(this.screenSelected < this.strWidgets.length - 1) {
 			this.screenSelected++;
+			this.selected++;
 		}
 	}
 	
 	private void cursorUp() {
 		if(this.screenSelected > 0) {
 			this.screenSelected--;
+			this.selected--;
 		}
 	}
-	
+
 	private void cursorRight() {
-		if(this.screenSelected + this.columnsVisible < this.strWidgets.length -1) {
-			this.screenSelected += this.columnsVisible;
+		int selectedColumn = Math.floorDiv(this.screenSelected, this.getHeight());
+		boolean rightmost = false;
+		if(selectedColumn + 1 == this.columnsVisible) {
+			rightmost = true;
+		}
+		if(!rightmost) {
+			this.screenSelected += this.getHeight();
 		}
 	}
 	
 	private void cursorLeft() {
-		if(this.screenSelected - this.columnsVisible >= 0) {
-			this.screenSelected -= this.columnsVisible;
+		int selectedColumn = Math.floorDiv(this.screenSelected, this.getHeight());
+		boolean leftmost = false;
+		if(selectedColumn == 0) {
+			leftmost = true;
+		}
+		if(!leftmost) {
+			this.screenSelected -= this.getHeight();
 		}
 	}
 	
@@ -118,7 +130,7 @@ public class WASDSelect extends WidgetAbstract {
 			WidgetString strWidget = this.strWidgets[i];
 			String elementName = "";
 			try {
-				elementName = this.elements.get(i).getWASDString();
+				elementName = this.elements.get(i+(this.offset*this.getHeight())).getWASDString();
 			} catch (IndexOutOfBoundsException e) {
 				
 			}

@@ -233,5 +233,20 @@ public class WASDSelectTest {
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 	}
-
+	/*
+	@Test
+	public void testMoveRightPage() {
+		WASDSelect wasd = this.createDefault();
+		this.fill(wasd, 12);
+		wasd.onInput(new KeyStroke('d', true, true));
+		wasd.onInput(new KeyStroke('d', true, true));
+		wasd.onInput(new KeyStroke('d', true, true));
+		TextImage ti = new BasicTextImage(23, 3);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "  TST03   TST06 * TST09");
+		tg.putString(0, 1, "  TST04   TST07   TST10");
+		tg.putString(0, 2, "  TST05   TST08   TST11");
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+	}
+	*/
 }

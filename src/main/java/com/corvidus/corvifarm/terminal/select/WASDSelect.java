@@ -18,6 +18,7 @@ public class WASDSelect extends WidgetAbstract {
 	private int selected = 0;
 	private int screenSelected = 0;
 	private int columnsVisible;
+	private int columnsTotal = 0;
 	//private ArrayList<WidgetString> strWidgets = new ArrayList<>();
 	public WASDSelect(int posX, int posY, int width, int height, int colwidth) {
 		super(posX, posY, width, height);
@@ -31,6 +32,7 @@ public class WASDSelect extends WidgetAbstract {
 		 * total width tw."
 		 */
 		this.columnsVisible = Math.floorDiv(this.getWidth()+1, wideWidth);
+		
 		int rows = this.getHeight();
 		this.stringsVisible =  rows*this.columnsVisible;
 		this.strWidgets = new WidgetString[this.stringsVisible];
@@ -52,10 +54,40 @@ public class WASDSelect extends WidgetAbstract {
 	
 	public void addElement(WASDSelectElement element) {
 		this.elements.add(element);
+		this.columnsTotal = (int)Math.ceil(this.elements.size()/this.getHeight());
 	}
 	
 	public void removeElement(WASDSelectElement element) {
 		this.elements.remove(element);
+		this.columnsTotal = (int)Math.ceil(this.elements.size()/this.getHeight());
+	}
+	
+	public int getSelectedIndex() {
+		return this.selected;
+	}
+
+	private void cursorDown() {
+		if(this.screenSelected < this.strWidgets.length - 1) {
+			this.screenSelected++;
+		}
+	}
+	
+	private void cursorUp() {
+		if(this.screenSelected > 0) {
+			this.screenSelected--;
+		}
+	}
+	
+	private void cursorRight() {
+		if(this.screenSelected + this.columnsVisible < this.strWidgets.length -1) {
+			this.screenSelected += this.columnsVisible;
+		}
+	}
+	
+	private void cursorLeft() {
+		if(this.screenSelected - this.columnsVisible >= 0) {
+			this.screenSelected -= this.columnsVisible;
+		}
 	}
 	
 	@Override
@@ -64,22 +96,21 @@ public class WASDSelect extends WidgetAbstract {
 			return;
 		}
 		
-		if(keyStroke.getCharacter() == 's' && this.screenSelected < this.strWidgets.length - 1) {
-			this.screenSelected++;
+		if(keyStroke.getCharacter() == 's') {
+			this.cursorDown();
 		}
 		
-		if(keyStroke.getCharacter() == 'w' && this.screenSelected > 0) {
-			this.screenSelected--;
+		if(keyStroke.getCharacter() == 'w') {
+			this.cursorUp();
 		}
 
-		if(keyStroke.getCharacter() == 'd' && this.screenSelected + this.columnsVisible < this.strWidgets.length -1) {
-			this.screenSelected += this.columnsVisible;
+		if(keyStroke.getCharacter() == 'd') {
+			this.cursorRight();
 		}
 
-		if(keyStroke.getCharacter() == 'a' && this.screenSelected - this.columnsVisible >= 0) {
-			this.screenSelected -= this.columnsVisible;
+		if(keyStroke.getCharacter() == 'a') {
+			this.cursorLeft();
 		}
-
 	}
 	
 	private void rewriteStrings(TextGraphics th) {

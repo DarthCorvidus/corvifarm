@@ -66,27 +66,45 @@ public class WASDSelect extends WidgetAbstract {
 		return this.selected;
 	}
 
+	private boolean cursorRightMost() {
+		int selectedVisibleColumn = Math.floorDiv(this.screenSelected, this.getHeight());
+	return selectedVisibleColumn + 1 == this.columnsVisible;
+	}
+
+	private boolean cursorLeftMost() {
+		int selectedColumn = Math.floorDiv(this.screenSelected, this.getHeight());
+	return selectedColumn == 0;
+	}
+	
 	private void cursorDown() {
+		int selectedColumn = Math.floorDiv(this.selected, this.getHeight());
 		if(this.screenSelected < this.strWidgets.length - 1) {
 			this.screenSelected++;
 			this.selected++;
 		}
+		int selectedRow = this.screenSelected % this.getHeight();
+		if(this.cursorRightMost() && selectedColumn + 1 < this.columnsTotal && selectedRow == this.getHeight()-1) {
+			this.offset++;
+			this.screenSelected -= (this.getHeight()-1);
+		}
 	}
 	
 	private void cursorUp() {
+		boolean leftmost = this.cursorLeftMost();
 		if(this.screenSelected > 0) {
 			this.screenSelected--;
 			this.selected--;
 		}
+		int selectedRow = this.screenSelected % this.getHeight();
+		if(leftmost && this.offset > 0 && selectedRow == 0) {
+			this.offset--;
+			this.screenSelected += this.getHeight()-1;
+		}
 	}
 
 	private void cursorRight() {
-		int selectedVisibleColumn = Math.floorDiv(this.screenSelected, this.getHeight());
 		int selectedColumn = Math.floorDiv(this.selected, this.getHeight());
-		boolean rightmost = false;
-		if(selectedVisibleColumn + 1 == this.columnsVisible) {
-			rightmost = true;
-		}
+		boolean rightmost = this.cursorRightMost();
 		if(!rightmost) {
 			this.screenSelected += this.getHeight();
 			this.selected += this.getHeight();
@@ -99,11 +117,7 @@ public class WASDSelect extends WidgetAbstract {
 	}
 	
 	private void cursorLeft() {
-		int selectedColumn = Math.floorDiv(this.screenSelected, this.getHeight());
-		boolean leftmost = false;
-		if(selectedColumn == 0) {
-			leftmost = true;
-		}
+		boolean leftmost = this.cursorLeftMost();
 		if(!leftmost) {
 			this.screenSelected -= this.getHeight();
 		}

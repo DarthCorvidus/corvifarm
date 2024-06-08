@@ -326,5 +326,37 @@ public class WASDSelectTest {
 		tg.putString(0, 2, "* TST02   TST05   TST08");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 	}
+	
+	public void testMoveDownPageOne() {
+		WASDSelect wasd = this.createDefault();
+		this.fill(wasd, 12);
+		for(int i = 0; i < 8;i++) {
+			wasd.onInput(new KeyStroke('s', true, true));
+		}
+		TextImage ti = new BasicTextImage(23, 3);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "  TST03   TST06 * TST09");
+		tg.putString(0, 1, "  TST04   TST07   TST10");
+		tg.putString(0, 2, "  TST05   TST08   TST11");
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+	}
+
+	public void testMoveUpPageOne() {
+		WASDSelect wasd = this.createDefault();
+		this.fill(wasd, 12);
+		for(int i = 0; i < 8;i++) {
+			wasd.onInput(new KeyStroke('s', true, true));
+		}
+		wasd.onInput(new KeyStroke('a', true, true));
+		wasd.onInput(new KeyStroke('a', true, true));
+		wasd.onInput(new KeyStroke('w', true, true));
+		TextImage ti = new BasicTextImage(23, 3);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "  TST00   TST03   TST06");
+		tg.putString(0, 1, "  TST01   TST04   TST07");
+		tg.putString(0, 2, "* TST02   TST05   TST08");
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+	}
+
 
 }

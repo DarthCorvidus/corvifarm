@@ -233,11 +233,12 @@ public class WASDSelectTest {
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 	}
-	/*
+
 	@Test
-	public void testMoveRightPage() {
+	public void testMoveRightPageOne() {
+		System.out.println("testMoveRightOne");
 		WASDSelect wasd = this.createDefault();
-		this.fill(wasd, 12);
+		this.fill(wasd, 80);
 		wasd.onInput(new KeyStroke('d', true, true));
 		wasd.onInput(new KeyStroke('d', true, true));
 		wasd.onInput(new KeyStroke('d', true, true));
@@ -248,5 +249,61 @@ public class WASDSelectTest {
 		tg.putString(0, 2, "  TST05   TST08   TST11");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 	}
-	*/
+	
+	/**
+	 * Pages by one.
+	 */
+	@Test
+	public void testMoveRightPageBump() {
+		WASDSelect wasd = this.createDefault();
+		this.fill(wasd, 80);
+		for(int i = 0; i < 4;i++) {
+			wasd.onInput(new KeyStroke('d', true, true));
+		}
+		TextImage ti = new BasicTextImage(23, 3);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "  TST06   TST09 * TST12");
+		tg.putString(0, 1, "  TST07   TST10   TST13");
+		tg.putString(0, 2, "  TST08   TST11   TST14");
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+	}
+
+	/**
+	 * Move left 100 times, end up at the last column.
+	 */
+	@Test
+	public void testMoveLeftPageBumpFull() {
+		WASDSelect wasd = this.createDefault();
+		this.fill(wasd, 81);
+		// Up the antes a little bit.
+		wasd.onInput(new KeyStroke('s', true, true));
+		wasd.onInput(new KeyStroke('s', true, true));
+		for(int i = 0; i < 80;i++) {
+			wasd.onInput(new KeyStroke('d', true, true));
+		}
+		TextImage ti = new BasicTextImage(23, 3);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "  TST72   TST75   TST78");
+		tg.putString(0, 1, "  TST73   TST76   TST79");
+		tg.putString(0, 2, "  TST74   TST77 * TST80");
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+	}
+	
+	public void testMoveLeftPageBumpPartly() {
+		WASDSelect wasd = this.createDefault();
+		this.fill(wasd, 80);
+		// Up the antes a little bit.
+		wasd.onInput(new KeyStroke('s', true, true));
+		wasd.onInput(new KeyStroke('s', true, true));
+		for(int i = 0; i < 80;i++) {
+			wasd.onInput(new KeyStroke('d', true, true));
+		}
+		TextImage ti = new BasicTextImage(23, 3);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "  TST72   TST75   TST78");
+		tg.putString(0, 1, "  TST73   TST76   TST79");
+		tg.putString(0, 2, "  TST74   TST77 *      ");
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+	}
+
 }

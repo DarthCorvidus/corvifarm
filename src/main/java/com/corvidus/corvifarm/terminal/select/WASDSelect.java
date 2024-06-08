@@ -54,7 +54,7 @@ public class WASDSelect extends WidgetAbstract {
 	
 	public void addElement(WASDSelectElement element) {
 		this.elements.add(element);
-		this.columnsTotal = (int)Math.ceil(this.elements.size()/this.getHeight());
+		this.columnsTotal = (int)Math.ceil((double)this.elements.size()/this.getHeight());
 	}
 	
 	public void removeElement(WASDSelectElement element) {
@@ -81,13 +81,20 @@ public class WASDSelect extends WidgetAbstract {
 	}
 
 	private void cursorRight() {
-		int selectedColumn = Math.floorDiv(this.screenSelected, this.getHeight());
+		int selectedVisibleColumn = Math.floorDiv(this.screenSelected, this.getHeight());
+		int selectedColumn = Math.floorDiv(this.selected, this.getHeight());
 		boolean rightmost = false;
-		if(selectedColumn + 1 == this.columnsVisible) {
+		if(selectedVisibleColumn + 1 == this.columnsVisible) {
 			rightmost = true;
 		}
 		if(!rightmost) {
 			this.screenSelected += this.getHeight();
+			this.selected += this.getHeight();
+		}
+		
+		if(rightmost && selectedColumn + 1 < this.columnsTotal) {
+			this.offset++;
+			this.selected += this.getHeight();
 		}
 	}
 	

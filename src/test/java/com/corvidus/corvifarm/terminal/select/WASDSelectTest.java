@@ -75,6 +75,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST01   TST04   TST07");
 		tg.putString(0, 2, "  TST02   TST05   TST08");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(0, wasd.getSelectedIndex());
 	}
 	
 	@Test
@@ -87,6 +88,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST01                ");
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(0, wasd.getSelectedIndex());
 	}
 	
 	/**
@@ -103,6 +105,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "* TST01                ");
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(1, wasd.getSelectedIndex());
 	}
 	
 	/**
@@ -121,6 +124,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST01                ");
 		tg.putString(0, 2, "  TST02         *      ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(8, wasd.getSelectedIndex());
 	}
 
 	/**
@@ -139,6 +143,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST01                ");
 		tg.putString(0, 2, "  TST02         *      ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(8, wasd.getSelectedIndex());
 	}
 
 	/**
@@ -158,6 +163,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST01         *      ");
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(7, wasd.getSelectedIndex());
 	}
 
 	/**
@@ -174,6 +180,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST01                ");
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(0, wasd.getSelectedIndex());
 	}
 	
 	@Test
@@ -187,6 +194,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST01                ");
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(3, wasd.getSelectedIndex());
 	}
 
 	@Test
@@ -202,6 +210,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST01                ");
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(6, wasd.getSelectedIndex());
 	}
 
 	@Test
@@ -219,6 +228,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST01                ");
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(0, wasd.getSelectedIndex());
 	}
 
 	@Test
@@ -232,6 +242,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST01                ");
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(0, wasd.getSelectedIndex());
 	}
 
 	@Test
@@ -248,6 +259,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST04   TST07   TST10");
 		tg.putString(0, 2, "  TST05   TST08   TST11");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(9, wasd.getSelectedIndex());
 	}
 	
 	/**
@@ -266,6 +278,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST07   TST10   TST13");
 		tg.putString(0, 2, "  TST08   TST11   TST14");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(12, wasd.getSelectedIndex());
 	}
 
 	/**
@@ -287,6 +300,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST73   TST76   TST79");
 		tg.putString(0, 2, "  TST74   TST77 * TST80");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(80, wasd.getSelectedIndex());
 	}
 	
 	public void testMoveRightPageBumpPartly() {
@@ -304,6 +318,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST73   TST76   TST79");
 		tg.putString(0, 2, "  TST74   TST77 *      ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(80, wasd.getSelectedIndex());
 	}
 
 	public void testMoveLeftPageBumpPartly() {
@@ -325,6 +340,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST01   TST04   TST07");
 		tg.putString(0, 2, "* TST02   TST05   TST08");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(2, wasd.getSelectedIndex());
 	}
 	
 	public void testMoveDownPageOne() {
@@ -339,6 +355,7 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST04   TST07   TST10");
 		tg.putString(0, 2, "  TST05   TST08   TST11");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(9, wasd.getSelectedIndex());
 	}
 
 	public void testMoveUpPageOne() {
@@ -356,7 +373,6 @@ public class WASDSelectTest {
 		tg.putString(0, 1, "  TST01   TST04   TST07");
 		tg.putString(0, 2, "* TST02   TST05   TST08");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(2, wasd.getSelectedIndex());
 	}
-
-
 }

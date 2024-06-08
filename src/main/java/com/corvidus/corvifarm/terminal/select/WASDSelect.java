@@ -86,6 +86,7 @@ public class WASDSelect extends WidgetAbstract {
 		if(this.cursorRightMost() && selectedColumn + 1 < this.columnsTotal && selectedRow == this.getHeight()-1) {
 			this.offset++;
 			this.screenSelected -= (this.getHeight()-1);
+			this.selected++;
 		}
 	}
 	
@@ -99,6 +100,7 @@ public class WASDSelect extends WidgetAbstract {
 		if(leftmost && this.offset > 0 && selectedRow == 0) {
 			this.offset--;
 			this.screenSelected += this.getHeight()-1;
+			this.selected--;
 		}
 	}
 
@@ -120,10 +122,12 @@ public class WASDSelect extends WidgetAbstract {
 		boolean leftmost = this.cursorLeftMost();
 		if(!leftmost) {
 			this.screenSelected -= this.getHeight();
+			this.selected -= this.getHeight();
 		}
 		
 		if(leftmost && this.offset > 0) {
 			this.offset--;
+			this.selected -= this.getHeight();
 		}
 	}
 	

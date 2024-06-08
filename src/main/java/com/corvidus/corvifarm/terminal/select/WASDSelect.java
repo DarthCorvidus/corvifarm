@@ -107,6 +107,10 @@ public class WASDSelect extends WidgetAbstract {
 		if(!leftmost) {
 			this.screenSelected -= this.getHeight();
 		}
+		
+		if(leftmost && this.offset > 0) {
+			this.offset--;
+		}
 	}
 	
 	@Override

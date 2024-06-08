@@ -43,7 +43,7 @@ public class WASDSelect extends WidgetAbstract {
 		 */
 		for(int col = 0; col<this.columnsVisible;col++) {
 			for(int row = 0;row < this.getHeight(); row++) {
-				this.strWidgets[k] = new WidgetString((col*wideWidth), row, wideWidth);
+				this.strWidgets[k] = new WidgetString((col*wideWidth), row, wideWidth-1);
 				if(k == 0) {
 					this.strWidgets[k].setString("*");
 				}

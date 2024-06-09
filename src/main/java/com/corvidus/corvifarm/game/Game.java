@@ -4,6 +4,8 @@
  */
 package com.corvidus.corvifarm.game;
 
+import com.corvidus.corvifarm.room.Farm;
+import com.corvidus.corvifarm.room.Room;
 import com.corvidus.corvifarm.terminal.TerminalWidget;
 import com.corvidus.corvifarm.terminal.UserInterface;
 import com.corvidus.corvifarm.terminal.WidgetInputObserver;
@@ -22,14 +24,18 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 	private WidgetString debug;
 	private int called = 0;
 	private Player player;
+	private Room room;
 	public Game() {
 		this.player = Player.fromScratch();
 		this.debug = new WidgetString(40, 0, 40, "Debug");	
 		this.userInterface = new UserInterface();
 		this.calendar = new Calendar();
+		this.room = Farm.fromScratch();
+		this.calendar.addCalendarObserver(this.room);
 		this.userInterface.addWidget(this.debug);
 		this.userInterface.addWidget(calendar);
 		this.userInterface.addWidget(player);
+		this.userInterface.addWidget(this.room);
 		this.userInterface.refresh();
 	}
 	

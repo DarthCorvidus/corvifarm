@@ -13,6 +13,7 @@ public abstract class RoomAbstract implements Room {
 	protected RoomAbstract() {
 		this.pane = new WidgetPane(20, 2, 60, 18);
 		this.wasd = new WASDSelect(0, 1, 60, 17, 15);
+		this.wasd.setModeCursor();
 		this.name = new WidgetString(0, 0, 60, this.getName());
 		this.pane.addWidget(this.wasd);
 		this.pane.addWidget(this.name);

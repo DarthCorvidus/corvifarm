@@ -4,6 +4,8 @@ import com.corvidus.corvifarm.terminal.TerminalWidget;
 import com.corvidus.corvifarm.terminal.WidgetInputObserver;
 import com.corvidus.corvifarm.terminal.WidgetPane;
 import com.corvidus.corvifarm.terminal.WidgetString;
+import com.corvidus.corvifarm.terminal.select.WASDSelect;
+import com.corvidus.corvifarm.terminal.select.WASDSelectString;
 import com.googlecode.lanterna.graphics.BasicTextImage;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.graphics.TextImage;
@@ -18,17 +20,24 @@ public class Player implements TerminalWidget {
 	private WidgetString labelGold;
 	private WidgetString valueEnergy;
 	private WidgetString valueGold;
+	private WASDSelect inventory;
 	private Player() {
 		this.pane = new WidgetPane(0, 2, 20, 12);
 		this.labelGold = new WidgetString(0, 0, 7, "Gold:");
 		this.labelEnergy = new WidgetString(0, 1, 7, "Energy:");
 		this.valueGold = new WidgetString(8, 0, 8, Integer.toString(this.gold));
 		this.valueEnergy = new WidgetString(8, 1, 8, Integer.toString(this.energy));
+		this.inventory = new WASDSelect(0, 2, 20, 10, 17);
+		this.inventory.addElement(new WASDSelectString("Hoe"));
+		this.inventory.addElement(new WASDSelectString("Watercan"));
+		this.inventory.addElement(new WASDSelectString("Axe"));
+		this.inventory.addElement(new WASDSelectString("Pickaxe"));
+		this.inventory.addElement(new WASDSelectString("Scythe"));
 		this.pane.addWidget(this.labelEnergy);
 		this.pane.addWidget(this.labelGold);
 		this.pane.addWidget(this.valueEnergy);
 		this.pane.addWidget(this.valueGold);
-		
+		this.pane.addWidget(this.inventory);
 	}
 	
 	public static Player fromScratch() {
@@ -96,6 +105,7 @@ public class Player implements TerminalWidget {
 
 	@Override
 	public void onInput(KeyStroke keyStroke) {
+		this.pane.onInput(keyStroke);
 	}
 	
 }

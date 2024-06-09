@@ -120,6 +120,11 @@ public class PlayerTest {
 		TextGraphics tg = ti.newTextGraphics();
 		tg.putString(0, 0, "Gold:   500");
 		tg.putString(0, 1, "Energy: 270");
+		tg.putString(0, 2, "* Hoe");
+		tg.putString(0, 3, "  Watercan");
+		tg.putString(0, 4, "  Axe");
+		tg.putString(0, 5, "  Pickaxe");
+		tg.putString(0, 6, "  Scythe");
 		assertEquals(ti.toString(), instance.getTextImage().toString());
 	}
 }

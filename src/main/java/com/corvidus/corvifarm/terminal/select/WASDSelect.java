@@ -19,6 +19,7 @@ public class WASDSelect extends WidgetAbstract {
 	private int screenSelected = 0;
 	private int columnsVisible;
 	private int columnsTotal = 0;
+	private ArrayList<WASDSelectObserver> wasdSelectObservers = new ArrayList<>();
 	//private ArrayList<WidgetString> strWidgets = new ArrayList<>();
 	public WASDSelect(int posX, int posY, int width, int height, int colwidth) {
 		super(posX, posY, width, height);
@@ -62,6 +63,28 @@ public class WASDSelect extends WidgetAbstract {
 		this.columnsTotal = (int)Math.ceil(this.elements.size()/this.getHeight());
 	}
 	
+	public void addWASDSelectObserver(WASDSelectObserver observer) {
+		this.wasdSelectObservers.add(observer);
+	}
+
+	public void removeWASDSelectObserver(WASDSelectObserver observer) {
+		this.wasdSelectObservers.remove(observer);
+	}
+	
+	private void callOnFocus() {
+		ArrayList<WASDSelectObserver> tmp = new ArrayList<>(this.wasdSelectObservers);
+		try {
+			WASDSelectElement element = this.elements.get(this.selected);
+			for(WASDSelectObserver observer : tmp) {
+				observer.onFocus(this, element);
+			}
+		} catch (IndexOutOfBoundsException e) {
+			for(WASDSelectObserver observer : tmp) {
+				observer.onFocusEmpty(this);
+			}
+		}
+	}
+	
 	public int getSelectedIndex() {
 		return this.selected;
 	}
@@ -81,12 +104,14 @@ public class WASDSelect extends WidgetAbstract {
 		if(this.screenSelected < this.strWidgets.length - 1) {
 			this.screenSelected++;
 			this.selected++;
+			this.callOnFocus();
 		}
 		int selectedRow = this.screenSelected % this.getHeight();
 		if(this.cursorRightMost() && selectedColumn + 1 < this.columnsTotal && selectedRow == this.getHeight()-1) {
 			this.offset++;
 			this.screenSelected -= (this.getHeight()-1);
 			this.selected++;
+			this.callOnFocus();
 		}
 	}
 	
@@ -95,12 +120,14 @@ public class WASDSelect extends WidgetAbstract {
 		if(this.screenSelected > 0) {
 			this.screenSelected--;
 			this.selected--;
+			this.callOnFocus();
 		}
 		int selectedRow = this.screenSelected % this.getHeight();
 		if(leftmost && this.offset > 0 && selectedRow == 0) {
 			this.offset--;
 			this.screenSelected += this.getHeight()-1;
 			this.selected--;
+			this.callOnFocus();
 		}
 	}
 
@@ -110,11 +137,13 @@ public class WASDSelect extends WidgetAbstract {
 		if(!rightmost) {
 			this.screenSelected += this.getHeight();
 			this.selected += this.getHeight();
+			this.callOnFocus();
 		}
 		
 		if(rightmost && selectedColumn + 1 < this.columnsTotal) {
 			this.offset++;
 			this.selected += this.getHeight();
+			this.callOnFocus();
 		}
 	}
 	
@@ -123,11 +152,13 @@ public class WASDSelect extends WidgetAbstract {
 		if(!leftmost) {
 			this.screenSelected -= this.getHeight();
 			this.selected -= this.getHeight();
+			this.callOnFocus();
 		}
 		
 		if(leftmost && this.offset > 0) {
 			this.offset--;
 			this.selected -= this.getHeight();
+			this.callOnFocus();
 		}
 	}
 	

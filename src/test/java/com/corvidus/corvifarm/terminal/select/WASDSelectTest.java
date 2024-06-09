@@ -17,13 +17,18 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author hm
  */
-public class WASDSelectTest {
-	
+public class WASDSelectTest implements WASDSelectObserver {
+	private WASDSelectElement lastElement;
+	private int onFocus = 0;
+	private int onSelect = 0;
+	private int onSelectEmpty = 0;
+	private int onFocusEmpty = 0;
 	public WASDSelectTest() {
 	}
 	
 	public WASDSelect createDefault() {
 		WASDSelect wasd = new WASDSelect(0, 0, 23, 3, 5);
+		wasd.addWASDSelectObserver(this);
 	return wasd;
 	}
 	
@@ -44,10 +49,18 @@ public class WASDSelectTest {
 	
 	@BeforeEach
 	public void setUp() {
+		this.onFocus = 0;
+		this.onSelect = 0;
+		this.onSelectEmpty = 0;
+		this.onFocusEmpty = 0;
 	}
 	
 	@AfterEach
 	public void tearDown() {
+		this.onFocus = 0;
+		this.onSelect = 0;
+		this.onSelectEmpty = 0;
+		this.onFocusEmpty = 0;
 	}
 
 	/**
@@ -76,6 +89,11 @@ public class WASDSelectTest {
 		tg.putString(0, 2, "  TST02   TST05   TST08");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(0, wasd.getSelectedIndex());
+		Assertions.assertEquals(null, this.lastElement);
+		Assertions.assertEquals(0, this.onFocus);
+		Assertions.assertEquals(0, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
 	}
 	
 	@Test
@@ -89,6 +107,11 @@ public class WASDSelectTest {
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(0, wasd.getSelectedIndex());
+		Assertions.assertEquals(null, this.lastElement);
+		Assertions.assertEquals(0, this.onFocus);
+		Assertions.assertEquals(0, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
 	}
 	
 	/**
@@ -106,6 +129,11 @@ public class WASDSelectTest {
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(1, wasd.getSelectedIndex());
+		Assertions.assertEquals("TST01", this.lastElement.getWASDString());
+		Assertions.assertEquals(1, this.onFocus);
+		Assertions.assertEquals(0, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
 	}
 	
 	/**
@@ -125,6 +153,12 @@ public class WASDSelectTest {
 		tg.putString(0, 2, "  TST02         *      ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(8, wasd.getSelectedIndex());
+		Assertions.assertEquals("TST03", this.lastElement.getWASDString());
+		Assertions.assertEquals(3, this.onFocus);
+		Assertions.assertEquals(5, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
+
 	}
 
 	/**
@@ -132,6 +166,7 @@ public class WASDSelectTest {
 	 */
 	@Test
 	public void testDownEndBump() {
+		//this.setUp();
 		WASDSelect wasd = this.createDefault();
 		this.fill(wasd, 4);
 		for(int i = 0; i<15;i++) {
@@ -144,6 +179,12 @@ public class WASDSelectTest {
 		tg.putString(0, 2, "  TST02         *      ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(8, wasd.getSelectedIndex());
+		Assertions.assertEquals("TST03", this.lastElement.getWASDString());
+		Assertions.assertEquals(3, this.onFocus);
+		// Bumping is not supposed to call the observer again
+		Assertions.assertEquals(5, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
 	}
 
 	/**
@@ -374,5 +415,27 @@ public class WASDSelectTest {
 		tg.putString(0, 2, "* TST02   TST05   TST08");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(2, wasd.getSelectedIndex());
+	}
+
+	@Override
+	public void onFocus(WASDSelect wasdSelect, WASDSelectElement element) {
+		this.lastElement = element;
+		this.onFocus++;
+	}
+
+	@Override
+	public void onSelect(WASDSelect wasdSelect, WASDSelectElement element) {
+		this.lastElement = element;
+		this.onSelect++;
+	}
+
+	@Override
+	public void onFocusEmpty(WASDSelect wasdSelect) {
+		this.onFocusEmpty++;
+	}
+
+	@Override
+	public void onSelectEmpty(WASDSelect wasdSelect) {
+		this.onSelectEmpty++;
 	}
 }

@@ -19,6 +19,9 @@ public class WASDSelect extends WidgetAbstract {
 	private int screenSelected = 0;
 	private int columnsVisible;
 	private int columnsTotal = 0;
+	static int WASD = 1;
+	static int CURSOR = 2;
+	private int mode = WASDSelect.WASD;
 	private ArrayList<WASDSelectObserver> wasdSelectObservers = new ArrayList<>();
 	//private ArrayList<WidgetString> strWidgets = new ArrayList<>();
 	public WASDSelect(int posX, int posY, int width, int height, int colwidth) {
@@ -51,6 +54,14 @@ public class WASDSelect extends WidgetAbstract {
 				k++;
 			}
 		}
+	}
+	
+	public void setModeCursor() {
+		this.mode = WASDSelect.CURSOR;
+	}
+	
+	public void setModeWASD() {
+		this.mode = WASDSelect.WASD;
 	}
 	
 	public void addElement(WASDSelectElement element) {
@@ -162,12 +173,10 @@ public class WASDSelect extends WidgetAbstract {
 		}
 	}
 	
-	@Override
-	public void onInput(KeyStroke keyStroke) {
+	private void onInputWASD(KeyStroke keyStroke) {
 		if(keyStroke.getKeyType() != KeyType.Character) {
 			return;
 		}
-		
 		if(keyStroke.getCharacter() == 's') {
 			this.cursorDown();
 		}
@@ -183,6 +192,38 @@ public class WASDSelect extends WidgetAbstract {
 		if(keyStroke.getCharacter() == 'a') {
 			this.cursorLeft();
 		}
+	}
+
+	private void onInputCursor(KeyStroke keyStroke) {
+		if(keyStroke.getKeyType() == KeyType.ArrowDown) {
+			this.cursorDown();
+		}
+		
+		if(keyStroke.getKeyType() == KeyType.ArrowUp) {
+			this.cursorUp();
+		}
+
+		if(keyStroke.getKeyType() == KeyType.ArrowRight) {
+			this.cursorRight();
+		}
+
+		if(keyStroke.getKeyType() == KeyType.ArrowLeft) {
+			this.cursorLeft();
+		}
+	}
+	
+	@Override
+	public void onInput(KeyStroke keyStroke) {
+		/*
+		if(keyStroke.getKeyType() != KeyType.Character) {
+			return;
+		}
+		*/
+		if(this.mode == WASDSelect.CURSOR) {
+			this.onInputCursor(keyStroke);
+		return;
+		}
+	this.onInputWASD(keyStroke);
 	}
 	
 	private void rewriteStrings(TextGraphics th) {

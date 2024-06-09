@@ -1,5 +1,8 @@
 package com.corvidus.corvifarm.game;
 
+import com.googlecode.lanterna.graphics.BasicTextImage;
+import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.graphics.TextImage;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 public class PlayerTest {
@@ -109,5 +112,14 @@ public class PlayerTest {
 		Player instance = Player.fromScratch();
 		assertThrows(InvalidActionException.class, () -> instance.subEnergy(280));
 	}
-
+	
+	@Test
+	public void testGetImage() {
+		Player instance = Player.fromScratch();
+		TextImage ti = new BasicTextImage(20, 12);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "Gold:   500");
+		tg.putString(0, 1, "Energy: 270");
+		assertEquals(ti.toString(), instance.getTextImage().toString());
+	}
 }

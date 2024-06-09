@@ -7,17 +7,29 @@ package com.corvidus.corvifarm.game;
 import com.corvidus.corvifarm.terminal.TerminalWidget;
 import com.corvidus.corvifarm.terminal.UserInterface;
 import com.corvidus.corvifarm.terminal.WidgetInputObserver;
+import com.corvidus.corvifarm.terminal.WidgetString;
+import com.corvidus.corvifarm.terminal.select.WASDSelect;
+import com.corvidus.corvifarm.terminal.select.WASDSelectElement;
+import com.corvidus.corvifarm.terminal.select.WASDSelectObserver;
+import com.corvidus.corvifarm.terminal.select.WASDSelectString;
 import com.corvidus.corvifarm.ui.YesNoQuit;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
-public class Game implements CalendarObserver, WidgetInputObserver {
+public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectObserver {
 	public Calendar calendar;
 	public UserInterface userInterface;
+	private WidgetString debug;
+	private int called = 0;
+	private Player player;
 	public Game() {
+		this.player = Player.fromScratch();
+		this.debug = new WidgetString(40, 0, 40, "Debug");	
 		this.userInterface = new UserInterface();
 		this.calendar = new Calendar();
+		this.userInterface.addWidget(this.debug);
 		this.userInterface.addWidget(calendar);
+		this.userInterface.addWidget(player);
 		this.userInterface.refresh();
 	}
 	
@@ -67,5 +79,27 @@ public class Game implements CalendarObserver, WidgetInputObserver {
 			YesNoQuit yesNo = new YesNoQuit(this);
 			yesNo.run();
 		}
+	}
+
+	@Override
+	public void onFocus(WASDSelect wasdSelect, WASDSelectElement element) {
+		this.called++;
+		this.debug.setString(element.getWASDString()+"/"+this.called);
+	}
+
+	@Override
+	public void onSelect(WASDSelect wasdSelect, WASDSelectElement element) {
+		throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+	}
+
+	@Override
+	public void onFocusEmpty(WASDSelect wasdSelect) {
+		this.called++;
+		this.debug.setString("/"+this.called);
+	}
+
+	@Override
+	public void onSelectEmpty(WASDSelect wasdSelect) {
+		throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 	}
 }

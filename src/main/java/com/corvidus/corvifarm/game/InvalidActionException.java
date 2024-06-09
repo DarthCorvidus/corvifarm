@@ -5,5 +5,7 @@ package com.corvidus.corvifarm.game;
  * @author hm
  */
 public class InvalidActionException extends Exception {
-	
+	public InvalidActionException(String message) {
+		super(message);
+	}
 }

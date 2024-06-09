@@ -205,6 +205,11 @@ public class WASDSelectTest implements WASDSelectObserver {
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(7, wasd.getSelectedIndex());
+		Assertions.assertEquals("TST03", this.lastElement.getWASDString());
+		Assertions.assertEquals(3, this.onFocus);
+		Assertions.assertEquals(6, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
 	}
 
 	/**
@@ -222,6 +227,11 @@ public class WASDSelectTest implements WASDSelectObserver {
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(0, wasd.getSelectedIndex());
+		Assertions.assertEquals(null, this.lastElement);
+		Assertions.assertEquals(0, this.onFocus);
+		Assertions.assertEquals(0, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
 	}
 	
 	@Test
@@ -236,6 +246,11 @@ public class WASDSelectTest implements WASDSelectObserver {
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(3, wasd.getSelectedIndex());
+		Assertions.assertEquals("TST03", this.lastElement.getWASDString());
+		Assertions.assertEquals(1, this.onFocus);
+		Assertions.assertEquals(0, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
 	}
 
 	@Test
@@ -252,6 +267,11 @@ public class WASDSelectTest implements WASDSelectObserver {
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(6, wasd.getSelectedIndex());
+		Assertions.assertEquals("TST03", this.lastElement.getWASDString());
+		Assertions.assertEquals(1, this.onFocus);
+		Assertions.assertEquals(1, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
 	}
 
 	@Test
@@ -270,6 +290,11 @@ public class WASDSelectTest implements WASDSelectObserver {
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(0, wasd.getSelectedIndex());
+		Assertions.assertEquals("TST00", this.lastElement.getWASDString());
+		Assertions.assertEquals(3, this.onFocus);
+		Assertions.assertEquals(1, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
 	}
 
 	@Test
@@ -284,6 +309,11 @@ public class WASDSelectTest implements WASDSelectObserver {
 		tg.putString(0, 2, "  TST02                ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(0, wasd.getSelectedIndex());
+		Assertions.assertEquals(null, this.lastElement);
+		Assertions.assertEquals(0, this.onFocus);
+		Assertions.assertEquals(0, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
 	}
 
 	@Test
@@ -301,6 +331,11 @@ public class WASDSelectTest implements WASDSelectObserver {
 		tg.putString(0, 2, "  TST05   TST08   TST11");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(9, wasd.getSelectedIndex());
+		Assertions.assertEquals("TST09", this.lastElement.getWASDString());
+		Assertions.assertEquals(3, this.onFocus);
+		Assertions.assertEquals(0, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
 	}
 	
 	/**
@@ -309,8 +344,8 @@ public class WASDSelectTest implements WASDSelectObserver {
 	@Test
 	public void testMoveRightPageBump() {
 		WASDSelect wasd = this.createDefault();
-		this.fill(wasd, 80);
-		for(int i = 0; i < 4;i++) {
+		this.fill(wasd, 15);
+		for(int i = 0; i < 10;i++) {
 			wasd.onInput(new KeyStroke('d', true, true));
 		}
 		TextImage ti = new BasicTextImage(23, 3);
@@ -320,6 +355,11 @@ public class WASDSelectTest implements WASDSelectObserver {
 		tg.putString(0, 2, "  TST08   TST11   TST14");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(12, wasd.getSelectedIndex());
+		Assertions.assertEquals("TST12", this.lastElement.getWASDString());
+		Assertions.assertEquals(4, this.onFocus);
+		Assertions.assertEquals(0, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
 	}
 
 	/**
@@ -342,6 +382,12 @@ public class WASDSelectTest implements WASDSelectObserver {
 		tg.putString(0, 2, "  TST74   TST77 * TST80");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(80, wasd.getSelectedIndex());
+		Assertions.assertEquals("TST80", this.lastElement.getWASDString());
+		Assertions.assertEquals(28, this.onFocus);
+		Assertions.assertEquals(0, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
+
 	}
 	
 	public void testMoveRightPageBumpPartly() {
@@ -360,6 +406,12 @@ public class WASDSelectTest implements WASDSelectObserver {
 		tg.putString(0, 2, "  TST74   TST77 *      ");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(80, wasd.getSelectedIndex());
+		Assertions.assertEquals(null, this.lastElement);
+		Assertions.assertEquals(27, this.onFocus);
+		Assertions.assertEquals(1, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
+
 	}
 
 	public void testMoveLeftPageBumpPartly() {
@@ -382,6 +434,11 @@ public class WASDSelectTest implements WASDSelectObserver {
 		tg.putString(0, 2, "* TST02   TST05   TST08");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(2, wasd.getSelectedIndex());
+		Assertions.assertEquals("TST02", this.lastElement.getWASDString());
+		Assertions.assertEquals(56, this.onFocus);
+		Assertions.assertEquals(1, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
 	}
 	
 	public void testMoveDownPageOne() {
@@ -397,6 +454,11 @@ public class WASDSelectTest implements WASDSelectObserver {
 		tg.putString(0, 2, "  TST05   TST08   TST11");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(9, wasd.getSelectedIndex());
+		Assertions.assertEquals("TST09", this.lastElement.getWASDString());
+		Assertions.assertEquals(8, this.onFocus);
+		Assertions.assertEquals(0, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
 	}
 
 	public void testMoveUpPageOne() {
@@ -415,6 +477,11 @@ public class WASDSelectTest implements WASDSelectObserver {
 		tg.putString(0, 2, "* TST02   TST05   TST08");
 		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
 		Assertions.assertEquals(2, wasd.getSelectedIndex());
+		Assertions.assertEquals("TST02", this.lastElement.getWASDString());
+		Assertions.assertEquals(11, this.onFocus);
+		Assertions.assertEquals(0, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
 	}
 
 	@Override

@@ -8,6 +8,10 @@ public class WASDSelectGroup implements WASDSelectElement {
 		this.tiles.add(tile);
 	}
 	
+	public boolean isEmpty() {
+		return this.tiles.isEmpty();
+	}
+	
 	@Override
 	public String getWASDString() {
 		if(this.tiles.isEmpty()) {

@@ -12,44 +12,44 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author hm
  */
-public class TileFarmTest {
-	public TileFarmTest() {
+public class FarmTileTest {
+	public FarmTileTest() {
 		
 	}
 
 	/**
-	 * Test of getName method, of class TileFarm.
+	 * Test of getName method, of class FarmTile.
 	 */	
 	@Test
 	public void testGetName() {
-		Tile tile = new TileFarm();
+		Tile tile = new FarmTile();
 		assertEquals("Untilled", tile.getName());
 	}
 	
 	/**
-	 * Test of till method, of class TileFarm.
+	 * Test of till method, of class FarmTile.
 	 */
 	@Test
 	public void testTill() throws Exception {
-		TileFarm tile = new TileFarm();
+		FarmTile tile = new FarmTile();
 		tile.till();
 		assertEquals("Unwatered", tile.getName());
 	}
 
 	@Test
 	public void testTillTill() throws Exception {
-		TileFarm tile = new TileFarm();
+		FarmTile tile = new FarmTile();
 		tile.till();
 		Exception ex = assertThrows(InvalidActionException.class, () -> tile.till());
 		assertEquals("Already tilled.", ex.getMessage());
 	}
 
 	/**
-	 * Test of water method, of class TileFarm.
+	 * Test of water method, of class FarmTile.
 	 */
 	@Test
 	public void testWater() throws Exception {
-		TileFarm tile = new TileFarm();
+		FarmTile tile = new FarmTile();
 		tile.till();
 		tile.water();
 		assertEquals("Watered", tile.getName());
@@ -57,14 +57,14 @@ public class TileFarmTest {
 
 	@Test
 	public void testWaterUntilled() throws Exception {
-		TileFarm tile = new TileFarm();
+		FarmTile tile = new FarmTile();
 		Exception ex = assertThrows(InvalidActionException.class, () -> tile.water());
 		assertEquals("Cannot water untilled tile.", ex.getMessage());
 	}
 
 	@Test
 	public void testWaterWater() throws Exception {
-		TileFarm tile = new TileFarm();
+		FarmTile tile = new FarmTile();
 		tile.till();
 		tile.water();
 		Exception ex = assertThrows(InvalidActionException.class, () -> tile.water());
@@ -72,7 +72,7 @@ public class TileFarmTest {
 	}
 
 	/**
-	 * Test of passDay method, of class TileFarm.
+	 * Test of passDay method, of class FarmTile.
 	 */
 	@Test
 	public void testPassDay() {

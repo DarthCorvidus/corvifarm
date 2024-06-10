@@ -2,7 +2,7 @@ package com.corvidus.corvifarm.tiles;
 
 import com.corvidus.corvifarm.game.InvalidActionException;
 import java.util.Random;
-public class TileFarm extends TileAbstract implements Tillable, Waterable {
+public class FarmTile extends TileAbstract implements Tillable, Waterable {
 	private boolean tilled = false;
 	private boolean watered = false;
 	private final Random rand = new Random();

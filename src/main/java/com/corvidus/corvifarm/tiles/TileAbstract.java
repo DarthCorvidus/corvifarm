@@ -2,13 +2,9 @@ package com.corvidus.corvifarm.tiles;
 
 import com.corvidus.corvifarm.items.Item;
 
-public class TileAbstract implements Tile{
+public abstract class TileAbstract implements Tile {
 	private Item overlay;
 	protected TileObserver observer;
-	@Override
-	public void passDay() {
-		
-	}
 
 	@Override
 	public boolean hasOverlay() {

@@ -9,5 +9,6 @@ public interface Tile {
 	public void setOverlay(Item item);
 	public Item removeOverlay();
 	public void setTileObserver(TileObserver observer);
+	public String getName();
 }
 

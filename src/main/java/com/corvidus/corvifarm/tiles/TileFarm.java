@@ -40,7 +40,9 @@ public class TileFarm extends TileAbstract implements Tillable, Waterable {
 	
 	@Override
 	public String getName() {
-		// Here be overlay handler.
+		if(this.hasOverlay()) {
+			return this.getOverlay().getName();
+		}
 		if(!this.tilled) {
 			return "Untilled";
 		}

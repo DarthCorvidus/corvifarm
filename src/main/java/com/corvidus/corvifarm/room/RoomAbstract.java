@@ -3,13 +3,18 @@ package com.corvidus.corvifarm.room;
 import com.corvidus.corvifarm.terminal.WidgetPane;
 import com.corvidus.corvifarm.terminal.WidgetString;
 import com.corvidus.corvifarm.terminal.select.WASDSelect;
+import com.corvidus.corvifarm.tiles.Tile;
 import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
+import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class RoomAbstract implements Room {
 	protected WidgetPane pane;
 	protected WASDSelect wasd;
 	protected WidgetString name;
+	protected Random rand = new Random();
+	protected ArrayList<Tile> tiles = new ArrayList<>();
 	protected RoomAbstract() {
 		this.pane = new WidgetPane(20, 2, 60, 18);
 		this.wasd = new WASDSelect(0, 1, 60, 17, 15);

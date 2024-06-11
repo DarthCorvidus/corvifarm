@@ -74,6 +74,11 @@ public class WASDSelect extends WidgetAbstract {
 		this.columnsTotal = (int)Math.ceil(this.elements.size()/this.getHeight());
 	}
 	
+	public void clear() {
+		this.elements.clear();
+		this.columnsTotal = (int)Math.ceil(this.elements.size()/this.getHeight());
+	}
+	
 	public void addWASDSelectObserver(WASDSelectObserver observer) {
 		this.wasdSelectObservers.add(observer);
 	}

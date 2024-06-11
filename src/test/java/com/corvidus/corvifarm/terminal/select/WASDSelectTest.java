@@ -115,6 +115,67 @@ public class WASDSelectTest implements WASDSelectObserver {
 		Assertions.assertEquals(0, this.onSelectEmpty);
 	}
 	
+	@Test
+	public void testAddElement() {
+		WASDSelect wasd = this.createDefault();
+		this.fill(wasd, 4);
+		TextImage ti = new BasicTextImage(23, 3);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "* TST00   TST03        ");
+		tg.putString(0, 1, "  TST01                ");
+		tg.putString(0, 2, "  TST02                ");
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		ti = new BasicTextImage(23, 3);
+		tg = ti.newTextGraphics();
+		wasd.addElement(new WASDSelectString("TST04"));
+		tg.putString(0, 0, "* TST00   TST03        ");
+		tg.putString(0, 1, "  TST01   TST04        ");
+		tg.putString(0, 2, "  TST02                ");
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+	}
+
+	@Test
+	public void testRemoveElement() {
+		WASDSelect wasd = this.createDefault();
+		this.fill(wasd, 4);
+		WASDSelectString str = new WASDSelectString("TST04");
+		wasd.addElement(str);
+		TextImage ti = new BasicTextImage(23, 3);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "* TST00   TST03        ");
+		tg.putString(0, 1, "  TST01   TST04        ");
+		tg.putString(0, 2, "  TST02                ");
+		
+		wasd.removeElement(str);
+		ti = new BasicTextImage(23, 3);
+		tg = ti.newTextGraphics();
+		tg.putString(0, 0, "* TST00   TST03        ");
+		tg.putString(0, 1, "  TST01                ");
+		tg.putString(0, 2, "  TST02                ");
+		
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+	}
+
+	@Test
+	public void testClear() {
+		WASDSelect wasd = this.createDefault();
+		this.fill(wasd, 4);
+		TextImage ti = new BasicTextImage(23, 3);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "* TST00   TST03        ");
+		tg.putString(0, 1, "  TST01                ");
+		tg.putString(0, 2, "  TST02                ");
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		ti = new BasicTextImage(23, 3);
+		tg = ti.newTextGraphics();
+		wasd.clear();
+		tg.putString(0, 0, "*                      ");
+		tg.putString(0, 1, "                       ");
+		tg.putString(0, 2, "                       ");
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+	}
+	
+	
 	/**
 	 * Go down one using 's'.
 	 */

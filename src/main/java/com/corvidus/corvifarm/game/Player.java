@@ -28,6 +28,7 @@ public class Player implements TerminalWidget {
 		this.valueGold = new WidgetString(8, 0, 8, Integer.toString(this.gold));
 		this.valueEnergy = new WidgetString(8, 1, 8, Integer.toString(this.energy));
 		this.inventory = new WASDSelect(0, 2, 20, 10, 17);
+		this.inventory.setModeCursor();
 		this.inventory.addElement(new WASDSelectString("Hoe"));
 		this.inventory.addElement(new WASDSelectString("Watercan"));
 		this.inventory.addElement(new WASDSelectString("Axe"));

@@ -3,10 +3,13 @@ package com.corvidus.corvifarm.room;
 import com.corvidus.corvifarm.terminal.WidgetPane;
 import com.corvidus.corvifarm.terminal.WidgetString;
 import com.corvidus.corvifarm.terminal.select.WASDSelect;
+import com.corvidus.corvifarm.terminal.select.WASDSelectObserver;
 import com.corvidus.corvifarm.tiles.Tile;
+import com.corvidus.corvifarm.tiles.WASDSelectGroup;
 import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public abstract class RoomAbstract implements Room {
@@ -18,7 +21,6 @@ public abstract class RoomAbstract implements Room {
 	protected RoomAbstract() {
 		this.pane = new WidgetPane(20, 2, 60, 18);
 		this.wasd = new WASDSelect(0, 1, 60, 17, 15);
-		this.wasd.setModeCursor();
 		this.name = new WidgetString(0, 0, 60, this.getName());
 		this.pane.addWidget(this.wasd);
 		this.pane.addWidget(this.name);
@@ -53,5 +55,27 @@ public abstract class RoomAbstract implements Room {
 	public void onInput(KeyStroke keyStroke) {
 		this.wasd.onInput(keyStroke);
 	}
+	public void addWASDSelectObserver(WASDSelectObserver observer) {
+		this.wasd.addWASDSelectObserver(observer);
+	}
 	
+	public void removeWASDSelectObserver(WASDSelectObserver observer) {
+		this.wasd.removeWASDSelectObserver(observer);
+	}
+	
+	@Override
+	public void refresh() {
+		HashMap<String, WASDSelectGroup> group = new HashMap<>();
+		this.wasd.clear();
+		for(Tile tile : this.tiles) {
+			if(!group.containsKey(tile.getName())) {
+				group.put(tile.getName(), new WASDSelectGroup());
+			}
+			group.get(tile.getName()).addTile(tile);
+		}
+		for(String key : group.keySet()) {
+			this.wasd.addElement(group.get(key));
+		}
+
+	}
 }

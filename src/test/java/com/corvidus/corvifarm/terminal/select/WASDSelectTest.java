@@ -5,6 +5,7 @@ import com.googlecode.lanterna.graphics.BasicTextImage;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -482,6 +483,52 @@ public class WASDSelectTest implements WASDSelectObserver {
 		Assertions.assertEquals(0, this.onFocusEmpty);
 		Assertions.assertEquals(0, this.onSelect);
 		Assertions.assertEquals(0, this.onSelectEmpty);
+	}
+	
+	@Test
+	public void testOnSelect() {
+		WASDSelect wasd = this.createDefault();
+		this.fill(wasd, 12);
+		wasd.onInput(new KeyStroke('s', true, true));
+		wasd.onInput(new KeyStroke('d', true, true));
+		KeyStroke ks = new KeyStroke(KeyType.Enter, false, false);
+		wasd.onInput(ks);
+		TextImage ti = new BasicTextImage(23, 3);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "  TST00   TST03   TST06");
+		tg.putString(0, 1, "  TST01 * TST04   TST07");
+		tg.putString(0, 2, "  TST02   TST05   TST08");
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(4, wasd.getSelectedIndex());
+		Assertions.assertEquals("TST04", this.lastElement.getWASDString());
+		Assertions.assertEquals(2, this.onFocus);
+		Assertions.assertEquals(0, this.onFocusEmpty);
+		Assertions.assertEquals(1, this.onSelect);
+		Assertions.assertEquals(0, this.onSelectEmpty);
+	}
+
+	@Test
+	public void testOnSelectEmpty() {
+		WASDSelect wasd = this.createDefault();
+		this.fill(wasd, 8);
+		wasd.onInput(new KeyStroke('s', true, true));
+		wasd.onInput(new KeyStroke('s', true, true));
+		wasd.onInput(new KeyStroke('d', true, true));
+		wasd.onInput(new KeyStroke('d', true, true));
+		KeyStroke ks = new KeyStroke(KeyType.Enter, false, false);
+		wasd.onInput(ks);
+		TextImage ti = new BasicTextImage(23, 3);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "  TST00   TST03   TST06");
+		tg.putString(0, 1, "  TST01   TST04   TST07");
+		tg.putString(0, 2, "  TST02   TST05 *      ");
+		Assertions.assertEquals(ti.toString(), wasd.getTextImage().toString());
+		Assertions.assertEquals(8, wasd.getSelectedIndex());
+		Assertions.assertEquals("TST05", this.lastElement.getWASDString());
+		Assertions.assertEquals(3, this.onFocus);
+		Assertions.assertEquals(1, this.onFocusEmpty);
+		Assertions.assertEquals(0, this.onSelect);
+		Assertions.assertEquals(1, this.onSelectEmpty);
 	}
 
 	@Override

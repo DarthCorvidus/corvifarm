@@ -212,13 +212,26 @@ public class WASDSelect extends WidgetAbstract {
 		}
 	}
 	
+	private void callOnSelect() {
+		ArrayList<WASDSelectObserver> tmp = new ArrayList<>(this.wasdSelectObservers);
+		try {
+			WASDSelectElement element = this.elements.get(this.selected);
+			for(WASDSelectObserver observer : tmp) {
+				observer.onSelect(this, element);
+			}
+		} catch (IndexOutOfBoundsException e) {
+			for(WASDSelectObserver observer : tmp) {
+				observer.onSelectEmpty(this);
+			}
+		}
+	}
+	
 	@Override
 	public void onInput(KeyStroke keyStroke) {
-		/*
-		if(keyStroke.getKeyType() != KeyType.Character) {
-			return;
+		if(keyStroke.getKeyType() == KeyType.Enter) {
+			this.callOnSelect();
+		return;
 		}
-		*/
 		if(this.mode == WASDSelect.CURSOR) {
 			this.onInputCursor(keyStroke);
 		return;

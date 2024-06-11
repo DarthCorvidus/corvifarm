@@ -18,7 +18,7 @@ import com.corvidus.corvifarm.ui.YesNoQuit;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
-public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectObserver {
+public class Game implements CalendarObserver, WidgetInputObserver {
 	public Calendar calendar;
 	public UserInterface userInterface;
 	private WidgetString debug;
@@ -86,13 +86,13 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 			yesNo.run();
 		}
 	}
-
+	/*
 	@Override
 	public void onFocus(WASDSelect wasdSelect, WASDSelectElement element) {
 		this.called++;
 		this.debug.setString(element.getWASDString()+"/"+this.called);
 	}
-
+	
 	@Override
 	public void onSelect(WASDSelect wasdSelect, WASDSelectElement element) {
 		throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -108,4 +108,5 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 	public void onSelectEmpty(WASDSelect wasdSelect) {
 		throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 	}
+	*/
 }

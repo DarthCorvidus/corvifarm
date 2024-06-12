@@ -14,7 +14,6 @@ public class Farm extends RoomAbstract {
 	}
 	
 	private void init() {
-		HashMap<String, WASDSelectGroup> group = new HashMap<>();
 		for(int i = 0;i<4096;i++) {
 			Tile tile = new FarmTile();
 			this.tiles.add(tile);
@@ -26,20 +25,12 @@ public class Farm extends RoomAbstract {
 				continue;
 			}
 		}
-		for(Tile tile : this.tiles) {
-			if(!group.containsKey(tile.getName())) {
-				group.put(tile.getName(), new WASDSelectGroup());
-			}
-			group.get(tile.getName()).addTile(tile);
-		}
-		for(String key : group.keySet()) {
-			this.wasd.addElement(group.get(key));
-		}
 	}
 	
 	public static Farm fromScratch() {
 		Farm farm = new Farm();
 		farm.init();
+		farm.refresh();
 	return farm;
 	}
 	

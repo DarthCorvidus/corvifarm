@@ -1,5 +1,8 @@
 package com.corvidus.corvifarm.terminal;
 
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.input.KeyStroke;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,7 @@ public class WidgetLog extends WidgetAbstract {
 			this.addLine(str);
 		}
 		for(int i = 0; i<this.getHeight();i++) {
+			this.tg.putString(0, i, " ".repeat(this.getWidth()));
 			this.tg.putString(0, i, this.lines[i]);
 		}
 	}

@@ -9,6 +9,7 @@ import com.corvidus.corvifarm.room.Room;
 import com.corvidus.corvifarm.terminal.TerminalWidget;
 import com.corvidus.corvifarm.terminal.UserInterface;
 import com.corvidus.corvifarm.terminal.WidgetInputObserver;
+import com.corvidus.corvifarm.terminal.WidgetLog;
 import com.corvidus.corvifarm.terminal.WidgetString;
 import com.corvidus.corvifarm.terminal.select.WASDSelect;
 import com.corvidus.corvifarm.terminal.select.WASDSelectElement;
@@ -26,7 +27,9 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 	private int called = 0;
 	private Player player;
 	private Room room;
+	private WidgetLog log;
 	public Game() {
+		this.log = new WidgetLog(0, 20, 80, 4);
 		this.player = Player.fromScratch();
 		this.debug = new WidgetString(40, 0, 40, "Debug");	
 		this.userInterface = new UserInterface();
@@ -38,6 +41,7 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 		this.userInterface.addWidget(calendar);
 		this.userInterface.addWidget(player);
 		this.userInterface.addWidget(this.room);
+		this.userInterface.addWidget(log);
 		this.userInterface.refresh();
 	}
 	
@@ -104,7 +108,7 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 			try {
 				tile.till();
 			} catch (InvalidActionException e) {
-				
+				this.log.addMessage(e.getMessage());
 			}
 			this.room.refresh();
 		}

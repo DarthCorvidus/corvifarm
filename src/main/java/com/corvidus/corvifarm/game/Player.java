@@ -44,6 +44,10 @@ public class Player implements TerminalWidget {
 		this.pane.addWidget(this.valueGold);
 		this.pane.addWidget(this.inventory);
 	}
+
+	public Inventory getInventory() {
+		return this.inventory;
+	}
 	
 	public static Player fromScratch() {
 		Player player = new Player();

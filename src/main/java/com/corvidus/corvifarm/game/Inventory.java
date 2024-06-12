@@ -19,6 +19,10 @@ public class Inventory implements TerminalWidget {
 		this.refresh();
 	}
 	
+	public Item getCurrentItem() throws IndexOutOfBoundsException {
+		return this.items.get(this.selected);
+	}
+	
 	private void refresh() {
 		for(int i = 0;i<10;i++) {
 			String mark = " ";

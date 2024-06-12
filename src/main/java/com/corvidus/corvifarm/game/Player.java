@@ -1,5 +1,10 @@
 package com.corvidus.corvifarm.game;
 
+import com.corvidus.corvifarm.items.tools.Axe;
+import com.corvidus.corvifarm.items.tools.Hoe;
+import com.corvidus.corvifarm.items.tools.Pickaxe;
+import com.corvidus.corvifarm.items.tools.Scythe;
+import com.corvidus.corvifarm.items.tools.Watercan;
 import com.corvidus.corvifarm.terminal.TerminalWidget;
 import com.corvidus.corvifarm.terminal.WidgetInputObserver;
 import com.corvidus.corvifarm.terminal.WidgetPane;
@@ -20,20 +25,19 @@ public class Player implements TerminalWidget {
 	private WidgetString labelGold;
 	private WidgetString valueEnergy;
 	private WidgetString valueGold;
-	private WASDSelect inventory;
+	private Inventory inventory;
 	private Player() {
 		this.pane = new WidgetPane(0, 2, 20, 12);
 		this.labelGold = new WidgetString(0, 0, 7, "Gold:");
 		this.labelEnergy = new WidgetString(0, 1, 7, "Energy:");
 		this.valueGold = new WidgetString(8, 0, 8, Integer.toString(this.gold));
 		this.valueEnergy = new WidgetString(8, 1, 8, Integer.toString(this.energy));
-		this.inventory = new WASDSelect(0, 2, 20, 10, 17);
-		this.inventory.setModeCursor();
-		this.inventory.addElement(new WASDSelectString("Hoe"));
-		this.inventory.addElement(new WASDSelectString("Watercan"));
-		this.inventory.addElement(new WASDSelectString("Axe"));
-		this.inventory.addElement(new WASDSelectString("Pickaxe"));
-		this.inventory.addElement(new WASDSelectString("Scythe"));
+		this.inventory = new Inventory();
+		this.inventory.addItem(new Hoe());
+		this.inventory.addItem(new Watercan());
+		this.inventory.addItem(new Axe());
+		this.inventory.addItem(new Pickaxe());
+		this.inventory.addItem(new Scythe());
 		this.pane.addWidget(this.labelEnergy);
 		this.pane.addWidget(this.labelGold);
 		this.pane.addWidget(this.valueEnergy);

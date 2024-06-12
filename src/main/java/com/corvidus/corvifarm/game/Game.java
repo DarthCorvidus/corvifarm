@@ -4,6 +4,8 @@
  */
 package com.corvidus.corvifarm.game;
 
+import com.corvidus.corvifarm.items.Item;
+import com.corvidus.corvifarm.items.TileManipulator;
 import com.corvidus.corvifarm.room.Farm;
 import com.corvidus.corvifarm.room.Room;
 import com.corvidus.corvifarm.terminal.TerminalWidget;
@@ -15,6 +17,7 @@ import com.corvidus.corvifarm.terminal.select.WASDSelect;
 import com.corvidus.corvifarm.terminal.select.WASDSelectElement;
 import com.corvidus.corvifarm.terminal.select.WASDSelectObserver;
 import com.corvidus.corvifarm.terminal.select.WASDSelectString;
+import com.corvidus.corvifarm.tiles.Tile;
 import com.corvidus.corvifarm.tiles.Tillable;
 import com.corvidus.corvifarm.ui.YesNoQuit;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -101,16 +104,31 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 	
 	@Override
 	public void onSelect(WASDSelect wasdSelect, WASDSelectElement element) {
-		Object object = element.getObject();
-		if(object instanceof Tillable) {
-			this.debug.setString("Tilling...");
-			Tillable tile = (Tillable)object;
+		Tile tile = (Tile)element.getObject();
+		Item item;
+		// Check if there is an item in the inventory, otherwise return.
+		try {
+			item = this.player.getInventory().getCurrentItem();
+		} catch (IndexOutOfBoundsException e) {
+			this.log.addMessage("No selected item");
+		return;
+		}
+		/*
+		 * Alternative, more beautiful pattern:
+		 * if(item instanceof TileManipulator tm) {
+		*/
+		/**
+		 * Check if item is an instance of tile manipulator, if so, apply, or
+		 * write message (for now, there will be other possible actions, like
+		 * eating something or using a device on a tile).
+		 */
+		if(item instanceof TileManipulator tm) {
 			try {
-				tile.till();
+				tm.apply(this.player, tile);
+				this.room.refresh();
 			} catch (InvalidActionException e) {
-				this.log.addMessage(e.getMessage());
+				log.addMessage(e.getMessage());
 			}
-			this.room.refresh();
 		}
 	}
 

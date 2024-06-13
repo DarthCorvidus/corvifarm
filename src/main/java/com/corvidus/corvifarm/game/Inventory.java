@@ -23,6 +23,15 @@ public class Inventory implements TerminalWidget {
 		return this.items.get(this.selected);
 	}
 	
+	public void subCurrentItem() {
+		Item item = this.getCurrentItem();
+		item.setAmount(item.getAmount() - 1);
+		if(item.getAmount() == 0) {
+			this.items.remove(item);
+		}
+		this.refresh();
+	}
+	
 	private void refresh() {
 		for(int i = 0;i<10;i++) {
 			String mark = " ";

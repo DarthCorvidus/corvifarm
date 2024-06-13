@@ -4,6 +4,7 @@ import com.corvidus.corvifarm.items.Axable;
 import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.ItemAbstract;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Wood extends ItemAbstract implements Axable {
 	@Override
@@ -27,8 +28,8 @@ public class Wood extends ItemAbstract implements Axable {
 	}
 
 	@Override
-	public ArrayList<Item> getAxedItems() {
-		ArrayList<Item> items = new ArrayList<>();
+	public List<Item> getAxedItems() {
+		List<Item> items = new ArrayList<>();
 		items.add(new Wood());
 	return items;
 	}

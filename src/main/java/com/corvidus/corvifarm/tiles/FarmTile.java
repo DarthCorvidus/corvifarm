@@ -52,4 +52,13 @@ public class FarmTile extends TileAbstract implements Tillable, Waterable {
 	return "Watered";
 	}
 	
+	@Override
+	public boolean isTilled() {
+		return this.tilled;
+	}
+	
+	@Override
+	public boolean isWatered() {
+		return this.watered;
+	}
 }

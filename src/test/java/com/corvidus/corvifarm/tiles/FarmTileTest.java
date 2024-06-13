@@ -22,8 +22,10 @@ public class FarmTileTest {
 	 */	
 	@Test
 	public void testGetName() {
-		Tile tile = new FarmTile();
+		FarmTile tile = new FarmTile();
 		assertEquals("Untilled", tile.getName());
+		assertEquals(false, tile.isTilled());
+		assertEquals(false, tile.isWatered());
 	}
 	
 	/**
@@ -34,6 +36,7 @@ public class FarmTileTest {
 		FarmTile tile = new FarmTile();
 		tile.till();
 		assertEquals("Unwatered", tile.getName());
+		assertEquals(true, tile.isTilled());
 	}
 
 	@Test
@@ -53,6 +56,7 @@ public class FarmTileTest {
 		tile.till();
 		tile.water();
 		assertEquals("Watered", tile.getName());
+		assertEquals(true, tile.isWatered());
 	}
 
 	@Test

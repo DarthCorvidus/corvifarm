@@ -4,4 +4,5 @@ import com.corvidus.corvifarm.game.InvalidActionException;
 
 public interface Waterable {
 	public void water() throws InvalidActionException;
+	public boolean isWatered();
 }

@@ -51,7 +51,6 @@ public class Inventory implements TerminalWidget {
 	public void addItem(Item item) {
 		for(Item it: this.items) {
 			if(it.getName().equals(item.getName())) {
-				System.out.println(it.getName()+" "+it.getAmount()+" == "+item.getName()+" "+it.getAmount());
 				it.addAmount(item.getAmount());
 				this.refresh();
 				return;

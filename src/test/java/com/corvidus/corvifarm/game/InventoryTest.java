@@ -102,5 +102,29 @@ public class InventoryTest {
 		tg.putString(0, 9, "0");
 		assertEquals(ti.toString(), iv.getTextImage().toString());
 	}
+	
+	@Test
+	public void testAddupItem() {
+		Inventory iv = new Inventory();
+		Wood wood = new Wood();
+		wood.setAmount(2);
+		iv.addItem(wood);
+		wood = new Wood();
+		wood.setAmount(5);
+		iv.addItem(wood);
+		TextImage ti = new BasicTextImage(20, 10);
+		TextGraphics tg = ti.newTextGraphics();
+		tg.putString(0, 0, "1*7×Wood");
+		tg.putString(0, 1, "2");
+		tg.putString(0, 2, "3");
+		tg.putString(0, 3, "4");
+		tg.putString(0, 4, "5");
+		tg.putString(0, 5, "6");
+		tg.putString(0, 6, "7");
+		tg.putString(0, 7, "8");
+		tg.putString(0, 8, "9");
+		tg.putString(0, 9, "0");
+		assertEquals(ti.toString(), iv.getTextImage().toString());
+	}
 
 }

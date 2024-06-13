@@ -1,5 +1,7 @@
 package com.corvidus.corvifarm.game;
 
+import com.corvidus.corvifarm.items.crops.Crop;
+import com.corvidus.corvifarm.items.crops.Wheat;
 import com.corvidus.corvifarm.items.tools.Axe;
 import com.corvidus.corvifarm.items.tools.Hoe;
 import com.corvidus.corvifarm.items.tools.Pickaxe;
@@ -38,6 +40,7 @@ public class Player implements TerminalWidget {
 		this.inventory.addItem(new Axe());
 		this.inventory.addItem(new Pickaxe());
 		this.inventory.addItem(new Scythe());
+		this.inventory.addItem(new Wheat(15, Crop.SEED));
 		this.pane.addWidget(this.labelEnergy);
 		this.pane.addWidget(this.labelGold);
 		this.pane.addWidget(this.valueEnergy);

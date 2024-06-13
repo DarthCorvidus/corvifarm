@@ -7,6 +7,7 @@ public abstract class ItemAbstract implements Item {
 	static int PLATINUM = 4;
 	private int quality = 0;
 	private int amount = 1;
+	@Override
 	public String getLongName() {
 		String name = "";
 		if(this.getAmount() != 1) {
@@ -19,20 +20,30 @@ public abstract class ItemAbstract implements Item {
 	return name;
 	}
 	
+	@Override
 	public abstract int getBaseDemand();
 	
+	@Override
 	public int getDemand() {
 		return this.getBaseDemand();
 	}
 	
+	@Override
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 	
+	@Override
 	public int getAmount() {
-		 return this.amount;
+		return this.amount;
 	}
 	
+	@Override
+	public void addAmount(int amount) {
+		this.amount += amount;
+	}
+
+	@Override	
 	public void setQuality(int quality) {
 		this.quality = quality;
 	}

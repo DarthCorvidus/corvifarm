@@ -6,5 +6,6 @@ public interface Item {
 	public int getDemand();
 	public void setAmount(int amount);
 	public int getAmount();
+	public void addAmount(int amount);
 	public void setQuality(int quality);
 }

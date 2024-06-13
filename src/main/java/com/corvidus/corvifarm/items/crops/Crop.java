@@ -2,6 +2,7 @@ package com.corvidus.corvifarm.items.crops;
 
 import com.corvidus.corvifarm.game.InvalidActionException;
 import com.corvidus.corvifarm.game.Player;
+import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.ItemAbstract;
 import com.corvidus.corvifarm.items.TileManipulator;
 import com.corvidus.corvifarm.tiles.FarmTile;
@@ -62,6 +63,9 @@ public class Crop extends ItemAbstract implements TileManipulator {
 	}
 
 	public void apply(Player player, Tile tile) throws InvalidActionException {
+		if(this.state != Crop.SEED) {
+			throw new InvalidActionException("Not a seed.");
+		}
 		if(tile.hasOverlay()) {
 			throw new InvalidActionException("Tile is occupied.");
 		}
@@ -72,6 +76,9 @@ public class Crop extends ItemAbstract implements TileManipulator {
 		if(!farmTile.isTilled()) {
 			throw new InvalidActionException("Tile is not tilled.");
 		}
+		Crop crop = Crops.createSeed(this.id);
+		tile.setOverlay(crop);
+		player.getInventory().subCurrentItem();
 	}
 
 }

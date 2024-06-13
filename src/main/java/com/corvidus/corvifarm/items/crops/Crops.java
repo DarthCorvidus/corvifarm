@@ -35,26 +35,26 @@ public class Crops {
 	return inst;
 	}
 	
-	public Crop createSeed(int id) {
-		Crop crop = this.create(id);
+	public static Crop createSeed(int id) {
+		Crop crop = Crops.create(id);
 		crop.setState(Crop.SEED);
 	return crop;
 	}
 	
-	public Crop createSeed(int id, int amount) {
-		Crop crop = this.createSeed(id);
+	public static Crop createSeed(int id, int amount) {
+		Crop crop = Crops.createSeed(id);
 		crop.setAmount(amount);
 	return crop;
 	}
 	
-	public Crop createProduce(int id) {
-		Crop crop = this.create(id);
+	public static Crop createProduce(int id) {
+		Crop crop = Crops.create(id);
 		crop.setState(Crop.PRODUCE);
 	return crop;
 	}
 
-	public Crop createProduce(int id, int amount) {
-		Crop crop = this.createProduce(id);
+	public static Crop createProduce(int id, int amount) {
+		Crop crop = Crops.createProduce(id);
 		crop.setAmount(amount);
 	return crop;
 	}

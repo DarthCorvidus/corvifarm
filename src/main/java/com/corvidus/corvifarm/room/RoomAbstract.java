@@ -1,5 +1,7 @@
 package com.corvidus.corvifarm.room;
 
+import com.corvidus.corvifarm.game.Calendar;
+import com.corvidus.corvifarm.game.CalendarObserver;
 import com.corvidus.corvifarm.terminal.WidgetPane;
 import com.corvidus.corvifarm.terminal.WidgetString;
 import com.corvidus.corvifarm.terminal.select.WASDSelect;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public abstract class RoomAbstract implements Room {
+public abstract class RoomAbstract implements Room, CalendarObserver {
 	protected WidgetPane pane;
 	protected WASDSelect wasd;
 	protected WidgetString name;
@@ -77,5 +79,17 @@ public abstract class RoomAbstract implements Room {
 			this.wasd.addElement(group.get(key));
 		}
 
+	}
+
+	@Override
+	public void onSecond(Calendar calendar) {
+		
+	}
+
+	@Override
+	public void onWakeup(Calendar calendar) {
+		for(Tile tile : this.tiles) {
+			tile.passDay();
+		}
 	}
 }

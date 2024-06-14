@@ -43,14 +43,4 @@ public class Farm extends RoomAbstract {
 	public String getName() {
 		return "Your Farm";
 	}
-
-	@Override
-	public void onSecond(Calendar calendar) {
-		
-	}
-
-	@Override
-	public void onWakeup(Calendar calendar) {
-		
-	}
 }

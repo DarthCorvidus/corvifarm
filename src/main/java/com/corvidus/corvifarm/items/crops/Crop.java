@@ -2,14 +2,16 @@ package com.corvidus.corvifarm.items.crops;
 
 import com.corvidus.corvifarm.game.InvalidActionException;
 import com.corvidus.corvifarm.game.Player;
+import com.corvidus.corvifarm.items.Daily;
 import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.ItemAbstract;
 import com.corvidus.corvifarm.items.TileManipulator;
 import com.corvidus.corvifarm.tiles.FarmTile;
 import com.corvidus.corvifarm.tiles.Tile;
+import com.corvidus.corvifarm.tiles.Waterable;
 import java.lang.reflect.Constructor;
 
-public class Crop extends ItemAbstract implements TileManipulator {
+public class Crop extends ItemAbstract implements TileManipulator, Daily {
 	public final static int SEED = 1;
 	public final static int GROWING = 2;
 	public final static int GROWN = 3;
@@ -18,14 +20,14 @@ public class Crop extends ItemAbstract implements TileManipulator {
 	private int days;
 	private int baseDemand;
 	private String name;
-	private int daysPassed;
+	private int age;
 	private int state = 1;
 	public Crop(int id, int days, int baseDemand, String name) {
 		this.id = id;
 		this.days = days;
 		this.baseDemand = baseDemand;
 		this.name = name;
-		this.daysPassed = 0;
+		this.age = 0;
 	}
 	
 	public int getID() {
@@ -42,7 +44,7 @@ public class Crop extends ItemAbstract implements TileManipulator {
 			case SEED:
 				return this.name+" Seeds";
 			case GROWING:
-				return this.name;
+				return this.name+" "+Integer.toString(this.age);
 			case PRODUCE:
 				return this.name;
 			case GROWN:
@@ -79,6 +81,25 @@ public class Crop extends ItemAbstract implements TileManipulator {
 		Crop crop = Crops.createSeed(this.id);
 		tile.setOverlay(crop);
 		player.getInventory().subCurrentItem();
+	}
+
+	@Override
+	public void passDay(Tile tile) {
+		Waterable waterable = (Waterable)tile;
+		if(waterable.isWatered()) {
+			return;
+		}
+		if(this.state == Crop.SEED) {
+			this.state = Crop.GROWING;
+			this.age++;
+			return;
+		}
+		if(this.state == Crop.GROWING && this.age == this.days-1) {
+			this.state = Crop.GROWN;
+		}
+		if(this.state == Crop.GROWING) {
+			this.age++;
+		}
 	}
 
 }

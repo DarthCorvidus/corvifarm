@@ -6,11 +6,14 @@ import com.corvidus.corvifarm.terminal.WidgetPane;
 import com.corvidus.corvifarm.terminal.WidgetString;
 import com.corvidus.corvifarm.terminal.select.WASDSelect;
 import com.corvidus.corvifarm.terminal.select.WASDSelectObserver;
+import com.corvidus.corvifarm.tiles.FarmTile;
 import com.corvidus.corvifarm.tiles.Tile;
+import com.corvidus.corvifarm.tiles.TileSort;
 import com.corvidus.corvifarm.tiles.WASDSelectGroup;
 import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -67,6 +70,7 @@ public abstract class RoomAbstract implements Room, CalendarObserver {
 	
 	@Override
 	public void refresh() {
+		Collections.sort(this.tiles, new TileSort());
 		HashMap<String, WASDSelectGroup> group = new HashMap<>();
 		this.wasd.clear();
 		for(Tile tile : this.tiles) {

@@ -37,6 +37,10 @@ public class Crop extends ItemAbstract implements TileManipulator, Daily {
 	public void setState(int state) {
 		this.state = state;
 	}
+
+	public int getState() {
+		return this.state;
+	}
 	
 	@Override
 	public String getName() {

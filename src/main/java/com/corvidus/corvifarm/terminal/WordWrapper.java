@@ -46,7 +46,7 @@ public class WordWrapper {
 				tmp = word+" ";
 			}
 		}
-		this.lines.add(tmp);
+		this.lines.add(tmp.trim());
 	}
 	
 	public List<String> getLines() {

@@ -1,0 +1,3 @@
+WordWrapper
+
+WordWrapper is a class which helps to wrap larger texts automatically.

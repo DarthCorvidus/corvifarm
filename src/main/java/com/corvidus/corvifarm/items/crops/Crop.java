@@ -3,13 +3,11 @@ package com.corvidus.corvifarm.items.crops;
 import com.corvidus.corvifarm.game.InvalidActionException;
 import com.corvidus.corvifarm.game.Player;
 import com.corvidus.corvifarm.items.Daily;
-import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.ItemAbstract;
 import com.corvidus.corvifarm.items.TileManipulator;
 import com.corvidus.corvifarm.tiles.FarmTile;
 import com.corvidus.corvifarm.tiles.Tile;
 import com.corvidus.corvifarm.tiles.Waterable;
-import java.lang.reflect.Constructor;
 
 public class Crop extends ItemAbstract implements TileManipulator, Daily {
 	public final static int SEED = 1;

@@ -94,6 +94,10 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 			YesNoQuit yesNo = new YesNoQuit(this);
 			yesNo.run();
 		}
+		
+		if(keyStroke.getCharacter() == 'r') {
+			this.calendar.sleep();
+		}
 	}
 
 	@Override

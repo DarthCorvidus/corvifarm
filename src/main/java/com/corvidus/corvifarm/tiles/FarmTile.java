@@ -1,6 +1,7 @@
 package com.corvidus.corvifarm.tiles;
 
 import com.corvidus.corvifarm.game.InvalidActionException;
+import com.corvidus.corvifarm.items.Daily;
 import com.corvidus.corvifarm.items.crops.Crop;
 import java.util.Random;
 public class FarmTile extends TileAbstract implements Tillable, Waterable {
@@ -34,8 +35,12 @@ public class FarmTile extends TileAbstract implements Tillable, Waterable {
 		if(this.watered) {
 			this.watered = false;
 		}
-		if(this.tilled && this.rand.nextInt(10)<5) {
+		if(this.tilled && this.rand.nextInt(10)<5 && !this.hasOverlay()) {
 			this.tilled = false;
+		}
+		if(this.hasOverlay() && this.getOverlay() instanceof Daily) {
+			Daily daily = (Daily)this.getOverlay();
+			daily.passDay(this);
 		}
 	}
 	

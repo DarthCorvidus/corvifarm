@@ -1,11 +1,13 @@
 package com.corvidus.corvifarm.room;
 
 import com.corvidus.corvifarm.game.Calendar;
+import com.corvidus.corvifarm.items.interactive.Bed;
 import com.corvidus.corvifarm.items.wood.Wood;
 import com.corvidus.corvifarm.terminal.select.WASDSelectElement;
 import com.corvidus.corvifarm.terminal.select.WASDSelectString;
 import com.corvidus.corvifarm.tiles.Tile;
 import com.corvidus.corvifarm.tiles.FarmTile;
+import com.corvidus.corvifarm.tiles.ImmutableTile;
 import com.corvidus.corvifarm.tiles.WASDSelectGroup;
 import java.util.HashMap;
 public class Farm extends RoomAbstract {
@@ -14,6 +16,7 @@ public class Farm extends RoomAbstract {
 	}
 	
 	private void init() {
+		this.tiles.add(new ImmutableTile(new Bed()));
 		for(int i = 0;i<4096;i++) {
 			Tile tile = new FarmTile();
 			this.tiles.add(tile);

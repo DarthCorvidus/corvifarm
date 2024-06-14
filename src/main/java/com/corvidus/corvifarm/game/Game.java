@@ -4,6 +4,7 @@
  */
 package com.corvidus.corvifarm.game;
 
+import com.corvidus.corvifarm.items.Interactive;
 import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.TileManipulator;
 import com.corvidus.corvifarm.room.Farm;
@@ -20,6 +21,7 @@ import com.corvidus.corvifarm.terminal.select.WASDSelectString;
 import com.corvidus.corvifarm.tiles.Tile;
 import com.corvidus.corvifarm.tiles.Tillable;
 import com.corvidus.corvifarm.ui.YesNoQuit;
+import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
@@ -115,6 +117,14 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 			item = this.player.getInventory().getCurrentItem();
 		} catch (IndexOutOfBoundsException e) {
 			this.log.addMessage("No selected item");
+		return;
+		}
+		if(tile.hasOverlay() && tile.getOverlay() instanceof Interactive interactive) {
+			try {
+				interactive.interact(this);
+			} catch (InvalidActionException e) {
+				log.addMessage(e.getMessage());
+			}
 		return;
 		}
 		/*

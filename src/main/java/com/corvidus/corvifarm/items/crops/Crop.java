@@ -63,7 +63,13 @@ public class Crop extends ItemAbstract implements TileManipulator, Daily {
 	
 	@Override
 	public int getBaseDemand() {
-		return this.baseDemand;
+		if(this.state == Crop.SEED) {
+			return this.baseDemand;
+		}
+		if(this.state == Crop.PRODUCE) {
+			return this.baseDemand*4;
+		}
+		return 0;
 	}
 
 	public void apply(Player player, Tile tile) throws InvalidActionException {

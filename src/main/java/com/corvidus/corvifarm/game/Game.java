@@ -58,6 +58,10 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 		return this.calendar;
 	}
 	
+	public Player getPlayer() {
+		return this.player;
+	}
+	
 	public void run() {
 		this.calendar.addCalendarObserver(this);
 		this.userInterface.addInputObserver(this);
@@ -144,6 +148,7 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 				log.addMessage(e.getMessage());
 			}
 		}
+		this.userInterface.refresh();
 	}
 
 	@Override

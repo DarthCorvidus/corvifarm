@@ -62,6 +62,10 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 		return this.player;
 	}
 	
+	public WidgetLog getLog() {
+		return this.log;
+	}
+	
 	public void run() {
 		this.calendar.addCalendarObserver(this);
 		this.userInterface.addInputObserver(this);

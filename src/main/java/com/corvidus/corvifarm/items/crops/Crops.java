@@ -1,6 +1,8 @@
 package com.corvidus.corvifarm.items.crops;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Crops {
@@ -17,6 +19,15 @@ public class Crops {
 	
 	private void addPrototype(Crop crop) {
 		this.crops.put(crop.getID(), crop);
+	}
+	
+	public static List<Crop> getPrototypes() {
+		Crops crops = new Crops();
+		ArrayList<Crop> templates = new ArrayList<>();
+		for(int key : crops.crops.keySet()) {
+			templates.add(Crops.createSeed(crops.crops.get(key).getID()));
+		}
+	return templates;
 	}
 	
 	public static Crop create(int id) {

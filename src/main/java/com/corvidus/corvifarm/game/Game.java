@@ -120,19 +120,20 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 	public void onSelect(WASDSelect wasdSelect, WASDSelectElement element) {
 		Tile tile = (Tile)element.getObject();
 		Item item;
-		// Check if there is an item in the inventory, otherwise return.
-		try {
-			item = this.player.getInventory().getCurrentItem();
-		} catch (IndexOutOfBoundsException e) {
-			this.log.addMessage("No selected item");
-		return;
-		}
+		// Tiles with interactive items have precedence.
 		if(tile.hasOverlay() && tile.getOverlay() instanceof Interactive interactive) {
 			try {
 				interactive.interact(this);
 			} catch (InvalidActionException e) {
 				log.addMessage(e.getMessage());
 			}
+		return;
+		}
+		// Check if there is an item in the inventory, otherwise return.
+		try {
+			item = this.player.getInventory().getCurrentItem();
+		} catch (IndexOutOfBoundsException e) {
+			this.log.addMessage("No selected item");
 		return;
 		}
 		/*

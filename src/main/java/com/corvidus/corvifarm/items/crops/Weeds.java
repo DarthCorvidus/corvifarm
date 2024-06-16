@@ -6,8 +6,10 @@ import com.corvidus.corvifarm.items.ItemAbstract;
 import com.corvidus.corvifarm.items.Scythable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Weeds extends ItemAbstract implements Scythable {
+	private Random rand = new Random();
 	@Override
 	public int getBaseDemand() {
 		return 0;
@@ -31,7 +33,9 @@ public class Weeds extends ItemAbstract implements Scythable {
 	@Override
 	public List<Item> getScythedItems() {
 		List<Item> items = new ArrayList<>();
-		items.add(new Fiber());
+		if(this.rand.nextInt(10) < 1) {
+			items.add(new Fiber());
+		}
 	return items;
 	}
 

@@ -108,5 +108,6 @@ public abstract class RoomAbstract implements Room, CalendarObserver {
 		for(Tile tile : this.tiles) {
 			tile.passDay();
 		}
+		this.refresh();
 	}
 }

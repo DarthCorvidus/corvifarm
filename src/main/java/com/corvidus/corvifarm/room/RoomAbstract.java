@@ -7,6 +7,7 @@ import com.corvidus.corvifarm.terminal.WidgetString;
 import com.corvidus.corvifarm.terminal.select.WASDSelect;
 import com.corvidus.corvifarm.terminal.select.WASDSelectObserver;
 import com.corvidus.corvifarm.tiles.FarmTile;
+import com.corvidus.corvifarm.tiles.ImmutableTile;
 import com.corvidus.corvifarm.tiles.Tile;
 import com.corvidus.corvifarm.tiles.TileSort;
 import com.corvidus.corvifarm.tiles.WASDSelectGroup;
@@ -15,6 +16,8 @@ import com.googlecode.lanterna.input.KeyStroke;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Random;
 
 public abstract class RoomAbstract implements Room, CalendarObserver {
@@ -23,6 +26,7 @@ public abstract class RoomAbstract implements Room, CalendarObserver {
 	protected WidgetString name;
 	protected Random rand = new Random();
 	protected ArrayList<Tile> tiles = new ArrayList<>();
+	private List<ImmutableTile> immutableTiles = new ArrayList<>();
 	protected RoomAbstract() {
 		this.pane = new WidgetPane(20, 2, 60, 18);
 		this.wasd = new WASDSelect(0, 1, 60, 17, 15);
@@ -30,6 +34,11 @@ public abstract class RoomAbstract implements Room, CalendarObserver {
 		this.pane.addWidget(this.wasd);
 		this.pane.addWidget(this.name);
 	}
+	
+	protected void addImmutableTile(ImmutableTile tile) {
+		this.immutableTiles.add(tile);
+	}
+	
 	
 	@Override
 	public int getPosX() {
@@ -70,10 +79,14 @@ public abstract class RoomAbstract implements Room, CalendarObserver {
 	
 	@Override
 	public void refresh() {
+		List<Tile> merged = new ArrayList<>();
+		merged.addAll(this.immutableTiles);
+		
 		Collections.sort(this.tiles, new TileSort());
-		HashMap<String, WASDSelectGroup> group = new HashMap<>();
+		merged.addAll(this.tiles);
+		LinkedHashMap<String, WASDSelectGroup> group = new LinkedHashMap<>();
 		this.wasd.clear();
-		for(Tile tile : this.tiles) {
+		for(Tile tile : merged) {
 			if(!group.containsKey(tile.getName())) {
 				group.put(tile.getName(), new WASDSelectGroup());
 			}

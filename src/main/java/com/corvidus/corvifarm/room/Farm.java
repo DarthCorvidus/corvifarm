@@ -11,16 +11,18 @@ import com.corvidus.corvifarm.tiles.Tile;
 import com.corvidus.corvifarm.tiles.FarmTile;
 import com.corvidus.corvifarm.tiles.ImmutableTile;
 import com.corvidus.corvifarm.tiles.WASDSelectGroup;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 public class Farm extends RoomAbstract {
 	private Farm() {
 		super();
+		this.addImmutableTile(new ImmutableTile(new Bed()));
+		this.addImmutableTile(new ImmutableTile(new ShippingBin()));
+		this.addImmutableTile(new ImmutableTile(new Shop()));
 	}
 	
 	private void init() {
-		this.tiles.add(new ImmutableTile(new Bed()));
-		this.tiles.add(new ImmutableTile(new ShippingBin()));
-		this.tiles.add(new ImmutableTile(new Shop()));
 		for(int i = 0;i<4096;i++) {
 			Tile tile = new FarmTile();
 			this.tiles.add(tile);

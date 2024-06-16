@@ -1,6 +1,7 @@
 package com.corvidus.corvifarm.room;
 
 import com.corvidus.corvifarm.game.Calendar;
+import com.corvidus.corvifarm.items.crops.Weeds;
 import com.corvidus.corvifarm.items.interactive.Bed;
 import com.corvidus.corvifarm.items.interactive.ShippingBin;
 import com.corvidus.corvifarm.items.interactive.Shop;
@@ -38,6 +39,11 @@ public class Farm extends RoomAbstract {
 				tile.setOverlay(new Stone());
 				continue;
 			}
+			if(this.rand.nextInt(10)<1) {
+				tile.setOverlay(new Weeds());
+				continue;
+			}
+
 		}
 	}
 	

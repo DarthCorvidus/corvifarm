@@ -4,6 +4,7 @@ import com.corvidus.corvifarm.game.Calendar;
 import com.corvidus.corvifarm.items.interactive.Bed;
 import com.corvidus.corvifarm.items.interactive.ShippingBin;
 import com.corvidus.corvifarm.items.interactive.Shop;
+import com.corvidus.corvifarm.items.stone.Stone;
 import com.corvidus.corvifarm.items.wood.Wood;
 import com.corvidus.corvifarm.terminal.select.WASDSelectElement;
 import com.corvidus.corvifarm.terminal.select.WASDSelectString;
@@ -31,6 +32,10 @@ public class Farm extends RoomAbstract {
 			*/
 			if(this.rand.nextInt(10)<1) {
 				tile.setOverlay(new Wood());
+				continue;
+			}
+			if(this.rand.nextInt(10)<1) {
+				tile.setOverlay(new Stone());
 				continue;
 			}
 		}

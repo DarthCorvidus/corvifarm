@@ -3,6 +3,7 @@ package com.corvidus.corvifarm.items.tools;
 import com.corvidus.corvifarm.game.InvalidActionException;
 import com.corvidus.corvifarm.game.Player;
 import com.corvidus.corvifarm.items.ItemAbstract;
+import com.corvidus.corvifarm.items.Scythable;
 import com.corvidus.corvifarm.items.TileManipulator;
 import com.corvidus.corvifarm.items.crops.Crop;
 import com.corvidus.corvifarm.items.crops.Crops;
@@ -23,15 +24,14 @@ public class Scythe extends ItemAbstract implements TileManipulator{
 		if(!tile.hasOverlay()) {
 			return;
 		}
-		if(!(tile.getOverlay() instanceof Crop)) {
+		if(!(tile.getOverlay() instanceof Scythable)) {
 			throw new InvalidActionException("Cannot be scythed.");
 		}
-		Crop crop = (Crop)tile.getOverlay();
-		if(crop.getState() != Crop.GROWN) {
-			throw new InvalidActionException("Crop not ready.");
+		Scythable scythable = (Scythable)tile.getOverlay();
+		scythable.scythe();
+		if(scythable.yieldsItem()) {
+			player.getInventory().addItems(scythable.getScythedItems());
 		}
-		Crop produce = Crops.createProduce(crop.getID());
-		player.getInventory().addItem(produce);
 		tile.removeOverlay();
 	}
 	

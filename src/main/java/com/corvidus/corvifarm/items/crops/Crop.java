@@ -3,13 +3,17 @@ package com.corvidus.corvifarm.items.crops;
 import com.corvidus.corvifarm.game.InvalidActionException;
 import com.corvidus.corvifarm.game.Player;
 import com.corvidus.corvifarm.items.Daily;
+import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.ItemAbstract;
+import com.corvidus.corvifarm.items.Scythable;
 import com.corvidus.corvifarm.items.TileManipulator;
 import com.corvidus.corvifarm.tiles.FarmTile;
 import com.corvidus.corvifarm.tiles.Tile;
 import com.corvidus.corvifarm.tiles.Waterable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Crop extends ItemAbstract implements TileManipulator, Daily {
+public class Crop extends ItemAbstract implements TileManipulator, Daily, Scythable {
 	public final static int SEED = 1;
 	public final static int GROWING = 2;
 	public final static int GROWN = 3;
@@ -108,6 +112,25 @@ public class Crop extends ItemAbstract implements TileManipulator, Daily {
 		if(this.state == Crop.GROWING) {
 			this.age++;
 		}
+	}
+
+	@Override
+	public void scythe() throws InvalidActionException {
+		if(this.state != Crop.GROWN) {
+			throw new InvalidActionException("Crop not ready.");
+		}
+	}
+
+	@Override
+	public boolean yieldsItem() {
+		return this.state == Crop.GROWN;
+	}
+
+	@Override
+	public List<Item> getScythedItems() {
+		List<Item> items = new ArrayList<>();
+		items.add(Crops.createProduce(this.getID()));
+	return items;
 	}
 
 }

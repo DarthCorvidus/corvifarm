@@ -14,13 +14,14 @@ public class Inventory implements TerminalWidget {
 	private List<Item> items = new ArrayList();
 	private WidgetTextLines text;
 	private int selected = 0;
+	private int page = 0;
 	public Inventory() {
 		this.text = new WidgetTextLines(0, 2, 20, 10);
 		this.refresh();
 	}
 	
 	public Item getCurrentItem() throws IndexOutOfBoundsException {
-		return this.items.get(this.selected);
+		return this.items.get(this.selected+(this.page*10));
 	}
 	
 	public void subCurrentItem() {
@@ -38,7 +39,7 @@ public class Inventory implements TerminalWidget {
 			String itemName = "";
 			Item item;
 			try {
-				item = this.items.get(i);
+				item = this.items.get(i+(this.page*10));
 				itemName = item.getName();
 				if(item.getAmount()>1) {
 					itemName = item.getAmount()+"×"+itemName;
@@ -105,6 +106,15 @@ public class Inventory implements TerminalWidget {
 
 	@Override
 	public void onInput(KeyStroke keyStroke) {
+		if(keyStroke.getKeyType() == KeyType.Tab) {
+			int maxPages = Math.floorDiv(this.items.size(), 10)+1;
+			if(this.page < 2) {
+				this.page++;
+			} else {
+				this.page = 0;
+			}
+			this.refresh();
+		}
 		if(keyStroke.getKeyType() != KeyType.Character) {
 			return;
 		}

@@ -107,7 +107,6 @@ public class Inventory implements TerminalWidget {
 	@Override
 	public void onInput(KeyStroke keyStroke) {
 		if(keyStroke.getKeyType() == KeyType.Tab) {
-			int maxPages = Math.floorDiv(this.items.size(), 10)+1;
 			if(this.page < 2) {
 				this.page++;
 			} else {

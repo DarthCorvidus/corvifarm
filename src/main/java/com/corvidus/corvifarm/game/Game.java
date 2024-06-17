@@ -7,6 +7,7 @@ package com.corvidus.corvifarm.game;
 import com.corvidus.corvifarm.items.Interactive;
 import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.TileManipulator;
+import com.corvidus.corvifarm.items.wood.Wood;
 import com.corvidus.corvifarm.room.Farm;
 import com.corvidus.corvifarm.room.Room;
 import com.corvidus.corvifarm.room.Rooms;
@@ -42,12 +43,14 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 		this.calendar = new Calendar();
 		this.rooms = Rooms.fromScratch();
 		this.rooms.getCurrent().addWASDSelectObserver(this);
+		this.rooms.getCurrent().getGround().addItem(new Wood());
 		// Not correct, needs to be applied to all rooms.
 		this.calendar.addCalendarObserver(this.rooms);
 		this.userInterface.addWidget(this.debug);
 		this.userInterface.addWidget(calendar);
 		this.userInterface.addWidget(player);
 		this.userInterface.addWidget(this.rooms.getCurrent());
+		this.userInterface.addWidget(this.rooms.getCurrent().getGround());
 		this.userInterface.addWidget(log);
 		this.userInterface.refresh();
 	}
@@ -103,9 +106,11 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 	
 	public void changeRoom(int id) {
 		this.userInterface.removeWidget(this.rooms.getCurrent());
+		this.userInterface.removeWidget(this.rooms.getCurrent().getGround());
 		this.rooms.getCurrent().removeWASDSelectObserver(this);
 		this.rooms.change(id);
 		this.userInterface.addWidget(this.rooms.getCurrent());
+		this.userInterface.addWidget(this.rooms.getCurrent().getGround());
 		this.rooms.getCurrent().addWASDSelectObserver(this);
 	}
 

@@ -2,6 +2,7 @@ package com.corvidus.corvifarm.room;
 
 import com.corvidus.corvifarm.game.Calendar;
 import com.corvidus.corvifarm.game.CalendarObserver;
+import com.corvidus.corvifarm.game.Ground;
 import com.corvidus.corvifarm.terminal.WidgetPane;
 import com.corvidus.corvifarm.terminal.WidgetString;
 import com.corvidus.corvifarm.terminal.select.WASDSelect;
@@ -26,6 +27,7 @@ public abstract class RoomAbstract implements Room, CalendarObserver {
 	protected WidgetString name;
 	protected Random rand = new Random();
 	protected ArrayList<Tile> tiles = new ArrayList<>();
+	private Ground ground = new Ground();
 	private List<ImmutableTile> immutableTiles = new ArrayList<>();
 	protected RoomAbstract() {
 		this.pane = new WidgetPane(20, 2, 60, 18);
@@ -109,5 +111,10 @@ public abstract class RoomAbstract implements Room, CalendarObserver {
 			tile.passDay();
 		}
 		this.refresh();
+	}
+	
+	@Override
+	public Ground getGround() {
+		return this.ground;
 	}
 }

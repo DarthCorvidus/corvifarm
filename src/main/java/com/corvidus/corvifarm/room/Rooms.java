@@ -1,11 +1,13 @@
 package com.corvidus.corvifarm.room;
 
+import com.corvidus.corvifarm.game.Calendar;
+import com.corvidus.corvifarm.game.CalendarObserver;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Rooms {
+public class Rooms implements CalendarObserver {
 	private Map<Integer, Room> rooms = new HashMap<>();
 	private Room current;
 	public static int YOUR_HOUSE = 0;
@@ -31,5 +33,19 @@ public class Rooms {
 	
 	public Room getRoom(int room) {
 		return this.rooms.get(room);
+	}
+
+	@Override
+	public void onSecond(Calendar calendar) {
+		//for(int key : this.rooms.keySet()) {
+		//	this.rooms.get(key).onSecond(calendar);
+		//}
+	}
+
+	@Override
+	public void onWakeup(Calendar calendar) {
+		for(int key : this.rooms.keySet()) {
+			this.rooms.get(key).onWakeup(calendar);
+		}
 	}
 }

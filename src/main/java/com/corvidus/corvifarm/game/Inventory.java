@@ -71,6 +71,9 @@ public class Inventory implements TerminalWidget {
 	
 	public void addItems(List<Item> items) {
 		for(Item item : items) {
+			if(item.getAmount()==0) {
+				continue;
+			}
 			this.addItem(item);
 		}
 	}

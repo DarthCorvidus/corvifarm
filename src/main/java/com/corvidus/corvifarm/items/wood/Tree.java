@@ -1,25 +1,55 @@
 package com.corvidus.corvifarm.items.wood;
 import com.corvidus.corvifarm.items.Axable;
+import com.corvidus.corvifarm.items.Daily;
 import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.ItemAbstract;
 import com.corvidus.corvifarm.tiles.Tile;
 import java.util.ArrayList;
 import java.util.Random;
-abstract class Tree extends ItemAbstract implements Axable {
+public class Tree extends ItemAbstract implements Axable, Daily {
 	protected int state = 0;
 	protected int maxHP = 0;
 	protected int wood;
 	protected int hp = 0;
+	private int id;
+	private String name;
 	private final Random rand;
 	public static final int SEED = 0;
 	public static final int SAPLING = 1;
 	public static final int TREELING = 2;
 	public static final int SMALL = 3;
 	public static final int TREE = 4;
-	public Tree(int state) {
-		this.state = state;
+	public Tree(int id, String name) {
+		this.state = Tree.SEED;
 		this.rand = new Random();
+		this.id = id;
+		this.name = name;
 		this.regenerateHP();
+	}
+	
+	public int getID() {
+		return this.id;
+	}
+	
+	public Tree create() {
+		Tree tree = new Tree(this.id, this.name);
+	return tree;
+	}
+	
+	public String getName() {
+		switch (this.state) {
+			case SEED:
+				return this.name+" Seed";
+			case Tree.SAPLING:
+				return this.name+" Sapling";
+			case Tree.TREELING:
+				return "Tiny "+this.name;
+			case Tree.SMALL:
+				return "Small "+this.name;
+			case Tree.TREE:
+				return this.name;
+		}
+	return this.getName();
 	}
 	
 	public void setState(int state) {
@@ -47,8 +77,6 @@ abstract class Tree extends ItemAbstract implements Axable {
 	public boolean isGrown() {
 		return this.state == this.TREE;
 	}
-	
-	public abstract Tree asSeed();
 	
 	private void regenerateHP() {
 		switch (this.state) {
@@ -82,6 +110,7 @@ abstract class Tree extends ItemAbstract implements Axable {
 		}
 	}
 	
+	@Override
 	public void passDay(Tile tile) {
 		if(this.rand.nextInt(10)<2) {
 			this.progress();
@@ -107,10 +136,12 @@ abstract class Tree extends ItemAbstract implements Axable {
 		return items;
 		}
 		Wood wood = new Wood();
-		wood.setAmount(this.wood);
+		if(this.wood > 0) {
+			wood.setAmount(this.wood);
+		}
 		items.add(wood);
-		if(this.rand.nextInt(10)<3) {
-			items.add(this.asSeed());
+		if(this.rand.nextInt(10)<3 && this.state == Tree.TREE) {
+			items.add(this.create());
 		}
 	return items;
 	}

@@ -7,6 +7,7 @@ import com.corvidus.corvifarm.items.interactive.Exit;
 import com.corvidus.corvifarm.items.interactive.ShippingBin;
 import com.corvidus.corvifarm.items.interactive.Shop;
 import com.corvidus.corvifarm.items.stone.Stone;
+import com.corvidus.corvifarm.items.wood.Trees;
 import com.corvidus.corvifarm.items.wood.Wood;
 import com.corvidus.corvifarm.terminal.select.WASDSelectElement;
 import com.corvidus.corvifarm.terminal.select.WASDSelectString;
@@ -44,7 +45,10 @@ public class Farm extends RoomAbstract {
 				tile.setOverlay(new Weeds());
 				continue;
 			}
-
+			if(this.rand.nextInt(10)<1) {
+				tile.setOverlay(Trees.createRandom());
+				continue;
+			}
 		}
 	}
 	

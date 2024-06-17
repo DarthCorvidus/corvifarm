@@ -9,6 +9,7 @@ import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.TileManipulator;
 import com.corvidus.corvifarm.room.Farm;
 import com.corvidus.corvifarm.room.Room;
+import com.corvidus.corvifarm.room.Rooms;
 import com.corvidus.corvifarm.terminal.TerminalWidget;
 import com.corvidus.corvifarm.terminal.UserInterface;
 import com.corvidus.corvifarm.terminal.WidgetInputObserver;
@@ -31,7 +32,7 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 	private WidgetString debug;
 	private int called = 0;
 	private Player player;
-	private Room room;
+	private Rooms rooms;
 	private WidgetLog log;
 	public Game() {
 		this.log = new WidgetLog(0, 20, 80, 4);
@@ -39,13 +40,14 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 		this.debug = new WidgetString(40, 0, 40, "Debug");	
 		this.userInterface = new UserInterface();
 		this.calendar = new Calendar();
-		this.room = Farm.fromScratch();
-		this.room.addWASDSelectObserver(this);
-		this.calendar.addCalendarObserver(this.room);
+		this.rooms = Rooms.fromScratch();
+		this.rooms.getCurrent().addWASDSelectObserver(this);
+		// Not correct, needs to be applied to all rooms.
+		//this.calendar.addCalendarObserver(this.rooms.getCurrent());
 		this.userInterface.addWidget(this.debug);
 		this.userInterface.addWidget(calendar);
 		this.userInterface.addWidget(player);
-		this.userInterface.addWidget(this.room);
+		this.userInterface.addWidget(this.rooms.getCurrent());
 		this.userInterface.addWidget(log);
 		this.userInterface.refresh();
 	}
@@ -64,6 +66,10 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 	
 	public WidgetLog getLog() {
 		return this.log;
+	}
+	
+	public Rooms getRooms() {
+		return this.rooms;
 	}
 	
 	public void run() {
@@ -93,6 +99,14 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 	@Override
 	public void onWakeup(Calendar calendar) {
 		this.userInterface.refresh();
+	}
+	
+	public void changeRoom(int id) {
+		this.userInterface.removeWidget(this.rooms.getCurrent());
+		this.rooms.getCurrent().removeWASDSelectObserver(this);
+		this.rooms.change(id);
+		this.userInterface.addWidget(this.rooms.getCurrent());
+		this.rooms.getCurrent().addWASDSelectObserver(this);
 	}
 
 	@Override
@@ -148,7 +162,7 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 		if(item instanceof TileManipulator tm) {
 			try {
 				tm.apply(this.player, tile);
-				this.room.refresh();
+				this.rooms.getCurrent().refresh();
 			} catch (InvalidActionException e) {
 				log.addMessage(e.getMessage());
 			}

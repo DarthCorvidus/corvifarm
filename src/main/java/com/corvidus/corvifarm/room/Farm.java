@@ -3,6 +3,7 @@ package com.corvidus.corvifarm.room;
 import com.corvidus.corvifarm.game.Calendar;
 import com.corvidus.corvifarm.items.crops.Weeds;
 import com.corvidus.corvifarm.items.interactive.Bed;
+import com.corvidus.corvifarm.items.interactive.Exit;
 import com.corvidus.corvifarm.items.interactive.ShippingBin;
 import com.corvidus.corvifarm.items.interactive.Shop;
 import com.corvidus.corvifarm.items.stone.Stone;
@@ -19,7 +20,7 @@ import java.util.List;
 public class Farm extends RoomAbstract {
 	private Farm() {
 		super();
-		this.addImmutableTile(new ImmutableTile(new Bed()));
+		this.addImmutableTile(new ImmutableTile(new Exit(Rooms.YOUR_HOUSE, "Farm House")));
 		this.addImmutableTile(new ImmutableTile(new ShippingBin()));
 		this.addImmutableTile(new ImmutableTile(new Shop()));
 	}

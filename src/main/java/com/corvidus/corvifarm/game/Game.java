@@ -167,6 +167,7 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 		if(item instanceof TileManipulator tm) {
 			try {
 				tm.apply(this.player, tile);
+				this.calendar.fastForward(10);
 				this.rooms.getCurrent().refresh();
 			} catch (InvalidActionException e) {
 				log.addMessage(e.getMessage());

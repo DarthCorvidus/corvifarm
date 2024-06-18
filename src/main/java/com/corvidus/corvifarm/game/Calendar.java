@@ -80,6 +80,12 @@ public class Calendar implements TerminalWidget {
 		}
 	}
 	
+	public void fastForward(int seconds) {
+		for(int i = 0; i<seconds;i++) {
+			this.incr();
+		}
+	}
+	
 	public void sleep() {
 		int days = this.getJulian();
 		int seconds = days * 60*24;

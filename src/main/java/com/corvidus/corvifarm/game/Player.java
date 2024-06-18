@@ -65,10 +65,14 @@ public class Player implements TerminalWidget {
 		return this.energy;
 	}
 	
-	public void subEnergy(int energy) throws InvalidActionException {
-		if(this.energy - energy < 0) {
+	public void assertEnergy(int energy) throws InvalidActionException {
+		if(this.energy < energy) {
 			throw new InvalidActionException("Not enough energy.");
 		}
+	}
+	
+	public void subEnergy(int energy) throws InvalidActionException {
+		this.assertEnergy(energy);
 		this.energy -= energy;
 		this.valueEnergy.setString(Integer.toString(this.energy));
 	}
@@ -81,7 +85,14 @@ public class Player implements TerminalWidget {
 		this.valueEnergy.setString(Integer.toString(this.energy));
 	}
 	
+	public void assertGold(int gold) throws InvalidActionException {
+		if(this.gold < gold) {
+			throw new InvalidActionException("Not enough gold.");
+		}
+	}
+	
 	public void subGold(int gold) throws InvalidActionException {
+		this.assertGold(gold);
 		if(this.gold - gold < 0) {
 			throw new InvalidActionException("Not enough gold.");
 		}

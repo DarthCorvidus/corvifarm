@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Random;
 public class Tree extends ItemAbstract implements Axable, Daily {
 	protected int state = 0;
-	protected int maxHP = 0;
-	protected int wood;
 	protected int hp = 0;
 	private int id;
 	private String name;
@@ -19,6 +17,9 @@ public class Tree extends ItemAbstract implements Axable, Daily {
 	public static final int TREELING = 2;
 	public static final int SMALL = 3;
 	public static final int TREE = 4;
+	public final int[] yield =  {0, 0, 1, 5, 15};
+	public final int[] maxHP = {0, 0, 10, 30, 50};
+	public final String[] names = {"%s Seed", "%s Sapling", "Tiny %s", "Small %s", "%s"};
 	public Tree(int id, String name) {
 		this.state = Tree.SEED;
 		this.rand = new Random();
@@ -37,19 +38,7 @@ public class Tree extends ItemAbstract implements Axable, Daily {
 	}
 	
 	public String getName() {
-		switch (this.state) {
-			case SEED:
-				return this.name+" Seed";
-			case Tree.SAPLING:
-				return this.name+" Sapling";
-			case Tree.TREELING:
-				return "Tiny "+this.name;
-			case Tree.SMALL:
-				return "Small "+this.name;
-			case Tree.TREE:
-				return this.name;
-		}
-	return this.getName();
+		return String.format(this.names[this.state], this.name);
 	}
 	
 	public void setState(int state) {
@@ -79,29 +68,7 @@ public class Tree extends ItemAbstract implements Axable, Daily {
 	}
 	
 	private void regenerateHP() {
-		switch (this.state) {
-			case SEED:
-				this.maxHP = 0;
-				this.wood = 0;
-				break;
-			case Tree.SAPLING:
-				this.maxHP = 0;
-				this.wood = 0;
-			break;
-			case Tree.TREELING:
-				this.maxHP = 10;
-				this.wood = 2;
-			break;
-			case Tree.SMALL:
-				this.maxHP = 25;
-				this.wood = 5;
-			break;
-			case Tree.TREE:
-				this.maxHP = 50;
-				this.wood = 15;
-			break;
-		}
-	this.hp = this.maxHP;
+		this.hp = this.maxHP[this.state];
 	}
 	
 	public void progress() {
@@ -135,11 +102,13 @@ public class Tree extends ItemAbstract implements Axable, Daily {
 			items.add(seed);
 		return items;
 		}
-		Wood wood = new Wood();
-		if(this.wood > 0) {
-			wood.setAmount(this.wood);
+		
+		if(this.yield[this.state] > 0) {
+			Wood wood = new Wood();
+			wood.setAmount(this.yield[this.state]);
+			items.add(wood);
 		}
-		items.add(wood);
+		
 		if(this.rand.nextInt(10)<3 && this.state == Tree.TREE) {
 			items.add(this.create());
 		}

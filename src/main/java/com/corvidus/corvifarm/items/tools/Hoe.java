@@ -28,5 +28,10 @@ public class Hoe extends ItemAbstract implements TileManipulator {
 		Tillable tillable = (Tillable)tile;
 		tillable.till();
 	}
+
+	@Override
+	public int getBaseEnergyCost() {
+		return 2;
+	}
 	
 }

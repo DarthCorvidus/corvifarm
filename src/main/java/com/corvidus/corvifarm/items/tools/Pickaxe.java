@@ -38,5 +38,10 @@ public class Pickaxe extends ItemAbstract implements TileManipulator {
 		tile.removeOverlay();
 
 	}
+
+	@Override
+	public int getBaseEnergyCost() {
+		return 2;
+	}
 	
 }

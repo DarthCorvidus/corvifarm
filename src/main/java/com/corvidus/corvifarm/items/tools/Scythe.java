@@ -34,5 +34,9 @@ public class Scythe extends ItemAbstract implements TileManipulator{
 		}
 		tile.removeOverlay();
 	}
-	
+
+	@Override
+	public int getBaseEnergyCost() {
+		return 2;
+	}
 }

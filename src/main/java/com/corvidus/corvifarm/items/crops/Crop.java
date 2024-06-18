@@ -133,4 +133,9 @@ public class Crop extends ItemAbstract implements TileManipulator, Daily, Scytha
 	return items;
 	}
 
+	@Override
+	public int getBaseEnergyCost() {
+		return 0;
+	}
+
 }

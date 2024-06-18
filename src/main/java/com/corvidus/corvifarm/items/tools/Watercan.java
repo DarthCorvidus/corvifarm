@@ -27,4 +27,9 @@ public class Watercan extends ItemAbstract implements TileManipulator {
 		waterable.water();
 	}
 
+	@Override
+	public int getBaseEnergyCost() {
+		return 2;
+	}
+
 }

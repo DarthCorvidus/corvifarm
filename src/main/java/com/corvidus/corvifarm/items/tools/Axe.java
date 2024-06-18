@@ -37,5 +37,10 @@ public class Axe extends ItemAbstract implements TileManipulator {
 		player.getInventory().addItems(items);
 		tile.removeOverlay();
 	}
+
+	@Override
+	public int getBaseEnergyCost() {
+		return 2;
+	}
 	
 }

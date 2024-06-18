@@ -26,5 +26,14 @@ public class YourHouse extends RoomAbstract {
 		yh.refresh();
 	return yh;
 	}
-	
+
+	@Override
+	public void init() {
+		throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+	}
+
+	@Override
+	public void respawn() {
+		
+	}
 }

@@ -12,4 +12,6 @@ public interface Room extends TerminalWidget, CalendarObserver {
 	public void removeWASDSelectObserver(WASDSelectObserver observer);
 	public void refresh();
 	public Ground getGround();
+	public void init();
+	public void respawn();
 }

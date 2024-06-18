@@ -46,6 +46,7 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 		this.rooms.getCurrent().getGround().addItem(new Wood());
 		// Not correct, needs to be applied to all rooms.
 		this.calendar.addCalendarObserver(this.rooms);
+		this.calendar.addCalendarObserver(this.player);
 		this.userInterface.addWidget(this.debug);
 		this.userInterface.addWidget(calendar);
 		this.userInterface.addWidget(player);

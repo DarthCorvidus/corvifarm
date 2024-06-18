@@ -18,7 +18,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
 
-public class Player implements TerminalWidget {
+public class Player implements TerminalWidget, CalendarObserver {
 	private int gold = 500;
 	private int energy = 270;
 	public static int defaultEnergy = 270;
@@ -133,6 +133,16 @@ public class Player implements TerminalWidget {
 	@Override
 	public void onInput(KeyStroke keyStroke) {
 		this.pane.onInput(keyStroke);
+	}
+
+	@Override
+	public void onSecond(Calendar calendar) {
+		
+	}
+
+	@Override
+	public void onWakeup(Calendar calendar) {
+		this.addEnergy(Player.defaultEnergy);
 	}
 	
 }

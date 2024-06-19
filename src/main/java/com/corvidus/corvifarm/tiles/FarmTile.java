@@ -32,15 +32,15 @@ public class FarmTile extends TileAbstract implements Tillable, Waterable {
 
 	@Override
 	public void passDay() {
+		if(this.hasOverlay() && this.getOverlay() instanceof Daily) {
+			Daily daily = (Daily)this.getOverlay();
+			daily.passDay(this);
+		}
 		if(this.watered) {
 			this.watered = false;
 		}
 		if(this.tilled && this.rand.nextInt(10)<5 && !this.hasOverlay()) {
 			this.tilled = false;
-		}
-		if(this.hasOverlay() && this.getOverlay() instanceof Daily) {
-			Daily daily = (Daily)this.getOverlay();
-			daily.passDay(this);
 		}
 	}
 	

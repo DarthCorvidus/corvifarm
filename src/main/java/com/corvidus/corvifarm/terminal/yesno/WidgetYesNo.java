@@ -15,7 +15,7 @@ public class WidgetYesNo implements TerminalWidget {
 	private final ArrayList<YesNoObserver> observers = new ArrayList<>();
 	public WidgetYesNo(int posX, int posY, int width, int height, String question) {
 		this.pane = new WidgetPane(posX, posY, width, height);
-		this.string = new WidgetString(0, 0, width, question);
+		this.string = new WidgetString(1, 1, width, question);
 		this.pane.addWidget(this.string);
 	}
 	@Override

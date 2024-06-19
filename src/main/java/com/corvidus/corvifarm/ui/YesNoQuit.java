@@ -11,7 +11,7 @@ public class YesNoQuit  implements YesNoObserver {
 	private final WidgetYesNo yesNo;
 	public YesNoQuit(Game game){
 		this.game = game;
-		this.yesNo = new WidgetYesNo(10, 5, 20, 4, "Quit (y/N)");
+		this.yesNo = new WidgetYesNo(30, 10, 20, 4, "Quit (y/N)");
 		this.userInterface = this.game.getUserInterface();
 		this.calendar = this.game.getCalendar();
 		this.calendar.pause();

@@ -98,7 +98,7 @@ public class Crop extends ItemAbstract implements TileManipulator, Daily, Scytha
 	@Override
 	public void passDay(Tile tile) {
 		Waterable waterable = (Waterable)tile;
-		if(waterable.isWatered()) {
+		if(!waterable.isWatered()) {
 			return;
 		}
 		if(this.state == Crop.SEED) {

@@ -2,8 +2,9 @@ package com.corvidus.corvifarm.tiles;
 import com.corvidus.corvifarm.items.Item;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
-public class TileFilter {
+public class TileFilter implements Predicate<Tile> {
 	private List<Class> includeTileClass = new ArrayList<>();
 	private List<Class> excludeTileClass = new ArrayList<>();
 	private List<Class> includeOverlayClass = new ArrayList<>();
@@ -81,7 +82,8 @@ public class TileFilter {
 	return true;
 	}
 	
-	public boolean match(Tile tile) {
+	@Override
+	public boolean test(Tile tile) {
 		if(!this.matchTileClass(tile)) {
 			return false;
 		}

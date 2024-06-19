@@ -28,36 +28,36 @@ public class TileFilterTest {
 	public void testIncludeTileClass() {
 		TileFilter filter = new TileFilter();
 		filter.includeTileClass(FarmTile.class);
-		assertSame(true, filter.match(new FarmTile()));
-		assertSame(false, filter.match(new GroundTile()));
-		assertSame(false, filter.match(new ForestTile()));
+		assertSame(true, filter.test(new FarmTile()));
+		assertSame(false, filter.test(new GroundTile()));
+		assertSame(false, filter.test(new ForestTile()));
 	}
 
 	@Test
 	public void testIncludeTileInterface() {
 		TileFilter filter = new TileFilter();
 		filter.includeTileClass(Tillable.class);
-		assertSame(true, filter.match(new FarmTile()));
-		assertSame(true, filter.match(new GroundTile()));
-		assertSame(false, filter.match(new ForestTile()));
+		assertSame(true, filter.test(new FarmTile()));
+		assertSame(true, filter.test(new GroundTile()));
+		assertSame(false, filter.test(new ForestTile()));
 	}
 	
 	@Test
 	public void testExcludeTileClass() {
 		TileFilter filter = new TileFilter();
 		filter.excludeTileClass(FarmTile.class);
-		assertSame(false, filter.match(new FarmTile()));
-		assertSame(true, filter.match(new GroundTile()));
-		assertSame(true, filter.match(new ForestTile()));
+		assertSame(false, filter.test(new FarmTile()));
+		assertSame(true, filter.test(new GroundTile()));
+		assertSame(true, filter.test(new ForestTile()));
 	}
 	
 	@Test
 	public void testExcludeTileInterface() {
 		TileFilter filter = new TileFilter();
 		filter.excludeTileClass(Tillable.class);
-		assertSame(false, filter.match(new FarmTile()));
-		assertSame(false, filter.match(new GroundTile()));
-		assertSame(true, filter.match(new ForestTile()));
+		assertSame(false, filter.test(new FarmTile()));
+		assertSame(false, filter.test(new GroundTile()));
+		assertSame(true, filter.test(new ForestTile()));
 	}
 
 	@Test
@@ -70,9 +70,9 @@ public class TileFilterTest {
 		Tile tree = new FarmTile();
 		tree.setOverlay(Trees.createRandom());
 		
-		assertSame(false, filter.match(empty));
-		assertSame(false, filter.match(weed));
-		assertSame(true, filter.match(tree));
+		assertSame(false, filter.test(empty));
+		assertSame(false, filter.test(weed));
+		assertSame(true, filter.test(tree));
 	}
 	
 	@Test
@@ -85,9 +85,9 @@ public class TileFilterTest {
 		Tile tree = new FarmTile();
 		tree.setOverlay(Trees.createRandom());
 		
-		assertSame(false, filter.match(empty));
-		assertSame(true, filter.match(weed));
-		assertSame(false, filter.match(tree));
+		assertSame(false, filter.test(empty));
+		assertSame(true, filter.test(weed));
+		assertSame(false, filter.test(tree));
 	}
 	
 	@Test
@@ -101,10 +101,10 @@ public class TileFilterTest {
 		} catch (InvalidActionException e) {
 			
 		}
-		assertSame(false, filter.match(ft1));
-		assertSame(true, filter.match(ft2));
-		assertSame(false, filter.match(new GroundTile()));
-		assertSame(false, filter.match(new ForestTile()));
+		assertSame(false, filter.test(ft1));
+		assertSame(true, filter.test(ft2));
+		assertSame(false, filter.test(new GroundTile()));
+		assertSame(false, filter.test(new ForestTile()));
 	}
 	
 	@Test
@@ -118,10 +118,10 @@ public class TileFilterTest {
 		} catch (InvalidActionException e) {
 			
 		}
-		assertSame(true, filter.match(ft1));
-		assertSame(false, filter.match(ft2));
-		assertSame(true, filter.match(new GroundTile()));
-		assertSame(false, filter.match(new ForestTile()));
+		assertSame(true, filter.test(ft1));
+		assertSame(false, filter.test(ft2));
+		assertSame(true, filter.test(new GroundTile()));
+		assertSame(false, filter.test(new ForestTile()));
 	}
 
 	@Test
@@ -136,10 +136,10 @@ public class TileFilterTest {
 		} catch (InvalidActionException e) {
 			
 		}
-		assertSame(false, filter.match(ft1));
-		assertSame(true, filter.match(ft2));
-		assertSame(false, filter.match(new GroundTile()));
-		assertSame(false, filter.match(new ForestTile()));
+		assertSame(false, filter.test(ft1));
+		assertSame(true, filter.test(ft2));
+		assertSame(false, filter.test(new GroundTile()));
+		assertSame(false, filter.test(new ForestTile()));
 	}
 	
 	@Test
@@ -154,10 +154,10 @@ public class TileFilterTest {
 		} catch (InvalidActionException e) {
 			
 		}
-		assertSame(true, filter.match(ft1));
-		assertSame(false, filter.match(ft2));
-		assertSame(true, filter.match(new GroundTile()));
-		assertSame(false, filter.match(new ForestTile()));
+		assertSame(true, filter.test(ft1));
+		assertSame(false, filter.test(ft2));
+		assertSame(true, filter.test(new GroundTile()));
+		assertSame(false, filter.test(new ForestTile()));
 	}
 
 	@Test
@@ -170,9 +170,9 @@ public class TileFilterTest {
 		Tile tree = new FarmTile();
 		tree.setOverlay(Trees.createRandom());
 		
-		assertSame(false, filter.match(empty));
-		assertSame(true, filter.match(weed));
-		assertSame(true, filter.match(tree));
+		assertSame(false, filter.test(empty));
+		assertSame(true, filter.test(weed));
+		assertSame(true, filter.test(tree));
 	}
 
 	@Test
@@ -185,9 +185,9 @@ public class TileFilterTest {
 		Tile tree = new FarmTile();
 		tree.setOverlay(Trees.createRandom());
 		
-		assertSame(true, filter.match(empty));
-		assertSame(false, filter.match(weed));
-		assertSame(false, filter.match(tree));
+		assertSame(true, filter.test(empty));
+		assertSame(false, filter.test(weed));
+		assertSame(false, filter.test(tree));
 	}
 
 }

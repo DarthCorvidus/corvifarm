@@ -14,7 +14,7 @@ import com.corvidus.corvifarm.input.InputObserver;
 public class Corvifarm {
 	private Game game;
 	public Corvifarm() {
-		this.game = new Game();
+		this.game = Game.fromScratch();
 	}
 	
 	public void run() {

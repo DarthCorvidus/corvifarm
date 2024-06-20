@@ -13,11 +13,19 @@ public class Calendar implements TerminalWidget {
 	private final ArrayList<CalendarObserver> calendarObservers = new ArrayList<>();
 	private final WidgetString widgetString;
 	private boolean paused = false;
-	public Calendar() {
+	private Calendar() {
 		this.seconds = 6*60;
 		this.cooldown = new Cooldown(1000);
-		this.widgetString = new WidgetString(0, 0, 40, this.getDate());
+		this.widgetString = new WidgetString(0, 0, 40);
 	}
+	
+	public static Calendar fromScratch() {
+		Calendar calendar = new Calendar();
+		calendar.seconds = 6*60;
+		calendar.widgetString.setString(calendar.getDate());
+	return calendar;
+	}
+	
 	
 	public void pause() {
 		this.paused = true;

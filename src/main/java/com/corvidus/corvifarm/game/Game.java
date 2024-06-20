@@ -44,7 +44,7 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 	public static Game fromScratch() {
 		Game game = new Game();
 		game.player = Player.fromScratch();
-		game.calendar = new Calendar();
+		game.calendar = Calendar.fromScratch();
 		game.rooms = Rooms.fromScratch();
 		game.rooms.getCurrent().addWASDSelectObserver(game);
 		game.rooms.getCurrent().getGround().addItem(new Wood());

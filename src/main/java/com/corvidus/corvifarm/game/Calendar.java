@@ -79,6 +79,10 @@ public class Calendar implements TerminalWidget {
 	public int getSeconds() {
 		return this.seconds;
 	}
+	
+	public int getDaySeconds() {
+		return this.seconds % 1440;
+	}
 
 	public void incr() {
 		this.seconds++;
@@ -86,7 +90,7 @@ public class Calendar implements TerminalWidget {
 		for(CalendarObserver obs : this.calendarObservers) {
 			obs.onSecond(this);
 		}
-		if(this.getTime().equals("02:00")) {
+		if(this.getDaySeconds()==120) {
 			this.sleep();
 		}
 	}
@@ -99,8 +103,7 @@ public class Calendar implements TerminalWidget {
 	
 	public void sleep() {
 		int days = this.getJulian();
-		int seconds = days * 60*24;
-		if(this.seconds<=seconds + (2*60)) {
+		if(this.getDaySeconds()<=120) {
 			this.seconds = (days * 60*24) + (6*60);
 		} else {
 			this.seconds = (days * 60*24) + (30*60);

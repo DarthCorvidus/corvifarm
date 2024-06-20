@@ -5,6 +5,12 @@ import com.corvidus.corvifarm.terminal.WidgetString;
 import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
+import java.io.DataInput;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class Calendar implements TerminalWidget {
@@ -26,7 +32,18 @@ public class Calendar implements TerminalWidget {
 	return calendar;
 	}
 	
+	public static Calendar fromBinary(InputStream is) throws IOException {
+		DataInputStream dis = new DataInputStream(is);
+		Calendar cal = new Calendar();
+		cal.setSeconds(dis.readInt());
+	return cal;
+	}
 	
+	public void toBinary(OutputStream os) throws IOException {
+		DataOutputStream dos = new DataOutputStream(os);
+		dos.writeInt(this.seconds);
+	}
+		
 	public void pause() {
 		this.paused = true;
 	}

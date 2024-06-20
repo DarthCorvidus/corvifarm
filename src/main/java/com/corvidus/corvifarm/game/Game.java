@@ -102,6 +102,7 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 
 	@Override
 	public void onWakeup(Calendar calendar) {
+		this.changeRoom(Rooms.YOUR_HOUSE);
 		this.userInterface.refresh();
 	}
 	

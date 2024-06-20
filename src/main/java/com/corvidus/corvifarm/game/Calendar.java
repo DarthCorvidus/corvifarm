@@ -78,6 +78,9 @@ public class Calendar implements TerminalWidget {
 		for(CalendarObserver obs : this.calendarObservers) {
 			obs.onSecond(this);
 		}
+		if(this.getTime().equals("02:00")) {
+			this.sleep();
+		}
 	}
 	
 	public void fastForward(int seconds) {
@@ -103,9 +106,6 @@ public class Calendar implements TerminalWidget {
 	public void run() {
 		if(this.cooldown.ready() && !this.paused) {
 			this.incr();
-			if(this.getTime().equals("02:00")) {
-				this.sleep();
-			}
 		}
 	}
 

@@ -10,6 +10,7 @@ import com.corvidus.corvifarm.terminal.select.WASDSelectObserver;
 import com.corvidus.corvifarm.tiles.FarmTile;
 import com.corvidus.corvifarm.tiles.ImmutableTile;
 import com.corvidus.corvifarm.tiles.Tile;
+import com.corvidus.corvifarm.tiles.TileFilter;
 import com.corvidus.corvifarm.tiles.TileSort;
 import com.corvidus.corvifarm.tiles.WASDSelectGroup;
 import com.googlecode.lanterna.graphics.TextImage;
@@ -81,11 +82,23 @@ public abstract class RoomAbstract implements Room, CalendarObserver {
 	
 	@Override
 	public void refresh() {
-		List<Tile> merged = new ArrayList<>();
-		merged.addAll(this.immutableTiles);
-		
 		Collections.sort(this.tiles, new TileSort());
-		merged.addAll(this.tiles);
+
+		List<Tile> merged = new ArrayList<>();
+		TileFilter emptyFilter = new TileFilter();
+		emptyFilter.hasOverlay(false);
+		
+		
+		List<Tile> empty = tiles.stream().filter(emptyFilter).toList();
+		
+		TileFilter overlayFilter = new TileFilter();
+		overlayFilter.hasOverlay(true);
+		List<Tile> overlaid = tiles.stream().filter(overlayFilter).toList();
+		
+		merged.addAll(this.immutableTiles);
+		merged.addAll(empty);
+		merged.addAll(overlaid);
+
 		LinkedHashMap<String, WASDSelectGroup> group = new LinkedHashMap<>();
 		this.wasd.clear();
 		for(Tile tile : merged) {

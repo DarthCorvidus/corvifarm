@@ -19,9 +19,30 @@ import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
 
 public class Player implements TerminalWidget, CalendarObserver {
+	public static int GREATER_CROW = 0;
+	public static int NORTHLAND_PENGUIN = 1;
+	public static int BADGER = 2;
+	public static int FOX = 3;
+	public static int BEAR = 4;
+	public static int MALE = 0;
+	public static int FEMALE = 1;
+	public static int EXP_FARM = 0;
+	public static int EXP_FISH = 1;
+	public static int EXP_FORAGE = 2;
+	public static int EXP_MINE = 3;
+	public static int EXP_PSI = 4;
+	private int[] exp = {0, 0, 0, 0, 0};
 	private int gold = 500;
 	private int energy = 270;
+	private int confidence = 100;
+	// Corvidae are the best.
+	private int species = Player.GREATER_CROW;
+	// Greater Crows are ruled by matriarchs. Better play as a female ;-).
+	private int gender = Player.FEMALE;
+	// Greater Crows like ancient human names.
+	private String name = "Heidemarie";
 	public static int defaultEnergy = 270;
+	public static int defaultConfidence = 100;
 	private WidgetPane pane;
 	private WidgetString labelEnergy;
 	private WidgetString labelGold;
@@ -63,6 +84,10 @@ public class Player implements TerminalWidget, CalendarObserver {
 	
 	public int getEnergy() {
 		return this.energy;
+	}
+	
+	public int getConfidence() {
+		return this.confidence;
 	}
 	
 	public void assertEnergy(int energy) throws InvalidActionException {

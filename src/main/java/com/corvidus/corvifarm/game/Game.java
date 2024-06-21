@@ -29,8 +29,11 @@ import com.googlecode.lanterna.input.KeyType;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectObserver {
 	public Calendar calendar;
@@ -68,10 +71,11 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 	}
 	
 	public void toBinary() {
-		try (DataOutputStream dos = new DataOutputStream(new FileOutputStream("game.sav.tmp"))) {
+		try (FileOutputStream fos = new FileOutputStream("game.sav.tmp")) {
+			DataOutputStream dos = new DataOutputStream(fos);
 			this.calendar.toBinary(dos);
 			this.player.toBinary(dos);
-			Files.move(Paths.get("game.sav.tmp"), Paths.get("game.sav"));
+			Files.move(Paths.get("game.sav.tmp"), Paths.get("game.sav"), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(0);

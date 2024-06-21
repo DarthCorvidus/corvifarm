@@ -11,9 +11,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Calendar implements TerminalWidget {
+public class Calendar implements TerminalWidget, Serializable {
 	private int seconds = 0;
 	private final Cooldown cooldown;
 	private final ArrayList<CalendarObserver> calendarObservers = new ArrayList<>();

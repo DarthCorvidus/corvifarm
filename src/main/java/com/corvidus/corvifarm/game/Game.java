@@ -26,6 +26,11 @@ import com.corvidus.corvifarm.ui.YesNoQuit;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectObserver {
 	public Calendar calendar;
@@ -57,8 +62,21 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 		game.userInterface.addWidget(game.rooms.getCurrent());
 		game.userInterface.addWidget(game.rooms.getCurrent().getGround());
 		game.userInterface.addWidget(game.log);
+		game.toBinary();
 		game.userInterface.refresh();
 	return game;
+	}
+	
+	public void toBinary() {
+		try (DataOutputStream dos = new DataOutputStream(new FileOutputStream("game.sav.tmp"))) {
+			this.calendar.toBinary(dos);
+			this.player.toBinary(dos);
+			Files.move(Paths.get("game.sav.tmp"), Paths.get("game.sav"));
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
+
 	}
 	
 	public UserInterface getUserInterface() {
@@ -109,6 +127,7 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 	public void onWakeup(Calendar calendar) {
 		this.changeRoom(Rooms.YOUR_HOUSE);
 		this.userInterface.refresh();
+		this.toBinary();
 	}
 	
 	public void changeRoom(int id) {

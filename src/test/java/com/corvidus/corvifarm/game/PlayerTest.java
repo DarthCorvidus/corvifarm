@@ -27,7 +27,7 @@ public class PlayerTest {
 		System.out.println("getGold");
 		Player instance = Player.fromScratch();
 		int expResult = 500;
-		int result = instance.getGold();
+		long result = instance.getGold();
 		assertEquals(expResult, result);
 	}
 	
@@ -37,7 +37,7 @@ public class PlayerTest {
 		Player instance = Player.fromScratch();
 		int expResult = 600;
 		instance.addGold(100);
-		int result = instance.getGold();
+		long result = instance.getGold();
 		assertEquals(expResult, result);
 	}
 
@@ -51,7 +51,7 @@ public class PlayerTest {
 		} catch (InvalidActionException e) {
 			
 		}
-		int result = instance.getGold();
+		long result = instance.getGold();
 		assertEquals(expResult, result);
 	}
 

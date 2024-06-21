@@ -17,6 +17,12 @@ import com.googlecode.lanterna.graphics.BasicTextImage;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
+import java.io.DataInput;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class Player implements TerminalWidget, CalendarObserver {
 	public static int GREATER_CROW = 0;
@@ -32,7 +38,7 @@ public class Player implements TerminalWidget, CalendarObserver {
 	public static int EXP_MINE = 3;
 	public static int EXP_PSI = 4;
 	private int[] exp = {0, 0, 0, 0, 0};
-	private int gold = 500;
+	private long gold = 500;
 	private int energy = 270;
 	private int confidence = 100;
 	// Corvidae are the best.
@@ -53,7 +59,7 @@ public class Player implements TerminalWidget, CalendarObserver {
 		this.pane = new WidgetPane(0, 2, 20, 12);
 		this.labelGold = new WidgetString(0, 0, 7, "Gold:");
 		this.labelEnergy = new WidgetString(0, 1, 7, "Energy:");
-		this.valueGold = new WidgetString(8, 0, 8, Integer.toString(this.gold));
+		this.valueGold = new WidgetString(8, 0, 8, Long.toString(this.gold));
 		this.valueEnergy = new WidgetString(8, 1, 8, Integer.toString(this.energy));
 		this.inventory = new Inventory();
 		this.inventory.addItem(new Hoe());
@@ -78,7 +84,31 @@ public class Player implements TerminalWidget, CalendarObserver {
 	return player;
 	}
 	
-	public int getGold() {
+	public void toBinary(OutputStream os) throws IOException {
+		DataOutputStream dos = new DataOutputStream(os);
+		dos.writeUTF(this.name);
+		dos.write(this.species);
+		dos.write(this.gender);
+		dos.writeLong(this.gold);
+		for(int value : this.exp) {
+			dos.writeInt(value);
+		}
+	}
+
+	public static Player fromBinary(InputStream is) throws IOException {
+		Player player = new Player();
+		DataInputStream dis = new DataInputStream(is);
+		player.name = dis.readUTF();
+		player.species = dis.read();
+		player.gender = dis.read();
+		player.gold = dis.readLong();
+		for(int i = 0; i<5;i++) {
+			player.exp[i] = dis.readInt();
+		}
+	return player;
+	}
+	
+	public long getGold() {
 		return this.gold;
 	}
 	
@@ -122,12 +152,12 @@ public class Player implements TerminalWidget, CalendarObserver {
 			throw new InvalidActionException("Not enough gold.");
 		}
 		this.gold -= gold;
-		this.valueGold.setString(Integer.toString(this.gold));
+		this.valueGold.setString(Long.toString(this.gold));
 	}
 	
 	public void addGold(int gold) {
 		this.gold += gold;
-		this.valueGold.setString(Integer.toString(this.gold));
+		this.valueGold.setString(Long.toString(this.gold));
 	}
 
 	@Override

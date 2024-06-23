@@ -6,7 +6,7 @@ public class ImmutableTile extends TileAbstract {
 		
 	}
 	public ImmutableTile(Item overlay) {
-		this.setOverlay(overlay);
+		super.setOverlay(overlay);
 	}
 
 	@Override
@@ -16,6 +16,9 @@ public class ImmutableTile extends TileAbstract {
 
 	@Override
 	public String getName() {
+		if(this.hasOverlay()) {
+			return this.getOverlay().getName();
+		}
 		return "Immutable";
 	}
 

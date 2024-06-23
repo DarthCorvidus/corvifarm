@@ -9,4 +9,10 @@ public class ForestTile extends TileAbstract {
 	public String getName() {
 		return "Forest floor";
 	}
+
+	@Override
+	public int getId() {
+		return TileFactory.FOREST;
+	}
+
 }

@@ -5,6 +5,11 @@
 package com.corvidus.corvifarm.tiles;
 
 import com.corvidus.corvifarm.game.InvalidActionException;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -75,6 +80,67 @@ public class FarmTileTest {
 		assertEquals("Already watered.", ex.getMessage());
 	}
 
+	@Test
+	public void testBinary() {
+		FarmTile tile = new FarmTile();
+		byte[] expected = new byte[10];
+		ByteArrayOutputStream bo = new ByteArrayOutputStream();
+		DataOutputStream dos = new DataOutputStream(bo);
+		try {
+			tile.toBinary(dos);
+		} catch (IOException e) {
+			fail(e.getMessage());
+		}
+		
+		byte[] bytes = bo.toByteArray();
+		assertArrayEquals(expected, bytes);
+		assertEquals(false, tile.isTilled());
+		assertEquals(false, tile.isWatered());
+		
+		ByteArrayInputStream bi = new ByteArrayInputStream(bytes);
+		DataInputStream dis = new DataInputStream(bi);
+		try {
+			FarmTile loaded = (FarmTile)Tile.fromBinary(dis);
+			assertEquals(tile.getClass(), loaded.getClass());
+			assertEquals(false, loaded.isTilled());
+			assertEquals(false, loaded.isWatered());
+		} catch (IOException e) {
+			fail(e.getMessage());
+		}
+	}
+	
+
+	@Test
+	public void testBinaryTilled() {
+		FarmTile tile = new FarmTile();
+		try {
+			tile.till();
+		} catch (InvalidActionException e) {
+			fail(e.getMessage());
+		}
+		byte[] expected = new byte[10];
+		expected[2] = 1;
+		ByteArrayOutputStream bo = new ByteArrayOutputStream();
+		DataOutputStream dos = new DataOutputStream(bo);
+		try {
+			tile.toBinary(dos);
+		} catch (IOException e) {
+			fail(e.getMessage());
+		}
+		byte[] bytes = bo.toByteArray();
+		assertArrayEquals(expected, bytes);
+		ByteArrayInputStream bi = new ByteArrayInputStream(bytes);
+		DataInputStream dis = new DataInputStream(bi);
+		try {
+			FarmTile loaded = (FarmTile)Tile.fromBinary(dis);
+			assertEquals(tile.getClass(), loaded.getClass());
+			assertEquals(true, loaded.isTilled());
+			assertEquals(false, loaded.isWatered());
+		} catch (IOException e) {
+			fail(e.getMessage());
+		}
+	}
+	
 	/**
 	 * Test of passDay method, of class FarmTile.
 	 */

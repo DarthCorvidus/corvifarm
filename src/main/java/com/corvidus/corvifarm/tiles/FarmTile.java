@@ -70,4 +70,35 @@ public class FarmTile extends TileAbstract implements Tillable, Waterable {
 	public boolean isWatered() {
 		return this.watered;
 	}
+
+	@Override
+	public void setModifiers(byte a, byte b, byte c, byte d) {
+		if(a == 2) {
+			this.tilled = true;
+			this.watered = true;
+		}
+		if(a == 1) {
+			this.tilled = true;
+		}
+	}
+	
+	@Override
+	public byte[] getModifiers() {
+		byte[] mods = {0, 0, 0, 0};
+		if(this.tilled) {
+			mods[0] = 1;
+		}
+		if(this.watered) {
+			mods[0] = 2;
+		}
+		for(byte b : mods) {
+			System.out.println("Byte "+b);
+		}
+	return mods;
+	}
+	
+	@Override
+	public int getId() {
+		return TileFactory.FARM;
+	}
 }

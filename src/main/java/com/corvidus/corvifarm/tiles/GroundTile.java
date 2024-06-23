@@ -26,4 +26,9 @@ public class GroundTile extends TileAbstract implements Tillable {
 	public boolean isTilled() {
 		return this.tilled;
 	}
+
+	@Override
+	public int getId() {
+		return TileFactory.GROUND;
+	}
 }

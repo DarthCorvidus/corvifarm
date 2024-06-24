@@ -14,6 +14,11 @@ public class ItemFactoryTest {
 		Axe axe = (Axe)ItemFactory.getPrototype(ItemFactory.AXE);
 	}
 
+	public void testGetPrototypeAmount() {
+		Wood wood = (Wood)ItemFactory.getPrototype(ItemFactory.WOOD, 25);
+		assertEquals(25, wood.getAmount());
+	}
+
 	/*
 	 * Test that two prototypes are unique, ie changing wood1 here does not
 	 * affect wood2.

@@ -115,6 +115,12 @@ public class ItemFactory {
 		}
 	}
 	
+	public static Item getPrototype(int id, int amount) {
+		Item item = ItemFactory.getPrototype(id);
+		item.setAmount(amount);
+	return item;
+	}
+	
 	public static List<Item> getByClass(Class clazz) {
 		if(ItemFactory.instance == null) {
 			ItemFactory.instance = new ItemFactory();

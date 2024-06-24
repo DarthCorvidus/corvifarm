@@ -2,6 +2,7 @@ package com.corvidus.corvifarm.room;
 
 import com.corvidus.corvifarm.game.Calendar;
 import com.corvidus.corvifarm.items.Item;
+import com.corvidus.corvifarm.items.ItemFactory;
 import com.corvidus.corvifarm.items.crops.Weeds;
 import com.corvidus.corvifarm.items.interactive.Bed;
 import com.corvidus.corvifarm.items.interactive.Exit;
@@ -9,7 +10,6 @@ import com.corvidus.corvifarm.items.interactive.ShippingBin;
 import com.corvidus.corvifarm.items.interactive.Shop;
 import com.corvidus.corvifarm.items.stone.Stone;
 import com.corvidus.corvifarm.items.wood.Tree;
-import com.corvidus.corvifarm.items.wood.Trees;
 import com.corvidus.corvifarm.items.wood.Wood;
 import com.corvidus.corvifarm.terminal.select.WASDSelectElement;
 import com.corvidus.corvifarm.terminal.select.WASDSelectString;
@@ -50,7 +50,7 @@ public class Farm extends RoomAbstract {
 				continue;
 			}
 			if(this.rand.nextInt(10)<1) {
-				tile.setOverlay(Trees.createRandom());
+				tile.setOverlay(ItemFactory.createRandomTree());
 				continue;
 			}
 		}
@@ -87,7 +87,7 @@ public class Farm extends RoomAbstract {
 			}
 			
 			if(tile.getOverlay() instanceof Tree tree && tree.isGrown() && rand.nextInt(100)<5) {
-				newItems.add(Trees.create(tree.getId()));
+				newItems.add(ItemFactory.getPrototype(tree.getId()));
 			}
 		}
 		/**

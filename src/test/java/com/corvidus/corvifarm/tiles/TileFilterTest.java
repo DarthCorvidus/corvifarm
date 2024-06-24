@@ -5,10 +5,10 @@
 package com.corvidus.corvifarm.tiles;
 
 import com.corvidus.corvifarm.game.InvalidActionException;
+import com.corvidus.corvifarm.items.ItemFactory;
 import com.corvidus.corvifarm.items.crops.Weeds;
 import com.corvidus.corvifarm.items.interactive.Bed;
 import com.corvidus.corvifarm.items.wood.Tree;
-import com.corvidus.corvifarm.items.wood.Trees;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -68,7 +68,7 @@ public class TileFilterTest {
 		Tile weed = new FarmTile();
 		weed.setOverlay(new Weeds());
 		Tile tree = new FarmTile();
-		tree.setOverlay(Trees.createRandom());
+		tree.setOverlay(ItemFactory.createRandomTree());
 		
 		assertSame(false, filter.test(empty));
 		assertSame(false, filter.test(weed));
@@ -83,7 +83,7 @@ public class TileFilterTest {
 		Tile weed = new FarmTile();
 		weed.setOverlay(new Weeds());
 		Tile tree = new FarmTile();
-		tree.setOverlay(Trees.createRandom());
+		tree.setOverlay(ItemFactory.createRandomTree());
 		
 		assertSame(false, filter.test(empty));
 		assertSame(true, filter.test(weed));
@@ -168,7 +168,7 @@ public class TileFilterTest {
 		Tile weed = new FarmTile();
 		weed.setOverlay(new Weeds());
 		Tile tree = new FarmTile();
-		tree.setOverlay(Trees.createRandom());
+		tree.setOverlay(ItemFactory.createRandomTree());
 		
 		assertSame(false, filter.test(empty));
 		assertSame(true, filter.test(weed));
@@ -183,7 +183,7 @@ public class TileFilterTest {
 		Tile weed = new FarmTile();
 		weed.setOverlay(new Weeds());
 		Tile tree = new FarmTile();
-		tree.setOverlay(Trees.createRandom());
+		tree.setOverlay(ItemFactory.createRandomTree());
 		
 		assertSame(true, filter.test(empty));
 		assertSame(false, filter.test(weed));

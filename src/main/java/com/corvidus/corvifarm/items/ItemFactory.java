@@ -67,8 +67,10 @@ public class ItemFactory {
 	public static final int TIN_SCRAP = 408;
 
 	Map<Integer, Item> prototypes;
+	Random rand;
 	private static ItemFactory instance;
 	private ItemFactory() {
+		this.rand = new Random();
 		this.prototypes = new HashMap<>();
 		this.addPrototype(new Hoe());
 		this.addPrototype(new Watercan());
@@ -133,5 +135,12 @@ public class ItemFactory {
 			}
 		}
 	return items;
+	}
+	
+	public static Tree createRandomTree() {
+		List<Item> items = ItemFactory.getByClass(Tree.class);
+		Tree tree = (Tree)items.get(ItemFactory.instance.rand.nextInt(items.size()));
+		tree.setState(ItemFactory.instance.rand.nextInt(Tree.TREE+1));
+	return tree;
 	}
 }

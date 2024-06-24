@@ -2,8 +2,8 @@ package com.corvidus.corvifarm.items.tools;
 
 import com.corvidus.corvifarm.game.InvalidActionException;
 import com.corvidus.corvifarm.game.Player;
+import com.corvidus.corvifarm.items.ItemFactory;
 import com.corvidus.corvifarm.items.crops.Crop;
-import com.corvidus.corvifarm.items.crops.Crops;
 import com.corvidus.corvifarm.items.wood.Wood;
 import com.corvidus.corvifarm.tiles.FarmTile;
 import com.corvidus.corvifarm.tiles.Tile;
@@ -40,7 +40,7 @@ public class ScytheTest {
 	public void testApply() throws Exception {
 		Player player = Player.fromScratch();
 		Scythe scythe = new Scythe();
-		Crop crop = Crops.create(Crops.WHEAT);
+		Crop crop = (Crop)ItemFactory.getPrototype(ItemFactory.WHEAT);
 		crop.setState(Crop.GROWN);
 		Tile tile = new FarmTile();
 		tile.setOverlay(crop);
@@ -68,7 +68,7 @@ public class ScytheTest {
 		player.getInventory().onInput(new KeyStroke('5', false, false));
 		Scythe scythe = (Scythe)player.getInventory().getCurrentItem();
 		Tile tile = new FarmTile();
-		tile.setOverlay(Crops.createSeed(Crops.WHEAT));
+		tile.setOverlay(ItemFactory.getPrototype(ItemFactory.WHEAT));
 		InvalidActionException e = assertThrows(InvalidActionException.class, () -> scythe.apply(player, tile));
 		assertEquals("Crop not ready.", e.getMessage());
 	}

@@ -92,7 +92,7 @@ public class Crop extends ItemAbstract implements TileManipulator, Daily, Scytha
 		if(!farmTile.isTilled()) {
 			throw new InvalidActionException("Tile is not tilled.");
 		}
-		Crop crop = Crops.createSeed(this.id);
+		Crop crop = (Crop)this.createPrototype();
 		tile.setOverlay(crop);
 		player.getInventory().subCurrentItem();
 	}
@@ -131,7 +131,9 @@ public class Crop extends ItemAbstract implements TileManipulator, Daily, Scytha
 	@Override
 	public List<Item> getScythedItems() {
 		List<Item> items = new ArrayList<>();
-		items.add(Crops.createProduce(this.getId()));
+		Crop produce = (Crop)this.create();
+		produce.setState(Crop.PRODUCE);
+		items.add(produce);
 	return items;
 	}
 

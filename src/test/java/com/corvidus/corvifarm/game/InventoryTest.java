@@ -1,6 +1,6 @@
 package com.corvidus.corvifarm.game;
 
-import com.corvidus.corvifarm.items.crops.Crops;
+import com.corvidus.corvifarm.items.ItemFactory;
 import com.corvidus.corvifarm.items.crops.Fiber;
 import com.corvidus.corvifarm.items.stone.Stone;
 import com.corvidus.corvifarm.items.tools.Axe;
@@ -135,8 +135,8 @@ public class InventoryTest {
 	public void testPaging() {
 		Player player = Player.fromScratch();
 		Inventory iv = player.getInventory();
-		iv.addItem(Crops.create(Crops.PARSNIP, 15));
-		iv.addItem(Crops.create(Crops.POTATO, 15));
+		iv.addItem(ItemFactory.getPrototype(ItemFactory.PARSNIP, 15));
+		iv.addItem(ItemFactory.getPrototype(ItemFactory.POTATO, 15));
 		iv.addItem(new Wood());
 		iv.addItem(new Stone());
 		iv.addItem(new Fiber());

@@ -1,12 +1,12 @@
 package com.corvidus.corvifarm.terminal.select;
 
+import com.corvidus.corvifarm.items.ItemFactory;
 import com.corvidus.corvifarm.items.crops.Crop;
-import com.corvidus.corvifarm.items.crops.Crops;
 
 public class WASDSelectShop implements WASDSelectElement {
 	private Crop crop;
 	public WASDSelectShop(Crop crop) {
-		this.crop = Crops.createSeed(crop.getId());
+		this.crop = (Crop)crop.createPrototype();
 	}
 	@Override
 	public String getWASDString() {
@@ -15,7 +15,7 @@ public class WASDSelectShop implements WASDSelectElement {
 
 	@Override
 	public Object getObject() {
-		return Crops.createSeed(this.crop.getId());
+		return this.crop.createPrototype();
 	}
 	
 }

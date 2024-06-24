@@ -3,10 +3,10 @@ package com.corvidus.corvifarm.items.interactive;
 import com.corvidus.corvifarm.game.Game;
 import com.corvidus.corvifarm.game.InvalidActionException;
 import com.corvidus.corvifarm.items.Interactive;
+import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.ItemAbstract;
 import com.corvidus.corvifarm.items.ItemFactory;
 import com.corvidus.corvifarm.items.crops.Crop;
-import com.corvidus.corvifarm.items.crops.Crops;
 import com.corvidus.corvifarm.terminal.TerminalWidget;
 import com.corvidus.corvifarm.terminal.WidgetInputObserver;
 import com.corvidus.corvifarm.terminal.WidgetPane;
@@ -48,7 +48,8 @@ public class Shop extends ItemAbstract implements Interactive, WidgetInputObserv
 		this.wasd.addWASDSelectObserver(this);
 		this.pane.addWidget(wasd);
 		this.game.getUserInterface().setFocus(this.pane);
-		for(Crop crop : Crops.getPrototypes()) {
+		for(Item item : ItemFactory.getByClass(Crop.class)) {
+			Crop crop = (Crop)item;
 			this.wasd.addElement(new WASDSelectShop(crop));
 		}
 	}
@@ -69,7 +70,7 @@ public class Shop extends ItemAbstract implements Interactive, WidgetInputObserv
 	@Override
 	public void onSelect(WASDSelect wasdSelect, WASDSelectElement element) {
 		Crop crop = (Crop)element.getObject();
-		crop = Crops.createSeed(crop.getId());
+		crop = (Crop)ItemFactory.getPrototype(crop.getId());
 		try {
 			this.game.getPlayer().subGold(crop.getBaseDemand());
 			this.game.getPlayer().getInventory().addItem(crop);

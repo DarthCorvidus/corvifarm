@@ -6,8 +6,6 @@ import com.corvidus.corvifarm.items.ItemAbstract;
 import com.corvidus.corvifarm.items.ItemFactory;
 import com.corvidus.corvifarm.items.Scythable;
 import com.corvidus.corvifarm.items.TileManipulator;
-import com.corvidus.corvifarm.items.crops.Crop;
-import com.corvidus.corvifarm.items.crops.Crops;
 import com.corvidus.corvifarm.tiles.Tile;
 public class Scythe extends ItemAbstract implements TileManipulator{
 	@Override

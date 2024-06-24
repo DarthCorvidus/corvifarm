@@ -1,7 +1,7 @@
 package com.corvidus.corvifarm.game;
 
+import com.corvidus.corvifarm.items.ItemFactory;
 import com.corvidus.corvifarm.items.crops.Crop;
-import com.corvidus.corvifarm.items.crops.Crops;
 import com.corvidus.corvifarm.items.tools.Axe;
 import com.corvidus.corvifarm.items.tools.Hoe;
 import com.corvidus.corvifarm.items.tools.Pickaxe;
@@ -67,7 +67,7 @@ public class Player implements TerminalWidget, CalendarObserver {
 		this.inventory.addItem(new Axe());
 		this.inventory.addItem(new Pickaxe());
 		this.inventory.addItem(new Scythe());
-		this.inventory.addItem(Crops.create(Crops.WHEAT, 15));
+		this.inventory.addItem(ItemFactory.getPrototype(ItemFactory.WHEAT, 15));
 		this.pane.addWidget(this.labelEnergy);
 		this.pane.addWidget(this.labelGold);
 		this.pane.addWidget(this.valueEnergy);

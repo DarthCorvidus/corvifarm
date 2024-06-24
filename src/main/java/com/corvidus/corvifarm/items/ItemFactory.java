@@ -14,7 +14,9 @@ import com.corvidus.corvifarm.items.wood.Wood;
 import com.corvidus.corvifarm.tiles.Tile;
 import com.corvidus.corvifarm.tiles.TileFactory;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -111,5 +113,19 @@ public class ItemFactory {
 		} catch (IllegalAccessException | IllegalArgumentException | InstantiationException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
 			throw new Error(e);
 		}
+	}
+	
+	public static List<Item> getByClass(Class clazz) {
+		if(ItemFactory.instance == null) {
+			ItemFactory.instance = new ItemFactory();
+		}
+		List<Item> items = new ArrayList<>();
+		for(int key : ItemFactory.instance.prototypes.keySet()) {
+			Item item = ItemFactory.instance.prototypes.get(key);
+			if(clazz.isInstance(item)) {
+				items.add(ItemFactory.getPrototype(item.getId()));
+			}
+		}
+	return items;
 	}
 }

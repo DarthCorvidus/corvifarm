@@ -5,6 +5,7 @@ import com.corvidus.corvifarm.items.tools.Axe;
 import com.corvidus.corvifarm.items.wood.Tree;
 import com.corvidus.corvifarm.items.wood.Wood;
 import com.corvidus.corvifarm.tiles.TileFactory;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 public class ItemFactoryTest {
@@ -37,6 +38,15 @@ public class ItemFactoryTest {
 		Tree tree = (Tree)ItemFactory.getPrototype(ItemFactory.OAK);
 		assertEquals("Oak Seed", tree.getName());
 		assertEquals(1, tree.getAmount());
+	}
+	
+	@Test 
+	public void testGetByClass() {
+		List<Item> items = ItemFactory.getByClass(Tree.class);
+		for(Item item : items) {
+			Tree tree = (Tree)item;
+		}
+		assertEquals(false, items.isEmpty());
 	}
 	
 }

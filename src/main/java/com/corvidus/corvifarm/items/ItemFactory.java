@@ -1,11 +1,19 @@
 package com.corvidus.corvifarm.items;
 
+import com.corvidus.corvifarm.items.crops.Crop;
+import com.corvidus.corvifarm.items.crops.Fiber;
+import com.corvidus.corvifarm.items.crops.Weeds;
+import com.corvidus.corvifarm.items.stone.Stone;
 import com.corvidus.corvifarm.items.tools.Axe;
 import com.corvidus.corvifarm.items.tools.Hoe;
 import com.corvidus.corvifarm.items.tools.Pickaxe;
 import com.corvidus.corvifarm.items.tools.Scythe;
 import com.corvidus.corvifarm.items.tools.Watercan;
 import com.corvidus.corvifarm.items.wood.Tree;
+import com.corvidus.corvifarm.items.wood.Wood;
+import com.corvidus.corvifarm.tiles.Tile;
+import com.corvidus.corvifarm.tiles.TileFactory;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -57,6 +65,7 @@ public class ItemFactory {
 	public static final int TIN_SCRAP = 408;
 
 	Map<Integer, Item> prototypes;
+	private static ItemFactory instance;
 	private ItemFactory() {
 		this.prototypes = new HashMap<>();
 		this.addPrototype(new Hoe());
@@ -70,6 +79,13 @@ public class ItemFactory {
 		this.addPrototype(new Tree(CEDRUS, "Cedrus"));
 		this.addPrototype(new Tree(FIG, "Fig"));
 		this.addPrototype(new Tree(OLIVE, "Olive"));
+		this.addPrototype(new Crop(WHEAT, 4, 10, "Wheat"));
+		this.addPrototype(new Crop(PARSNIP, 4, 10, "Parsnip"));
+		this.addPrototype(new Crop(POTATO, 6, 40, "Potato"));
+		this.addPrototype(new Fiber());
+		this.addPrototype(new Weeds());
+		this.addPrototype(new Wood());
+		this.addPrototype(new Stone());
 	}
 
 	private void addPrototype(Item item) {
@@ -77,5 +93,23 @@ public class ItemFactory {
 			throw new Error("Trying to add ambiguous item");
 		}
 		this.prototypes.put(item.getId(), item);
+	}
+	
+	public static Item getPrototype(int id) {
+		if(ItemFactory.instance == null) {
+			ItemFactory.instance = new ItemFactory();
+		}
+		Item prototype = ItemFactory.instance.prototypes.get(id);
+		if(prototype instanceof ItemPrototype proto) {
+			return proto.createPrototype();
+		}
+		
+		Class<?> clazz = prototype.getClass();
+		try {
+			Object newInstance = clazz.getDeclaredConstructor().newInstance();
+			return (Item)newInstance;
+		} catch (IllegalAccessException | IllegalArgumentException | InstantiationException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
+			throw new Error(e);
+		}
 	}
 }

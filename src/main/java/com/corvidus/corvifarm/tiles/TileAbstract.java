@@ -39,6 +39,7 @@ public abstract class TileAbstract implements Tile {
 		
 	}
 	
+	@Override
 	public byte[] getModifiers() {
 		byte[] bytes = {0, 0, 0, 0};
 	return bytes;

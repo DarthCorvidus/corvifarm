@@ -15,6 +15,7 @@ public interface Tile {
 	public String getName();
 	public int getId();
 	public void setModifiers(byte a, byte b, byte c, byte d);
+	public byte[] getModifiers();
 	public void toBinary(DataOutputStream dos) throws IOException;
 	public static Tile fromBinary(DataInputStream dis) throws IOException {
 		int tileId = dis.readShort();

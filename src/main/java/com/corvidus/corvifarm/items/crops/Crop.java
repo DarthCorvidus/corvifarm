@@ -5,6 +5,7 @@ import com.corvidus.corvifarm.game.Player;
 import com.corvidus.corvifarm.items.Daily;
 import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.ItemAbstract;
+import com.corvidus.corvifarm.items.ItemPrototype;
 import com.corvidus.corvifarm.items.Scythable;
 import com.corvidus.corvifarm.items.TileManipulator;
 import com.corvidus.corvifarm.tiles.FarmTile;
@@ -13,7 +14,7 @@ import com.corvidus.corvifarm.tiles.Waterable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Crop extends ItemAbstract implements TileManipulator, Daily, Scythable {
+public class Crop extends ItemAbstract implements TileManipulator, Daily, Scythable, ItemPrototype {
 	public final static int SEED = 1;
 	public final static int GROWING = 2;
 	public final static int GROWN = 3;
@@ -137,6 +138,12 @@ public class Crop extends ItemAbstract implements TileManipulator, Daily, Scytha
 	@Override
 	public int getBaseEnergyCost() {
 		return 0;
+	}
+
+	@Override
+	public Item createPrototype() {
+		Crop crop = new Crop(this.getId(), this.days, this.baseDemand, this.name);
+	return crop;
 	}
 
 }

@@ -3,10 +3,11 @@ import com.corvidus.corvifarm.items.Axable;
 import com.corvidus.corvifarm.items.Daily;
 import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.ItemAbstract;
+import com.corvidus.corvifarm.items.ItemPrototype;
 import com.corvidus.corvifarm.tiles.Tile;
 import java.util.ArrayList;
 import java.util.Random;
-public class Tree extends ItemAbstract implements Axable, Daily {
+public class Tree extends ItemAbstract implements Axable, Daily, ItemPrototype {
 	protected int state = 0;
 	protected int hp = 0;
 	private int id;
@@ -126,5 +127,11 @@ public class Tree extends ItemAbstract implements Axable, Daily {
 	@Override
 	public int getBaseDemand() {
 		return 0;
+	}
+
+	@Override
+	public Item createPrototype() {
+		Tree tree = new Tree(this.id, this.name);
+	return tree;
 	}
 }

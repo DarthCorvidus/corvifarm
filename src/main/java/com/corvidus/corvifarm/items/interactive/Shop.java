@@ -4,6 +4,7 @@ import com.corvidus.corvifarm.game.Game;
 import com.corvidus.corvifarm.game.InvalidActionException;
 import com.corvidus.corvifarm.items.Interactive;
 import com.corvidus.corvifarm.items.ItemAbstract;
+import com.corvidus.corvifarm.items.ItemFactory;
 import com.corvidus.corvifarm.items.crops.Crop;
 import com.corvidus.corvifarm.items.crops.Crops;
 import com.corvidus.corvifarm.terminal.TerminalWidget;
@@ -30,6 +31,11 @@ public class Shop extends ItemAbstract implements Interactive, WidgetInputObserv
 	@Override
 	public String getName() {
 		return "Shop";
+	}
+
+	@Override
+	public int getId() {
+		return ItemFactory.SHOP;
 	}
 
 	@Override
@@ -63,7 +69,7 @@ public class Shop extends ItemAbstract implements Interactive, WidgetInputObserv
 	@Override
 	public void onSelect(WASDSelect wasdSelect, WASDSelectElement element) {
 		Crop crop = (Crop)element.getObject();
-		crop = Crops.createSeed(crop.getID());
+		crop = Crops.createSeed(crop.getId());
 		try {
 			this.game.getPlayer().subGold(crop.getBaseDemand());
 			this.game.getPlayer().getInventory().addItem(crop);

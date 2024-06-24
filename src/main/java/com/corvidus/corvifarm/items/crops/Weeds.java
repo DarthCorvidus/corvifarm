@@ -3,6 +3,7 @@ package com.corvidus.corvifarm.items.crops;
 import com.corvidus.corvifarm.game.InvalidActionException;
 import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.ItemAbstract;
+import com.corvidus.corvifarm.items.ItemFactory;
 import com.corvidus.corvifarm.items.Scythable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,11 @@ public class Weeds extends ItemAbstract implements Scythable {
 	@Override
 	public String getName() {
 		return "Weeds";
+	}
+
+	@Override
+	public int getId() {
+		return ItemFactory.WEEDS;
 	}
 
 	@Override

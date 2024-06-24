@@ -28,7 +28,7 @@ public class Tree extends ItemAbstract implements Axable, Daily {
 		this.regenerateHP();
 	}
 	
-	public int getID() {
+	public int getId() {
 		return this.id;
 	}
 	

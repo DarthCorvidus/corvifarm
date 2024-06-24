@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class ItemFactory {
-	// Tools and Machines
+	// Tools & Special Items
 	public static final int HOE = 0;
 	public static final int WATERCAN = 1;
 	public static final int AXE = 2;
@@ -20,6 +20,7 @@ public class ItemFactory {
 	public static final int SHIPPING_BIN = 5;
 	public static final int SHOP = 6;
 	public static final int EXIT = 7;
+	public static final int BED = 8;
 	
 	// Crops
 	public static final int WHEAT = 100;
@@ -30,6 +31,7 @@ public class ItemFactory {
 	public static final int FIBER = 198;
 	public static final int WEEDS = 199;
 	
+	//Trees
 	public static final int OAK = 200;
 	public static final int PINE = 201;
 	public static final int CYPRESS = 202;
@@ -54,7 +56,7 @@ public class ItemFactory {
 	public static final int GOLD_SCRAP = 407;
 	public static final int TIN_SCRAP = 408;
 
-	Map<Integer, Tree> prototypes;
+	Map<Integer, Item> prototypes;
 	private ItemFactory() {
 		this.prototypes = new HashMap<>();
 		this.addPrototype(new Hoe());
@@ -71,6 +73,9 @@ public class ItemFactory {
 	}
 
 	private void addPrototype(Item item) {
-		//this.prototypes.put(item.getID(), item);
+		if(this.prototypes.containsKey(item.getId())) {
+			throw new Error("Trying to add ambiguous item");
+		}
+		this.prototypes.put(item.getId(), item);
 	}
 }

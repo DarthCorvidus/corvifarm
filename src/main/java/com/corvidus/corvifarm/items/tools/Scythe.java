@@ -3,6 +3,7 @@ package com.corvidus.corvifarm.items.tools;
 import com.corvidus.corvifarm.game.InvalidActionException;
 import com.corvidus.corvifarm.game.Player;
 import com.corvidus.corvifarm.items.ItemAbstract;
+import com.corvidus.corvifarm.items.ItemFactory;
 import com.corvidus.corvifarm.items.Scythable;
 import com.corvidus.corvifarm.items.TileManipulator;
 import com.corvidus.corvifarm.items.crops.Crop;
@@ -19,6 +20,12 @@ public class Scythe extends ItemAbstract implements TileManipulator{
 		return "Scythe";
 	}
 
+	@Override
+	public int getId() {
+		return ItemFactory.SCYTHE;
+	}
+
+	
 	@Override
 	public void apply(Player player, Tile tile) throws InvalidActionException {
 		if(!tile.hasOverlay()) {

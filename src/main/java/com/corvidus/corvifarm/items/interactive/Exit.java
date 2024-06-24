@@ -4,6 +4,7 @@ import com.corvidus.corvifarm.game.Game;
 import com.corvidus.corvifarm.game.InvalidActionException;
 import com.corvidus.corvifarm.items.Interactive;
 import com.corvidus.corvifarm.items.ItemAbstract;
+import com.corvidus.corvifarm.items.ItemFactory;
 public class Exit extends ItemAbstract implements Interactive {
 	private int target;
 	private String name;
@@ -15,6 +16,11 @@ public class Exit extends ItemAbstract implements Interactive {
 	@Override
 	public String getName() {
 		return "To "+this.name;
+	}
+	
+	@Override
+	public int getId() {
+		return ItemFactory.EXIT;
 	}
 
 	@Override

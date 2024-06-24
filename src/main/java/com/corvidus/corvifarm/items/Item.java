@@ -8,4 +8,5 @@ public interface Item {
 	public int getAmount();
 	public void addAmount(int amount);
 	public void setQuality(int quality);
+	public int getId();
 }

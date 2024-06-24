@@ -7,6 +7,7 @@ import com.corvidus.corvifarm.game.Player;
 import com.corvidus.corvifarm.items.Interactive;
 import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.ItemAbstract;
+import com.corvidus.corvifarm.items.ItemFactory;
 
 public class ShippingBin extends ItemAbstract implements Interactive {
 
@@ -18,6 +19,11 @@ public class ShippingBin extends ItemAbstract implements Interactive {
 	@Override
 	public String getName() {
 		return "Shipping Bin";
+	}
+	
+	@Override
+	public int getId() {
+		return ItemFactory.SHIPPING_BIN;
 	}
 
 	@Override

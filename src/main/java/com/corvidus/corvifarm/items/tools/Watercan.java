@@ -3,6 +3,7 @@ package com.corvidus.corvifarm.items.tools;
 import com.corvidus.corvifarm.game.InvalidActionException;
 import com.corvidus.corvifarm.game.Player;
 import com.corvidus.corvifarm.items.ItemAbstract;
+import com.corvidus.corvifarm.items.ItemFactory;
 import com.corvidus.corvifarm.items.TileManipulator;
 import com.corvidus.corvifarm.tiles.Tile;
 import com.corvidus.corvifarm.tiles.Tillable;
@@ -16,6 +17,11 @@ public class Watercan extends ItemAbstract implements TileManipulator {
 	@Override
 	public String getName() {
 		return "Watercan";
+	}
+	
+	@Override
+	public int getId() {
+		return ItemFactory.WATERCAN;
 	}
 	
 	@Override

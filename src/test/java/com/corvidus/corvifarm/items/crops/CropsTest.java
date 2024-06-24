@@ -22,13 +22,13 @@ public class CropsTest {
 	
 	public void testCreateSeed() {
 		Crop crop = Crops.createSeed(Crops.WHEAT);
-		assertSame(Crops.WHEAT, crop.getID());
+		assertSame(Crops.WHEAT, crop.getId());
 		assertSame(Crop.SEED, crop.getState());
 	}
 	
 	public void testCreateProduce() {
 		Crop crop = Crops.createProduce(Crops.PARSNIP);
-		assertSame(Crops.PARSNIP, crop.getID());
+		assertSame(Crops.PARSNIP, crop.getId());
 		assertSame(Crop.PRODUCE, crop.getState());
 	}
 

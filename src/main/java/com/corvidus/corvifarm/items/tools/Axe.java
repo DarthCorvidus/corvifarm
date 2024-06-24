@@ -5,6 +5,7 @@ import com.corvidus.corvifarm.game.Player;
 import com.corvidus.corvifarm.items.Axable;
 import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.ItemAbstract;
+import com.corvidus.corvifarm.items.ItemFactory;
 import com.corvidus.corvifarm.items.TileManipulator;
 import com.corvidus.corvifarm.tiles.Tile;
 import java.util.List;
@@ -17,6 +18,11 @@ public class Axe extends ItemAbstract implements TileManipulator {
 	@Override
 	public String getName() {
 		return "Axe";
+	}
+
+	@Override
+	public int getId() {
+		return ItemFactory.AXE;
 	}
 
 	@Override

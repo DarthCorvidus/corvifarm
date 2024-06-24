@@ -30,7 +30,7 @@ public class Trees {
 	}
 	
 	private void addPrototype(Tree tree) {
-		this.prototypes.put(tree.getID(), tree);
+		this.prototypes.put(tree.getId(), tree);
 	}
 	
 	public static Trees getInstance() {
@@ -43,7 +43,7 @@ public class Trees {
 	public static List<Tree> getPrototypes() {
 		ArrayList<Tree> templates = new ArrayList<>();
 		for(int key : Trees.getInstance().prototypes.keySet()) {
-			templates.add(Trees.create(trees.prototypes.get(key).getID()));
+			templates.add(Trees.create(trees.prototypes.get(key).getId()));
 		}
 	return templates;
 	}

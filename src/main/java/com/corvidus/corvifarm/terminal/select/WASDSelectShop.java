@@ -6,7 +6,7 @@ import com.corvidus.corvifarm.items.crops.Crops;
 public class WASDSelectShop implements WASDSelectElement {
 	private Crop crop;
 	public WASDSelectShop(Crop crop) {
-		this.crop = Crops.createSeed(crop.getID());
+		this.crop = Crops.createSeed(crop.getId());
 	}
 	@Override
 	public String getWASDString() {
@@ -15,7 +15,7 @@ public class WASDSelectShop implements WASDSelectElement {
 
 	@Override
 	public Object getObject() {
-		return Crops.createSeed(this.crop.getID());
+		return Crops.createSeed(this.crop.getId());
 	}
 	
 }

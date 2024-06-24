@@ -87,7 +87,7 @@ public class Farm extends RoomAbstract {
 			}
 			
 			if(tile.getOverlay() instanceof Tree tree && tree.isGrown() && rand.nextInt(100)<5) {
-				newItems.add(Trees.create(tree.getID()));
+				newItems.add(Trees.create(tree.getId()));
 			}
 		}
 		/**

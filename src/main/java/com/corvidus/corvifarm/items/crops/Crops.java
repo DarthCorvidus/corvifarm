@@ -19,7 +19,7 @@ public class Crops {
 	}
 	
 	private void addPrototype(Crop crop) {
-		this.prototypes.put(crop.getID(), crop);
+		this.prototypes.put(crop.getId(), crop);
 	}
 	
 	public static Crops getInstance() {
@@ -32,7 +32,7 @@ public class Crops {
 	public static List<Crop> getPrototypes() {
 		ArrayList<Crop> templates = new ArrayList<>();
 		for(int key : Crops.getInstance().prototypes.keySet()) {
-			templates.add(Crops.createSeed(crops.prototypes.get(key).getID()));
+			templates.add(Crops.createSeed(crops.prototypes.get(key).getId()));
 		}
 	return templates;
 	}

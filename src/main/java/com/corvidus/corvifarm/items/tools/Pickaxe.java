@@ -4,6 +4,7 @@ import com.corvidus.corvifarm.game.InvalidActionException;
 import com.corvidus.corvifarm.game.Player;
 import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.ItemAbstract;
+import com.corvidus.corvifarm.items.ItemFactory;
 import com.corvidus.corvifarm.items.Mineable;
 import com.corvidus.corvifarm.items.TileManipulator;
 import com.corvidus.corvifarm.tiles.Tile;
@@ -17,6 +18,11 @@ public class Pickaxe extends ItemAbstract implements TileManipulator {
 	@Override
 	public String getName() {
 		return "Pickaxe";
+	}
+
+	@Override
+	public int getId() {
+		return ItemFactory.PICKAXE;
 	}
 
 	@Override

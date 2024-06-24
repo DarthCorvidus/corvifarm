@@ -3,6 +3,7 @@ package com.corvidus.corvifarm.items.interactive;
 import com.corvidus.corvifarm.game.Game;
 import com.corvidus.corvifarm.items.Interactive;
 import com.corvidus.corvifarm.items.ItemAbstract;
+import com.corvidus.corvifarm.items.ItemFactory;
 import com.corvidus.corvifarm.terminal.UserInterface;
 import com.corvidus.corvifarm.terminal.yesno.WidgetYesNo;
 import com.corvidus.corvifarm.terminal.yesno.YesNoObserver;
@@ -28,6 +29,11 @@ public class Bed extends ItemAbstract implements Interactive, YesNoObserver {
 	@Override
 	public String getName() {
 		return "Bed";
+	}
+	
+	@Override
+	public int getId() {
+		return ItemFactory.BED;
 	}
 
 	@Override

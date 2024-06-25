@@ -20,9 +20,9 @@ public class PersistenceItemTest {
 	 */
 	@Test
 	public void testToBinary() {
-		byte[] expected = {0, 0, 0, -49, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3};
+		byte[] expected = {0, 0, 82, 40, 0, 0, 0, -49, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3};
 		Item item = ItemFactory.getPrototype(ItemFactory.WOOD, 15);
-		PersistenceItem entry = PersistenceItem.fromItem(item);
+		PersistenceItem entry = PersistenceItem.fromItem(21032, item);
 		ByteArrayOutputStream bo = new ByteArrayOutputStream();
 		DataOutputStream dos = new DataOutputStream(bo);
 		try {
@@ -36,7 +36,7 @@ public class PersistenceItemTest {
 
 	@Test
 	public void testToBinaryWheat() {
-		byte[] expected = {0, 0, 0, ItemFactory.POTATO, 0, 15, Crop.GROWN, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3};
+		byte[] expected = {0, 0, 82, 40, 0, 0, 0, ItemFactory.POTATO, 0, 15, Crop.GROWN, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3};
 		Crop crop = (Crop)ItemFactory.getPrototype(ItemFactory.POTATO, 15);
 		for(int i = 0; i < 10; i++) {
 			crop.grow();
@@ -44,7 +44,7 @@ public class PersistenceItemTest {
 		assertEquals("Grown Potato", crop.getName());
 		assertEquals(5, crop.getAge());
 		
-		PersistenceItem entry = PersistenceItem.fromItem(crop);
+		PersistenceItem entry = PersistenceItem.fromItem(21032, crop);
 		ByteArrayOutputStream bo = new ByteArrayOutputStream();
 		DataOutputStream dos = new DataOutputStream(bo);
 		try {
@@ -58,7 +58,7 @@ public class PersistenceItemTest {
 	
 	@Test
 	public void testWheatFromBinary() {
-		byte[] input = {0, 0, 0, ItemFactory.POTATO, 0, 15, Crop.GROWN, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3};
+		byte[] input = {0, 0, 82, 40, 0, 0, 0, ItemFactory.POTATO, 0, 15, Crop.GROWN, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3};
 		ByteArrayInputStream bi = new ByteArrayInputStream(input);
 		DataInputStream dis = new DataInputStream(bi);
 		try {
@@ -66,6 +66,7 @@ public class PersistenceItemTest {
 			Crop crop = (Crop)entry.createItem();
 			assertEquals("Grown Potato", crop.getName());
 			assertEquals(5, crop.getAge());
+			assertEquals(21032, entry.getPrimaryKey());
 		} catch (IOException e) {
 			fail(e.getMessage());
 		}

@@ -10,6 +10,7 @@ public class PersistenceItem {
 	private int itemId;
 	private int amount;
 	private byte[] modifiers;
+	private int primaryKey;
 	private Integer parentItemId = null;
 	private Integer parentTileId = null;
 	private byte nullIndicator = ITEM_NULL + TILE_NULL;
@@ -26,8 +27,13 @@ public class PersistenceItem {
 	return item;
 	}
 	
-	public static PersistenceItem fromItem(Item item) {
+	public int getPrimaryKey() {
+		return this.primaryKey;
+	}
+	
+	public static PersistenceItem fromItem(int primaryKey, Item item) {
 		PersistenceItem entry = new PersistenceItem();
+		entry.primaryKey = primaryKey;
 		entry.itemId = item.getId();
 		entry.amount = item.getAmount();
 		entry.modifiers = item.getModifiers();
@@ -36,17 +42,9 @@ public class PersistenceItem {
 		entry.nullIndicator = ITEM_NULL + TILE_NULL;
 	return entry;
 	}
-	
-	/*
-	public static PersistenceItem fromItem(Item item, int tileForeignId) {
-		
-	}
 
-	public static PersistenceItem fromItem(Item item, int itemParent) {
-		
-	}
-	*/
 	public void toBinary(DataOutputStream dos) throws IOException {
+		dos.writeInt(this.primaryKey);
 		dos.writeInt(this.itemId);
 		dos.writeShort(this.amount);
 		for(int i = 0; i<4; i++) {
@@ -59,6 +57,7 @@ public class PersistenceItem {
 
 	public static PersistenceItem fromBinary(DataInputStream dis) throws IOException {
 		PersistenceItem entry = new PersistenceItem();
+		entry.primaryKey = dis.readInt();
 		entry.itemId = dis.readInt();
 		entry.amount = dis.readShort();
 		entry.modifiers = new byte[4];
@@ -68,6 +67,14 @@ public class PersistenceItem {
 		entry.parentTileId = dis.readInt();
 		entry.parentItemId = dis.readInt();
 		entry.nullIndicator = dis.readByte();
+		if(entry.nullIndicator == ITEM_NULL || entry.nullIndicator == (ITEM_NULL + TILE_NULL)) {
+			entry.parentItemId = null;
+		}
+
+		if(entry.nullIndicator == TILE_NULL || entry.nullIndicator == (ITEM_NULL + TILE_NULL)) {
+			entry.parentTileId = null;
+		}
+
 	return entry;
 	}
 }

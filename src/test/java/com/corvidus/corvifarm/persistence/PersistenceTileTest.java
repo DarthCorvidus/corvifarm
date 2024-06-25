@@ -15,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PersistenceTileTest {
 	@Test
 	public void testToBinary() throws Exception {
-		byte[] expected = {0, (byte)TileFactory.FARM, FarmTile.WATERED, 0, 0, 0, 0, 15};
+		byte[] expected = {0, 0, 82, 40, 0, (byte)TileFactory.FARM, FarmTile.WATERED, 0, 0, 0, 0, 15};
 		FarmTile tile = new FarmTile();
 		tile.till();
 		tile.water();
 		
-		PersistenceTile entry = PersistenceTile.fromTile(tile, 15);
+		PersistenceTile entry = PersistenceTile.fromTile(21032, tile, 15);
 		ByteArrayOutputStream bo = new ByteArrayOutputStream();
 		DataOutputStream dos = new DataOutputStream(bo);
 		try {
@@ -34,13 +34,14 @@ public class PersistenceTileTest {
 	
 	@Test
 	public void testFromBinary() {
-		byte[] input = {0, (byte)TileFactory.FARM, FarmTile.WATERED, 0, 0, 0, 0, 15};
+		byte[] input = {0, 0, 82, 40, 0, (byte)TileFactory.FARM, FarmTile.WATERED, 0, 0, 0, 0, 15};
 		ByteArrayInputStream bi = new ByteArrayInputStream(input);
 		DataInputStream dis = new DataInputStream(bi);
 		try {
 			PersistenceTile persistence = PersistenceTile.fromBinary(dis);
 			FarmTile tile = (FarmTile)persistence.createTile();
 			assertEquals("Watered", tile.getName());
+			assertEquals(21032, persistence.getPrimaryKey());
 		} catch (IOException e) {
 			fail(e.getMessage());
 		}

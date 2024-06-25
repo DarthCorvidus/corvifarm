@@ -10,12 +10,14 @@ public class PersistenceTile {
 	private int tileId;
 	private byte[] modifiers;
 	private int roomId;
+	private int primaryKey;
 	private PersistenceTile() {
 		
 	}
 	
-	public static PersistenceTile fromTile(Tile tile, int roomId) {
+	public static PersistenceTile fromTile(int privateKey, Tile tile, int roomId) {
 		PersistenceTile et = new PersistenceTile();
+		et.primaryKey = privateKey;
 		et.tileId = tile.getId();
 		et.modifiers = tile.getModifiers();
 		et.roomId = roomId;
@@ -27,8 +29,12 @@ public class PersistenceTile {
 		tile.setModifiers(this.modifiers[0], this.modifiers[1], this.modifiers[2], this.modifiers[3]);
 	return tile;
 	}
-	
+
+	public int getPrimaryKey() {
+		return this.primaryKey;
+	}
 	public void toBinary(DataOutputStream dos) throws IOException {
+		dos.writeInt(this.primaryKey);
 		dos.writeShort(tileId);
 		for(int i = 0; i<4; i++) {
 			dos.writeByte(this.modifiers[i]);
@@ -38,6 +44,7 @@ public class PersistenceTile {
 	
 	public static PersistenceTile fromBinary(DataInputStream dis) throws IOException {
 		PersistenceTile pt = new PersistenceTile();
+		pt.primaryKey = dis.readInt();
 		pt.tileId = dis.readShort();
 		pt.modifiers = new byte[4];
 		for(int i = 0; i<4; i++) {

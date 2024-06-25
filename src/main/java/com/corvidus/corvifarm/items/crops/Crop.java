@@ -15,16 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Crop extends ItemAbstract implements TileManipulator, Daily, Scythable, ItemPrototype {
-	public final static int SEED = 1;
-	public final static int GROWING = 2;
-	public final static int GROWN = 3;
-	public final static int PRODUCE = 4;
+	public final static byte SEED = 1;
+	public final static byte GROWING = 2;
+	public final static byte GROWN = 3;
+	public final static byte PRODUCE = 4;
 	private int id;
 	private int days;
 	private int baseDemand;
 	private String name;
-	private int age;
-	private int state = 1;
+	private byte age;
+	private byte state = 1;
 	public Crop(int id, int days, int baseDemand, String name) {
 		this.id = id;
 		this.days = days;
@@ -38,7 +38,7 @@ public class Crop extends ItemAbstract implements TileManipulator, Daily, Scytha
 		return this.id;
 	}
 	
-	public void setState(int state) {
+	public void setState(byte state) {
 		this.state = state;
 	}
 
@@ -103,6 +103,13 @@ public class Crop extends ItemAbstract implements TileManipulator, Daily, Scytha
 		if(!waterable.isWatered()) {
 			return;
 		}
+		this.grow();
+	}
+	
+	/** 
+	 * Let the crop grow without any checks.
+	 */
+	public void grow() {
 		if(this.state == Crop.SEED) {
 			this.state = Crop.GROWING;
 			this.age++;
@@ -115,7 +122,23 @@ public class Crop extends ItemAbstract implements TileManipulator, Daily, Scytha
 			this.age++;
 		}
 	}
-
+	
+	public int getAge() {
+		return this.age;
+	}
+	
+	@Override
+	public byte[] getModifiers() {
+		byte[] mods = {this.state, this.age, 0, 0};
+	return mods;
+	}
+	
+	@Override
+	public void setModifiers(byte[] modifiers) {
+		this.state = modifiers[0];
+		this.age = modifiers[1];
+	}
+	
 	@Override
 	public void scythe() throws InvalidActionException {
 		if(this.state != Crop.GROWN) {

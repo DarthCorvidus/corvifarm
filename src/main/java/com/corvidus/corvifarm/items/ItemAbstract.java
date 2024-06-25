@@ -25,11 +25,13 @@ public abstract class ItemAbstract implements Item {
 		this.amount += amount;
 	}
 
+	@Override
 	public byte[] getModifiers() {
 		byte[] mods = {0, 0, 0, 0};
 	return mods;
 	}
 	
+	@Override
 	public void setModifiers(byte[] mods) {
 		
 	}

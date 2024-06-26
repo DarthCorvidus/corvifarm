@@ -12,7 +12,7 @@ public class PersistenceItem {
 	private byte[] modifiers;
 	private int primaryKey;
 	private Integer parentItemId = null;
-	private Integer parentTileId = null;
+	private Integer foreignKeyTile = null;
 	private byte nullIndicator = ITEM_NULL + TILE_NULL;
 	static final byte ITEM_NULL = 2;
 	static final byte TILE_NULL = 1;
@@ -31,6 +31,10 @@ public class PersistenceItem {
 		return this.primaryKey;
 	}
 	
+	public int getForeignKeyTile() {
+		return this.foreignKeyTile;
+	}
+	
 	public static PersistenceItem fromItem(int primaryKey, Item item) {
 		PersistenceItem entry = new PersistenceItem();
 		entry.primaryKey = primaryKey;
@@ -38,8 +42,20 @@ public class PersistenceItem {
 		entry.amount = item.getAmount();
 		entry.modifiers = item.getModifiers();
 		entry.parentItemId = 0;
-		entry.parentTileId = 0;
+		entry.foreignKeyTile = 0;
 		entry.nullIndicator = ITEM_NULL + TILE_NULL;
+	return entry;
+	}
+
+	public static PersistenceItem fromItem(int primaryKey, Item item, PersistenceTile pt) {
+		PersistenceItem entry = new PersistenceItem();
+		entry.primaryKey = primaryKey;
+		entry.itemId = item.getId();
+		entry.amount = item.getAmount();
+		entry.modifiers = item.getModifiers();
+		entry.parentItemId = 0;
+		entry.foreignKeyTile = pt.getPrimaryKey();
+		entry.nullIndicator = ITEM_NULL;
 	return entry;
 	}
 
@@ -50,7 +66,7 @@ public class PersistenceItem {
 		for(int i = 0; i<4; i++) {
 			dos.writeByte(this.modifiers[i]);
 		}
-		dos.writeInt(this.parentTileId);
+		dos.writeInt(this.foreignKeyTile);
 		dos.writeInt(this.parentItemId);
 		dos.writeByte(this.nullIndicator);
 	}
@@ -64,7 +80,7 @@ public class PersistenceItem {
 		for(int i = 0; i<4; i++) {
 			entry.modifiers[i] = dis.readByte();
 		}
-		entry.parentTileId = dis.readInt();
+		entry.foreignKeyTile = dis.readInt();
 		entry.parentItemId = dis.readInt();
 		entry.nullIndicator = dis.readByte();
 		if(entry.nullIndicator == ITEM_NULL || entry.nullIndicator == (ITEM_NULL + TILE_NULL)) {
@@ -72,7 +88,7 @@ public class PersistenceItem {
 		}
 
 		if(entry.nullIndicator == TILE_NULL || entry.nullIndicator == (ITEM_NULL + TILE_NULL)) {
-			entry.parentTileId = null;
+			entry.foreignKeyTile = null;
 		}
 
 	return entry;

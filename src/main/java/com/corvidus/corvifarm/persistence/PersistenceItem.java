@@ -31,8 +31,20 @@ public class PersistenceItem {
 		return this.primaryKey;
 	}
 	
+	public boolean hasForeignKeyTile() {
+		return !(this.nullIndicator == TILE_NULL || this.nullIndicator == TILE_NULL + ITEM_NULL);
+	}
+	
 	public int getForeignKeyTile() {
 		return this.foreignKeyTile;
+	}
+
+	public boolean hasForeignKeyItem() {
+		return !(this.nullIndicator == ITEM_NULL || this.nullIndicator == TILE_NULL + ITEM_NULL);
+	}
+
+	public int getForeignKeyItem() {
+		return this.foreignKeyItem;
 	}
 	
 	public static PersistenceItem fromItem(int primaryKey, Item item) {

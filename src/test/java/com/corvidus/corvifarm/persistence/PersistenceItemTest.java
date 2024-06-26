@@ -20,7 +20,7 @@ public class PersistenceItemTest {
 	 */
 	@Test
 	public void testToBinary() {
-		byte[] expected = {0, 0, 82, 40, 0, 0, 0, -49, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3};
+		byte[] expected = {0, 0, 82, 40, 0, 0, 0, (byte)207, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3};
 		Item item = ItemFactory.getPrototype(ItemFactory.WOOD, 15);
 		PersistenceItem entry = PersistenceItem.fromItem(21032, item);
 		ByteArrayOutputStream bo = new ByteArrayOutputStream();

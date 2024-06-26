@@ -11,7 +11,7 @@ public class PersistenceItem {
 	private int amount;
 	private byte[] modifiers;
 	private int primaryKey;
-	private Integer parentItemId = null;
+	private Integer foreignKeyItem = null;
 	private Integer foreignKeyTile = null;
 	private byte nullIndicator = ITEM_NULL + TILE_NULL;
 	static final byte ITEM_NULL = 2;
@@ -41,7 +41,7 @@ public class PersistenceItem {
 		entry.itemId = item.getId();
 		entry.amount = item.getAmount();
 		entry.modifiers = item.getModifiers();
-		entry.parentItemId = 0;
+		entry.foreignKeyItem = 0;
 		entry.foreignKeyTile = 0;
 		entry.nullIndicator = ITEM_NULL + TILE_NULL;
 	return entry;
@@ -53,9 +53,21 @@ public class PersistenceItem {
 		entry.itemId = item.getId();
 		entry.amount = item.getAmount();
 		entry.modifiers = item.getModifiers();
-		entry.parentItemId = 0;
+		entry.foreignKeyItem = 0;
 		entry.foreignKeyTile = pt.getPrimaryKey();
 		entry.nullIndicator = ITEM_NULL;
+	return entry;
+	}
+
+	public static PersistenceItem fromItem(int primaryKey, Item item, PersistenceItem pi) {
+		PersistenceItem entry = new PersistenceItem();
+		entry.primaryKey = primaryKey;
+		entry.itemId = item.getId();
+		entry.amount = item.getAmount();
+		entry.modifiers = item.getModifiers();
+		entry.foreignKeyTile = 0;
+		entry.foreignKeyItem = pi.getPrimaryKey();
+		entry.nullIndicator = TILE_NULL;
 	return entry;
 	}
 
@@ -67,7 +79,7 @@ public class PersistenceItem {
 			dos.writeByte(this.modifiers[i]);
 		}
 		dos.writeInt(this.foreignKeyTile);
-		dos.writeInt(this.parentItemId);
+		dos.writeInt(this.foreignKeyItem);
 		dos.writeByte(this.nullIndicator);
 	}
 
@@ -81,10 +93,10 @@ public class PersistenceItem {
 			entry.modifiers[i] = dis.readByte();
 		}
 		entry.foreignKeyTile = dis.readInt();
-		entry.parentItemId = dis.readInt();
+		entry.foreignKeyItem = dis.readInt();
 		entry.nullIndicator = dis.readByte();
 		if(entry.nullIndicator == ITEM_NULL || entry.nullIndicator == (ITEM_NULL + TILE_NULL)) {
-			entry.parentItemId = null;
+			entry.foreignKeyItem = null;
 		}
 
 		if(entry.nullIndicator == TILE_NULL || entry.nullIndicator == (ITEM_NULL + TILE_NULL)) {

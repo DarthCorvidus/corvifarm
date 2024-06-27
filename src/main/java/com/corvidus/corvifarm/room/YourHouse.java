@@ -12,6 +12,11 @@ public class YourHouse extends RoomAbstract {
 	}
 
 	@Override
+	public int getId() {
+		return Rooms.YOUR_HOUSE;
+	}
+	
+	@Override
 	public void onEnter() {
 		
 	}

@@ -30,6 +30,11 @@ public class Farm extends RoomAbstract {
 	}
 	
 	@Override
+	public int getId() {
+		return Rooms.YOUR_FARM;
+	}
+	
+	@Override
 	public void init() {
 		for(int i = 0;i<4096;i++) {
 			Tile tile = new FarmTile();

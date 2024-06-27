@@ -131,4 +131,10 @@ public abstract class RoomAbstract implements Room, CalendarObserver {
 	public Ground getGround() {
 		return this.ground;
 	}
+	
+	@Override
+	public List<Tile> getTiles() {
+		System.out.println(this.tiles.size());
+		return this.tiles;
+	}
 }

@@ -14,13 +14,16 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Inventory implements TerminalWidget {
-	private List<Item> items = new ArrayList();
+	private Map<Integer, Item> items = new HashMap<>();
 	private WidgetTextLines text;
 	private int selected = 0;
 	private int page = 0;
+	private int pages = 3;
 	public Inventory() {
 		this.text = new WidgetTextLines(0, 2, 20, 10);
 		this.refresh();
@@ -36,16 +39,28 @@ public class Inventory implements TerminalWidget {
 		inventory.addItem(ItemFactory.getPrototype(ItemFactory.WHEAT, 15));
 	return inventory;
 	}
+
+	public boolean hasCurrentItem() {
+		Item item = this.items.get(this.selected+(this.page*10));
+		return item != null;
+	}
 	
 	public Item getCurrentItem() throws IndexOutOfBoundsException {
-		return this.items.get(this.selected+(this.page*10));
+		Item item = this.items.get(this.selected+(this.page*10));
+		if(item == null) {
+			throw new IndexOutOfBoundsException("no item at current inventory position");
+		}
+	return item;
 	}
 	
 	public void subCurrentItem() {
+		if(!this.hasCurrentItem()) {
+			return;
+		}
 		Item item = this.getCurrentItem();
 		item.setAmount(item.getAmount() - 1);
 		if(item.getAmount() == 0) {
-			this.items.remove(item);
+			this.items.remove(this.selected);
 		}
 		this.refresh();
 	}
@@ -55,14 +70,12 @@ public class Inventory implements TerminalWidget {
 			String mark = " ";
 			String itemName = "";
 			Item item;
-			try {
+			if(this.items.get(i+(this.page*10)) != null) {
 				item = this.items.get(i+(this.page*10));
 				itemName = item.getName();
 				if(item.getAmount()>1) {
 					itemName = item.getAmount()+"×"+itemName;
 				}
-			} catch(IndexOutOfBoundsException e) {
-				
 			}
 			if(i == this.selected) {
 				mark = "*";
@@ -76,14 +89,20 @@ public class Inventory implements TerminalWidget {
 	}
 	
 	public void addItem(Item item) {
-		for(Item it: this.items) {
-			if(it.getName().equals(item.getName())) {
-				it.addAmount(item.getAmount());
+		for(int i = 0; i<this.pages*10;i++) {
+			Item existing = this.items.get(i);
+			if(existing == null) {
+				this.items.put(i, item);
 				this.refresh();
 				return;
 			}
+			if(existing.getName().equals(item.getName())) {
+				existing.addAmount(item.getAmount());
+				this.refresh();
+				return;
+				
+			}
 		}
-		this.items.add(item);
 		this.refresh();
 	}
 	

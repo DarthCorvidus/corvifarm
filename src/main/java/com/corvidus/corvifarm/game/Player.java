@@ -95,9 +95,8 @@ public class Player implements TerminalWidget, CalendarObserver {
 		}
 	}
 
-	public static Player fromBinary(InputStream is) throws IOException {
+	public static Player fromBinary(DataInputStream dis) throws IOException {
 		Player player = new Player();
-		DataInputStream dis = new DataInputStream(is);
 		player.name = dis.readUTF();
 		player.species = dis.read();
 		player.gender = dis.read();

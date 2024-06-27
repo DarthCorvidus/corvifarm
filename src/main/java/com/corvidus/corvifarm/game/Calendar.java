@@ -33,8 +33,7 @@ public class Calendar implements TerminalWidget, Serializable {
 	return calendar;
 	}
 	
-	public static Calendar fromBinary(InputStream is) throws IOException {
-		DataInputStream dis = new DataInputStream(is);
+	public static Calendar fromBinary(DataInputStream dis) throws IOException {
 		Calendar cal = new Calendar();
 		cal.setSeconds(dis.readInt());
 	return cal;

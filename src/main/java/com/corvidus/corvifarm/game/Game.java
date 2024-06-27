@@ -26,7 +26,9 @@ import com.corvidus.corvifarm.ui.YesNoQuit;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -71,6 +73,19 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 		game.rooms = Rooms.fromScratch();
 		game.init();
 		game.toBinary();
+	return game;
+	}
+	
+	public static Game fromBinary() {
+		Game game = new Game();
+		try (FileInputStream fis = new FileInputStream("game.sav")) {
+			DataInputStream dis = new DataInputStream(fis);
+			game.calendar = Calendar.fromBinary(dis);
+			game.player = Player.fromBinary(dis);
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
 	return game;
 	}
 	

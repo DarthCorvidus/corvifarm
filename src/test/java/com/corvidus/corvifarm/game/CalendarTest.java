@@ -1,6 +1,7 @@
 package com.corvidus.corvifarm.game;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
@@ -108,8 +109,9 @@ public class CalendarTest {
 		expected[2] = 13;
 		expected[3] = 87;
 		ByteArrayInputStream bi = new ByteArrayInputStream(expected);
+		DataInputStream dis = new DataInputStream(bi);
 		try {
-			Calendar cal = Calendar.fromBinary(bi);
+			Calendar cal = Calendar.fromBinary(dis);
 			Assertions.assertEquals(3415, cal.getSeconds());
 		} catch (IOException e) {
 			fail(e.getMessage());

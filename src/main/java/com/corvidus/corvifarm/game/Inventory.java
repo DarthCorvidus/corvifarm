@@ -12,6 +12,8 @@ import com.corvidus.corvifarm.terminal.WidgetTextLines;
 import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -39,7 +41,16 @@ public class Inventory implements TerminalWidget {
 		inventory.addItem(ItemFactory.getPrototype(ItemFactory.WHEAT, 15));
 	return inventory;
 	}
-
+	
+	public void toBinary(DataOutputStream dos) throws IOException {
+		for(int i = 0; i<this.pages*10;i++) {
+			Item item = this.items.get(i);
+			if(item != null) {
+				item.toBinary(dos);
+			}
+		}
+	}
+	
 	public boolean hasCurrentItem() {
 		Item item = this.items.get(this.selected+(this.page*10));
 		return item != null;

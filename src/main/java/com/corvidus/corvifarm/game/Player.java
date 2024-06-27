@@ -79,8 +79,7 @@ public class Player implements TerminalWidget, CalendarObserver {
 	return player;
 	}
 	
-	public void toBinary(OutputStream os) throws IOException {
-		DataOutputStream dos = new DataOutputStream(os);
+	public void toBinary(DataOutputStream dos) throws IOException {
 		dos.writeUTF(this.name);
 		dos.write(this.species);
 		dos.write(this.gender);
@@ -88,6 +87,7 @@ public class Player implements TerminalWidget, CalendarObserver {
 		for(int value : this.exp) {
 			dos.writeInt(value);
 		}
+		this.inventory.toBinary(dos);
 	}
 
 	public static Player fromBinary(DataInputStream dis) throws IOException {

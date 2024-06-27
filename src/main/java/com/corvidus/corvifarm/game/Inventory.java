@@ -1,6 +1,12 @@
 package com.corvidus.corvifarm.game;
 
 import com.corvidus.corvifarm.items.Item;
+import com.corvidus.corvifarm.items.ItemFactory;
+import com.corvidus.corvifarm.items.tools.Axe;
+import com.corvidus.corvifarm.items.tools.Hoe;
+import com.corvidus.corvifarm.items.tools.Pickaxe;
+import com.corvidus.corvifarm.items.tools.Scythe;
+import com.corvidus.corvifarm.items.tools.Watercan;
 import com.corvidus.corvifarm.terminal.TerminalWidget;
 import com.corvidus.corvifarm.terminal.WidgetTextLines;
 import com.googlecode.lanterna.graphics.TextImage;
@@ -18,6 +24,17 @@ public class Inventory implements TerminalWidget {
 	public Inventory() {
 		this.text = new WidgetTextLines(0, 2, 20, 10);
 		this.refresh();
+	}
+	
+	public static Inventory fromScratch() {
+		Inventory inventory = new Inventory();
+		inventory.addItem(new Hoe());
+		inventory.addItem(new Watercan());
+		inventory.addItem(new Axe());
+		inventory.addItem(new Pickaxe());
+		inventory.addItem(new Scythe());
+		inventory.addItem(ItemFactory.getPrototype(ItemFactory.WHEAT, 15));
+	return inventory;
 	}
 	
 	public Item getCurrentItem() throws IndexOutOfBoundsException {

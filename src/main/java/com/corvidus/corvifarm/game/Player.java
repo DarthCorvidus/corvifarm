@@ -61,12 +61,11 @@ public class Player implements TerminalWidget, CalendarObserver {
 		this.labelEnergy = new WidgetString(0, 1, 7, "Energy:");
 		this.valueGold = new WidgetString(8, 0, 8, Long.toString(this.gold));
 		this.valueEnergy = new WidgetString(8, 1, 8, Integer.toString(this.energy));
-		this.inventory = new Inventory();
 		this.pane.addWidget(this.labelEnergy);
 		this.pane.addWidget(this.labelGold);
 		this.pane.addWidget(this.valueEnergy);
 		this.pane.addWidget(this.valueGold);
-		this.pane.addWidget(this.inventory);
+		//this.pane.addWidget(this.inventory);
 	}
 
 	public Inventory getInventory() {
@@ -75,12 +74,8 @@ public class Player implements TerminalWidget, CalendarObserver {
 	
 	public static Player fromScratch() {
 		Player player = new Player();
-		player.inventory.addItem(new Hoe());
-		player.inventory.addItem(new Watercan());
-		player.inventory.addItem(new Axe());
-		player.inventory.addItem(new Pickaxe());
-		player.inventory.addItem(new Scythe());
-		player.inventory.addItem(ItemFactory.getPrototype(ItemFactory.WHEAT, 15));
+		player.inventory = Inventory.fromScratch();
+		player.pane.addWidget(player.inventory);
 	return player;
 	}
 	
@@ -102,6 +97,9 @@ public class Player implements TerminalWidget, CalendarObserver {
 		player.gender = dis.read();
 		player.gold = dis.readLong();
 		player.valueGold.setString(Long.toString(player.gold));
+		// The cake is a lie.
+		player.inventory = new Inventory();
+		player.pane.addWidget(player.inventory);
 		for(int i = 0; i<5;i++) {
 			player.exp[i] = dis.readInt();
 		}

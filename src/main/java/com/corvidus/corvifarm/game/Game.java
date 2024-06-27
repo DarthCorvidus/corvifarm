@@ -48,25 +48,29 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 		this.debug = new WidgetString(40, 0, 40, "Debug");	
 		this.userInterface = new UserInterface();
 	}
+
+	private void init() {
+		this.rooms.getCurrent().addWASDSelectObserver(this);
+		this.rooms.getCurrent().getGround().addItem(new Wood());
+		// Not correct, needs to be applied to all rooms.
+		this.calendar.addCalendarObserver(this.rooms);
+		this.calendar.addCalendarObserver(this.player);
+		this.userInterface.addWidget(this.debug);
+		this.userInterface.addWidget(this.calendar);
+		this.userInterface.addWidget(this.player);
+		this.userInterface.addWidget(this.rooms.getCurrent());
+		this.userInterface.addWidget(this.rooms.getCurrent().getGround());
+		this.userInterface.addWidget(this.log);
+		this.userInterface.refresh();
+	}
 	
 	public static Game fromScratch() {
 		Game game = new Game();
 		game.player = Player.fromScratch();
 		game.calendar = Calendar.fromScratch();
 		game.rooms = Rooms.fromScratch();
-		game.rooms.getCurrent().addWASDSelectObserver(game);
-		game.rooms.getCurrent().getGround().addItem(new Wood());
-		// Not correct, needs to be applied to all rooms.
-		game.calendar.addCalendarObserver(game.rooms);
-		game.calendar.addCalendarObserver(game.player);
-		game.userInterface.addWidget(game.debug);
-		game.userInterface.addWidget(game.calendar);
-		game.userInterface.addWidget(game.player);
-		game.userInterface.addWidget(game.rooms.getCurrent());
-		game.userInterface.addWidget(game.rooms.getCurrent().getGround());
-		game.userInterface.addWidget(game.log);
+		game.init();
 		game.toBinary();
-		game.userInterface.refresh();
 	return game;
 	}
 	

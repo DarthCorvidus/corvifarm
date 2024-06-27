@@ -86,6 +86,8 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 			e.printStackTrace();
 			System.exit(0);
 		}
+	game.rooms = Rooms.fromScratch();
+	game.init();
 	return game;
 	}
 	

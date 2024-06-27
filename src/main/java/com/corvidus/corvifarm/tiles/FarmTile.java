@@ -38,6 +38,9 @@ public class FarmTile extends TileAbstract implements Tillable, Waterable {
 			Daily daily = (Daily)this.getOverlay();
 			daily.passDay(this);
 		}
+		if(this.tilledWatered == FarmTile.FLAT) {
+			return;
+		}
 		this.tilledWatered = FarmTile.TILLED;
 		if(this.rand.nextInt(10)<5 && !this.hasOverlay()) {
 			this.tilledWatered = FarmTile.FLAT;

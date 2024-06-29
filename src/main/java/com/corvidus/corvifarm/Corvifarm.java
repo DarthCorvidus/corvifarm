@@ -31,6 +31,8 @@ public class Corvifarm {
 				e.printStackTrace();
 				System.exit(255);
 			}
+		} else {
+			this.game = Game.fromScratch();
 		}
 		
 	}

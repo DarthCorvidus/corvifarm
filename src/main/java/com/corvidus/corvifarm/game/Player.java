@@ -97,12 +97,11 @@ public class Player implements TerminalWidget, CalendarObserver {
 		player.gender = dis.read();
 		player.gold = dis.readLong();
 		player.valueGold.setString(Long.toString(player.gold));
-		// The cake is a lie.
-		player.inventory = new Inventory();
-		player.pane.addWidget(player.inventory);
 		for(int i = 0; i<5;i++) {
 			player.exp[i] = dis.readInt();
 		}
+		player.inventory = Inventory.fromBinary(dis);
+		player.pane.addWidget(player.inventory);
 	return player;
 	}
 	

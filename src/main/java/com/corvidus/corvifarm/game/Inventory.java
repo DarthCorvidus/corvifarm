@@ -28,6 +28,7 @@ public class Inventory implements TerminalWidget {
 	private int selected = 0;
 	private int page = 0;
 	private int pages = 3;
+	static int MAX_PAGES = 3;
 	public Inventory() {
 		this.text = new WidgetTextLines(0, 2, 20, 10);
 		this.refresh();
@@ -44,16 +45,35 @@ public class Inventory implements TerminalWidget {
 	return inventory;
 	}
 	
+	public static Inventory fromBinary(DataInputStream dis) throws IOException {
+		Inventory inventory = new Inventory();
+		byte[] bytes = new byte[4];
+		for(int i = 0; i<bytes.length;i++) {
+			bytes[i] = dis.readByte();
+		}
+		Bitmap bitmap = Bitmap.fromBytes(bytes);
+		for(int i = 0; i<MAX_PAGES*10;i++) {
+			if(bitmap.getBoolean(i)==false) {
+				Item.fromBinary(dis);
+			continue;
+			}
+			Item item = Item.fromBinary(dis);
+			inventory.items.put(i, item);
+		}
+		inventory.refresh();
+	return inventory;
+	}
+	
 	public void toBinary(DataOutputStream dos) throws IOException {
 		Bitmap bitmap = new Bitmap(4);
-		for(int i = 0; i<this.pages*10;i++) {
+		for(int i = 0; i<MAX_PAGES*10;i++) {
 			Item item = this.items.get(i);
 			if(item != null) {
 				bitmap.setBoolean(i, true);
 			}
 		}
 		dos.write(bitmap.getBytes());
-		for(int i = 0; i<this.pages*10;i++) {
+		for(int i = 0; i<MAX_PAGES*10;i++) {
 			Item item = this.items.get(i);
 			if(item != null) {
 				item.toBinary(dos);

@@ -79,33 +79,17 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 	
 	public static Game fromBinary() {
 		Game game = new Game();
-		try (FileInputStream fis = new FileInputStream("game.sav")) {
-			DataInputStream dis = new DataInputStream(fis);
-			game.calendar = Calendar.fromBinary(dis);
-			game.player = Player.fromBinary(dis);
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(0);
-		}
-	game.rooms = Rooms.fromScratch();
-	game.init();
+		Persistence persistence = Persistence.fromFile();
+		game.calendar = persistence.getCalendar();
+		game.player = persistence.getPlayer();
+		game.rooms = Rooms.fromScratch();
+		game.init();
 	return game;
 	}
 	
 	public void toBinary() {
-		try (FileOutputStream fos = new FileOutputStream("game.sav.tmp")) {
-			DataOutputStream dos = new DataOutputStream(fos);
-			this.calendar.toBinary(dos);
-			this.player.toBinary(dos);
-			Persistence persistence = new Persistence(this.calendar, this.player);
-			persistence.toFile();
-			
-			//Files.move(Paths.get("game.sav.tmp"), Paths.get("game.sav"), StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(0);
-		}
-
+		Persistence persistence = new Persistence(this.calendar, this.player);
+		persistence.toFile();
 	}
 	
 	public UserInterface getUserInterface() {

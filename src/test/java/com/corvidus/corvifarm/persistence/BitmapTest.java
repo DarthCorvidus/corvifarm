@@ -85,4 +85,14 @@ public class BitmapTest {
 			assertEquals(expected[i], bitmap.getBoolean(i));
 		}
 	}
+	
+	@Test
+	public void fromBytes() {
+		byte[] bytes = {(byte)255, (byte)153};
+		boolean[] expected = {true, true, true, true, true, true, true, true, true, false, false, true, true, false, false, true};
+		Bitmap bitmap = Bitmap.fromBytes(bytes);
+		for(int i = 0; i<expected.length;i++) {
+			assertEquals(expected[i], bitmap.getBoolean(i));
+		}
+	}
 }

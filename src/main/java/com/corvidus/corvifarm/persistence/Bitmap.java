@@ -7,7 +7,14 @@ public class Bitmap {
 		for(int i = 0; i<bytes;i++) {
 			this.bitmap[i] = 0; 
 		}
-		
+	}
+	
+	public static Bitmap fromBytes(byte[] bytes) {
+		Bitmap bitmap = new Bitmap(bytes.length);
+		for(int i = 0; i<bytes.length;i++) {
+			bitmap.bitmap[i] = bytes[i];
+		}
+	return bitmap;
 	}
 	
 	public void setBoolean(int index, boolean value) {

@@ -7,11 +7,13 @@ import com.corvidus.corvifarm.items.tools.Hoe;
 import com.corvidus.corvifarm.items.tools.Pickaxe;
 import com.corvidus.corvifarm.items.tools.Scythe;
 import com.corvidus.corvifarm.items.tools.Watercan;
+import com.corvidus.corvifarm.persistence.Bitmap;
 import com.corvidus.corvifarm.terminal.TerminalWidget;
 import com.corvidus.corvifarm.terminal.WidgetTextLines;
 import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,10 +45,20 @@ public class Inventory implements TerminalWidget {
 	}
 	
 	public void toBinary(DataOutputStream dos) throws IOException {
+		Bitmap bitmap = new Bitmap(4);
+		for(int i = 0; i<this.pages*10;i++) {
+			Item item = this.items.get(i);
+			if(item != null) {
+				bitmap.setBoolean(i, true);
+			}
+		}
+		dos.write(bitmap.getBytes());
 		for(int i = 0; i<this.pages*10;i++) {
 			Item item = this.items.get(i);
 			if(item != null) {
 				item.toBinary(dos);
+			} else {
+				Item.writeEmpty(dos);
 			}
 		}
 	}

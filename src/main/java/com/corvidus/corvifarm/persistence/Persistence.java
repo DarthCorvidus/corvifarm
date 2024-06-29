@@ -4,6 +4,7 @@ import com.corvidus.corvifarm.game.Calendar;
 import com.corvidus.corvifarm.game.Player;
 import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.room.Room;
+import com.corvidus.corvifarm.room.Rooms;
 import com.corvidus.corvifarm.tiles.Tile;
 import com.corvidus.corvifarm.tiles.TileFactory;
 import java.io.DataInputStream;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class Persistence {
 	private Calendar calendar;
 	private Player player;
+	private Rooms rooms;
 	private Map<Integer, Tile> tiles = new HashMap<>();
 	private List<PersistenceTile> pTiles = new ArrayList<>();
 	private List<PersistenceItem> pItem = new ArrayList<>();
@@ -34,6 +36,15 @@ public class Persistence {
 		this.calendar = calendar;
 		this.player = player;
 	}
+	
+	public Calendar getCalendar() {
+		return this.calendar;
+	}
+	
+	public Player getPlayer() {
+		return this.player;
+	}
+	
 	private int getSerialTile() {
 		return this.serialTile++;
 	}
@@ -73,7 +84,6 @@ public class Persistence {
 			this.player.toBinary(dos);
 			dos.writeInt(this.pTiles.size());
 			for(PersistenceTile pt : this.pTiles) {
-				System.out.println(pt);
 				pt.toBinary(dos);
 			}
 			dos.writeInt(this.pItem.size());

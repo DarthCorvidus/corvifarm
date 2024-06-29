@@ -8,6 +8,7 @@ import com.corvidus.corvifarm.items.Interactive;
 import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.TileManipulator;
 import com.corvidus.corvifarm.items.wood.Wood;
+import com.corvidus.corvifarm.persistence.Persistence;
 import com.corvidus.corvifarm.room.Farm;
 import com.corvidus.corvifarm.room.Room;
 import com.corvidus.corvifarm.room.Rooms;
@@ -96,7 +97,10 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 			DataOutputStream dos = new DataOutputStream(fos);
 			this.calendar.toBinary(dos);
 			this.player.toBinary(dos);
-			Files.move(Paths.get("game.sav.tmp"), Paths.get("game.sav"), StandardCopyOption.REPLACE_EXISTING);
+			Persistence persistence = new Persistence(this.calendar, this.player);
+			persistence.toFile();
+			
+			//Files.move(Paths.get("game.sav.tmp"), Paths.get("game.sav"), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(0);

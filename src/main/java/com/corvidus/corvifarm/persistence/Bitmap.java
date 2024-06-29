@@ -1,54 +1,37 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.corvidus.corvifarm.persistence;
-
-/**
- *
- * @author hm
- */
 public class Bitmap {
-	private byte[] bytes;
-	private static int[] lookup = {128, 64, 32, 16, 8, 4, 2, 1};
-	private int bitmap = 0;
+	private static final int[] lookup = {128, 64, 32, 16, 8, 4, 2, 1};
+	private final int[] bitmap;
 	public Bitmap(int bytes) {
-		this.bytes = new byte[bytes];
+		this.bitmap = new int[bytes];
 		for(int i = 0; i<bytes;i++) {
-			this.bytes[i] = 0;
+			this.bitmap[i] = 0; 
 		}
 		
 	}
 	
 	public void setBoolean(int index, boolean value) {
-		int dec = Bitmap.lookup[index];
+		int byteIndex = Math.floorDiv(index, 8);
+		int dec = Bitmap.lookup[index % 8];
 		if(value == true) {
-			this.bitmap = this.bitmap | dec;
+			this.bitmap[byteIndex] = this.bitmap[byteIndex] | dec;
 		} else {
-			this.bitmap = this.bitmap ^ dec;
+			this.bitmap[byteIndex] = this.bitmap[byteIndex] ^ dec;
 		}
 	}
 	
 	public boolean getBoolean(int index) {
-		int dec = Bitmap.lookup[index];
-		int and = this.bitmap & dec;
+		int byteIndex = Math.floorDiv(index, 8);
+		int dec = Bitmap.lookup[index % 8];
+		int and = this.bitmap[byteIndex] & dec;
 	return and == dec;
 	}
 	
 	public byte[] getBytes() {
-		return this.bytes;
-	}
-	
-	
-	static String padLeft(String padstr, int amount) {
-		String str = String.format("%"+amount+"s", padstr);
-		str = str.replace(' ', '0');
-	return str;
-	}
-	
-	static String padLeft(int padint, int amount) {
-		String padstr = Integer.toBinaryString(padint);
-		padstr = Bitmap.padLeft(padstr, amount);
-	return padstr;
+		byte[] bytes = new byte[this.bitmap.length];
+		for(int i = 0; i < this.bitmap.length;i++) {
+			bytes[i] = (byte)this.bitmap[i];
+		}
+	return bytes;
 	}
 }

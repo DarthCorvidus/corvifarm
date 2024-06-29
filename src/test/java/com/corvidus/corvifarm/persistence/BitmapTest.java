@@ -21,42 +21,68 @@ public class BitmapTest {
 	 */
 	@Test
 	public void testGetDefaultBoolean() {
+		byte[] expected = {0, 0, 0, 0};
 		Bitmap bitmap = new Bitmap(4);
-		assertEquals(false, bitmap.getBoolean(0));
-		assertEquals(false, bitmap.getBoolean(1));
-		assertEquals(false, bitmap.getBoolean(2));
-		assertEquals(false, bitmap.getBoolean(3));
-		assertEquals(false, bitmap.getBoolean(4));
-		assertEquals(false, bitmap.getBoolean(5));
-		assertEquals(false, bitmap.getBoolean(6));
-		assertEquals(false, bitmap.getBoolean(7));
+		assertArrayEquals(expected, bitmap.getBytes());
 	}
 	
 	@Test
-	public void testGetSetBoolean() {
+	public void testSetBoolean() {
+		byte[] expected = {(byte)255, (byte)153, 15, 3};
 		Bitmap bitmap = new Bitmap(4);
-		assertEquals(false, bitmap.getBoolean(0));
-		assertEquals(false, bitmap.getBoolean(1));
-		assertEquals(false, bitmap.getBoolean(2));
-		assertEquals(false, bitmap.getBoolean(3));
-		assertEquals(false, bitmap.getBoolean(4));
-		assertEquals(false, bitmap.getBoolean(5));
-		assertEquals(false, bitmap.getBoolean(6));
-		assertEquals(false, bitmap.getBoolean(7));
 		bitmap.setBoolean(0, true);
-		assertEquals(true, bitmap.getBoolean(0));
-		assertEquals(false, bitmap.getBoolean(1));
-		assertEquals(false, bitmap.getBoolean(2));
-		assertEquals(false, bitmap.getBoolean(3));
-		assertEquals(false, bitmap.getBoolean(4));
-		assertEquals(false, bitmap.getBoolean(5));
-		assertEquals(false, bitmap.getBoolean(6));
-		assertEquals(false, bitmap.getBoolean(7));
 		bitmap.setBoolean(1, true);
-		assertEquals(true, bitmap.getBoolean(1));
 		bitmap.setBoolean(2, true);
-		assertEquals(true, bitmap.getBoolean(2));
-		bitmap.setBoolean(2, false);
-		assertEquals(false, bitmap.getBoolean(2));
+		bitmap.setBoolean(3, true);
+		bitmap.setBoolean(4, true);
+		bitmap.setBoolean(5, true);
+		bitmap.setBoolean(6, true);
+		bitmap.setBoolean(7, true);
+		
+		bitmap.setBoolean(8, true);
+		bitmap.setBoolean(11, true);
+		bitmap.setBoolean(12, true);
+		bitmap.setBoolean(15, true);
+		
+		bitmap.setBoolean(20, true);
+		bitmap.setBoolean(21, true);
+		bitmap.setBoolean(22, true);
+		bitmap.setBoolean(23, true);
+		
+		bitmap.setBoolean(30, true);
+		bitmap.setBoolean(31, true);
+		assertArrayEquals(expected, bitmap.getBytes());
+
+	}
+	
+	@Test
+	public void testGetBoolean() {
+		boolean[] expected = {true, true, true, true, true, true, true, true, true, false, false, true, true, false, false, true};
+		Bitmap bitmap = new Bitmap(4);
+		bitmap.setBoolean(0, true);
+		bitmap.setBoolean(1, true);
+		bitmap.setBoolean(2, true);
+		bitmap.setBoolean(3, true);
+		bitmap.setBoolean(4, true);
+		bitmap.setBoolean(5, true);
+		bitmap.setBoolean(6, true);
+		bitmap.setBoolean(7, true);
+		
+		bitmap.setBoolean(8, true);
+		bitmap.setBoolean(11, true);
+		bitmap.setBoolean(12, true);
+		bitmap.setBoolean(15, true);
+		
+		bitmap.setBoolean(20, true);
+		bitmap.setBoolean(21, true);
+		bitmap.setBoolean(22, true);
+		bitmap.setBoolean(23, true);
+		
+		bitmap.setBoolean(30, true);
+		bitmap.setBoolean(31, true);
+		
+		for(int i = 0; i<expected.length;i++) {
+			assertEquals(expected[i], bitmap.getBoolean(i));
+		}
 	}
 }

@@ -86,6 +86,15 @@ public class Persistence {
 		}
 	return result;
 	}
+
+	public PersistenceItem getItem(PersistenceTile ptile) {
+		for(PersistenceItem pIitem : this.pItem) {
+			if(ptile.getPrimaryKey() == pIitem.getForeignKeyTile()) {
+				return pIitem;
+			}
+		}
+	return null;
+	}
 	
 	
 	public void toFile() {

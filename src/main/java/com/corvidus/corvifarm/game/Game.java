@@ -207,6 +207,7 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 		 */
 		if(item instanceof TileManipulator tm) {
 			try {
+				this.assertValidTime();
 				this.player.assertEnergy(tm.getBaseEnergyCost());
 				tm.apply(this.player, tile);
 				this.player.subEnergy(tm.getBaseEnergyCost());
@@ -219,6 +220,12 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 		this.userInterface.refresh();
 	}
 
+	private void assertValidTime() throws InvalidActionException {
+		if(this.calendar.getDaySeconds()>=60 && this.calendar.getDaySeconds()<=120) {
+			throw new InvalidActionException("You are too tired for hard work.");
+		}
+	}
+	
 	@Override
 	public void onFocusEmpty(WASDSelect wasdSelect) {
 		this.called++;

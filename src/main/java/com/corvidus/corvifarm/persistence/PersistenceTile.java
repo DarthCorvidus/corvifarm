@@ -33,6 +33,11 @@ public class PersistenceTile {
 	public int getPrimaryKey() {
 		return this.primaryKey;
 	}
+	
+	public int getRoomForeignKey() {
+		return this.roomId;
+	}
+	
 	public void toBinary(DataOutputStream dos) throws IOException {
 		dos.writeInt(this.primaryKey);
 		dos.writeShort(tileId);

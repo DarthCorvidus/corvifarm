@@ -82,7 +82,8 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 		Persistence persistence = Persistence.fromFile();
 		game.calendar = persistence.getCalendar();
 		game.player = persistence.getPlayer();
-		game.rooms = Rooms.fromScratch();
+		game.rooms = Rooms.asEmpty();
+		game.rooms.load(persistence);
 		game.init();
 	return game;
 	}

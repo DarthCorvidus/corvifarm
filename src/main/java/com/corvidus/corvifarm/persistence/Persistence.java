@@ -76,6 +76,17 @@ public class Persistence {
 		this.pItem.add(pi);
 	}
 	
+	public List<PersistenceTile> getTiles(Room room) {
+		List<PersistenceTile> result = new ArrayList<>();
+		for(PersistenceTile ptile : this.pTiles) {
+			if(ptile.getRoomForeignKey()!=room.getId()) {
+				continue;
+			}
+			result.add(ptile);
+		}
+	return result;
+	}
+	
 	
 	public void toFile() {
 		try (FileOutputStream fos = new FileOutputStream("game.sav.tmp")) {

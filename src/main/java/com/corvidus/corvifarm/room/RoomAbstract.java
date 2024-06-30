@@ -4,6 +4,7 @@ import com.corvidus.corvifarm.game.Calendar;
 import com.corvidus.corvifarm.game.CalendarObserver;
 import com.corvidus.corvifarm.game.Ground;
 import com.corvidus.corvifarm.persistence.Persistence;
+import com.corvidus.corvifarm.persistence.PersistenceTile;
 import com.corvidus.corvifarm.terminal.WidgetPane;
 import com.corvidus.corvifarm.terminal.WidgetString;
 import com.corvidus.corvifarm.terminal.select.WASDSelect;
@@ -50,7 +51,11 @@ public abstract class RoomAbstract implements Room, CalendarObserver {
 	
 	@Override
 	public void load(Persistence persistence) {
-		
+		List<PersistenceTile> ptiles = persistence.getTiles(this);
+		for(PersistenceTile ptile : ptiles) {
+			this.tiles.add(ptile.createTile());
+		}
+		this.refresh();
 	}
 	
 	@Override

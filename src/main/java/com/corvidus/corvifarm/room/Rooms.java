@@ -36,6 +36,12 @@ public class Rooms implements CalendarObserver {
 		}
 	}
 	
+	public void load(Persistence persistence) {
+		for(int key : this.rooms.keySet()) {
+			this.rooms.get(key).load(persistence);
+		}
+	}
+	
 	private void init() {
 		for(int key : this.rooms.keySet()) {
 			this.rooms.get(key).init();

@@ -16,11 +16,17 @@ public class Rooms implements CalendarObserver {
 	private Rooms() {
 		
 	}
-	public static Rooms fromScratch() {
+	public static Rooms asEmpty() {
 		Rooms rooms = new Rooms();
 		rooms.current = new YourHouse();
-		rooms.addInit(rooms.current);
-		rooms.addInit(new Farm());
+		rooms.add(rooms.current);
+		rooms.add(new Farm());
+	return rooms;
+	}
+	
+	public static Rooms fromScratch() {
+		Rooms rooms = Rooms.asEmpty();
+		rooms.init();
 	return rooms;
 	}
 	
@@ -30,8 +36,14 @@ public class Rooms implements CalendarObserver {
 		}
 	}
 	
-	private void addInit(Room room) {
-		room.init();
+	private void init() {
+		for(int key : this.rooms.keySet()) {
+			this.rooms.get(key).init();
+			this.rooms.get(key).refresh();
+		}
+	}
+	
+	private void add(Room room) {
 		room.refresh();
 		this.rooms.put(room.getId(), room);
 	}

@@ -45,7 +45,7 @@ public abstract class RoomAbstract implements Room, CalendarObserver {
 	
 	@Override
 	public void save(Persistence persistence) {
-		
+		persistence.addRoom(this);
 	}
 	
 	@Override

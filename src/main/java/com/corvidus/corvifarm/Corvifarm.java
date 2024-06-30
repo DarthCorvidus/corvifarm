@@ -17,6 +17,8 @@ import java.nio.file.Paths;
 public class Corvifarm {
 	private Game game;
 	public Corvifarm() {
+	this.game = Game.fromScratch();
+	/*
 		File save = new File("game.sav");
 		if(save.exists() && !save.isDirectory()) {
 			System.out.println("Load from save? Y/n");
@@ -34,7 +36,7 @@ public class Corvifarm {
 		} else {
 			this.game = Game.fromScratch();
 		}
-		
+	*/	
 	}
 	
 	public void run() {

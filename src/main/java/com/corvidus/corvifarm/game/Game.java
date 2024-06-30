@@ -89,6 +89,7 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 	
 	public void toBinary() {
 		Persistence persistence = new Persistence(this.calendar, this.player);
+		this.rooms.save(persistence);
 		persistence.toFile();
 	}
 	

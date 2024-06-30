@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 public class Farm extends RoomAbstract {
-	private Farm() {
+	public Farm() {
 		super();
 		this.addImmutableTile(new ImmutableTile(new Exit(Rooms.YOUR_HOUSE, "Farm House")));
 		this.addImmutableTile(new ImmutableTile(new ShippingBin()));
@@ -59,13 +59,6 @@ public class Farm extends RoomAbstract {
 				continue;
 			}
 		}
-	}
-	
-	public static Farm fromScratch() {
-		Farm farm = new Farm();
-		farm.init();
-		farm.refresh();
-	return farm;
 	}
 	
 	@Override

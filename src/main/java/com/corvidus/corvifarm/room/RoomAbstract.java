@@ -3,6 +3,7 @@ package com.corvidus.corvifarm.room;
 import com.corvidus.corvifarm.game.Calendar;
 import com.corvidus.corvifarm.game.CalendarObserver;
 import com.corvidus.corvifarm.game.Ground;
+import com.corvidus.corvifarm.persistence.Persistence;
 import com.corvidus.corvifarm.terminal.WidgetPane;
 import com.corvidus.corvifarm.terminal.WidgetString;
 import com.corvidus.corvifarm.terminal.select.WASDSelect;
@@ -42,6 +43,15 @@ public abstract class RoomAbstract implements Room, CalendarObserver {
 		this.immutableTiles.add(tile);
 	}
 	
+	@Override
+	public void save(Persistence persistence) {
+		
+	}
+	
+	@Override
+	public void load(Persistence persistence) {
+		
+	}
 	
 	@Override
 	public int getPosX() {

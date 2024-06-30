@@ -2,6 +2,7 @@ package com.corvidus.corvifarm.room;
 
 import com.corvidus.corvifarm.game.Calendar;
 import com.corvidus.corvifarm.game.CalendarObserver;
+import com.corvidus.corvifarm.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,10 +18,22 @@ public class Rooms implements CalendarObserver {
 	}
 	public static Rooms fromScratch() {
 		Rooms rooms = new Rooms();
-		rooms.current = YourHouse.fromScratch();
-		rooms.rooms.put(Rooms.YOUR_HOUSE, rooms.current);
-		rooms.rooms.put(Rooms.YOUR_FARM, Farm.fromScratch());
+		rooms.current = new YourHouse();
+		rooms.addInit(rooms.current);
+		rooms.addInit(new Farm());
 	return rooms;
+	}
+	
+	public void save(Persistence persistence) {
+		for(int key : this.rooms.keySet()) {
+			this.rooms.get(key).save(persistence);
+		}
+	}
+	
+	private void addInit(Room room) {
+		room.init();
+		room.refresh();
+		this.rooms.put(room.getId(), room);
 	}
 	
 	public Room getCurrent() {

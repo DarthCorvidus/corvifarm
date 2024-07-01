@@ -73,40 +73,18 @@ public class Farm extends RoomAbstract {
 
 	@Override
 	public void respawn() {
-		List<Item> newItems = new ArrayList<>();
-		int empty = 0;
-		for(Tile tile: this.tiles) {
-			if(!tile.hasOverlay()) {
-				empty++;
-				continue;
-			}
-			if(tile.getOverlay() instanceof Weeds && rand.nextInt(100)<5 && empty>=2048) {
-				newItems.add(new Weeds());
-			}
-			
-			if(tile.getOverlay() instanceof Tree tree && tree.isGrown() && rand.nextInt(100)<5) {
-				newItems.add(ItemFactory.getPrototype(tree.getId()));
-			}
-		}
-		/**
-		 * Do not continue if empty tiles fall below 2048.
-		 */
-		if(empty<2048) {
-			return;
-		}
+		int[] debris = {ItemFactory.TREE_CEDRUS, ItemFactory.TREE_CYPRESS, ItemFactory.TREE_OAK, ItemFactory.WOOD, ItemFactory.STONE, ItemFactory.WEEDS};
 		for(Tile tile: this.tiles) {
 			if(tile.hasOverlay()) {
 				continue;
 			}
-			if(tile instanceof Tillable till && till.isTilled()) {
+			if(tile instanceof FarmTile ft && ft.isTilled()) {
 				continue;
 			}
-			try {
-				Item overlay = newItems.get(0);
-				tile.setOverlay(overlay);
-				newItems.remove(0);
-			} catch (IndexOutOfBoundsException e) {
-				return;
+			
+			if(this.rand.nextInt(100)<1) {
+				int randIndex = this.rand.nextInt(debris.length);
+				tile.setOverlay(ItemFactory.getPrototype(debris[randIndex]));
 			}
 		}
 	}

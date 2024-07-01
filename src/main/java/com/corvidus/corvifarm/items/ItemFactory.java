@@ -42,13 +42,13 @@ public class ItemFactory {
 	public static final int WEEDS = 199;
 	
 	//Trees
-	public static final int OAK = 200;
-	public static final int PINE = 201;
-	public static final int CYPRESS = 202;
-	public static final int FIG = 203;
-	public static final int OLIVE = 204;
-	public static final int CEDRUS = 205;
-	public static final int MAHOGANY = 206;
+	public static final int TREE_OAK = 200;
+	public static final int TREE_PINE = 201;
+	public static final int TREE_CYPRESS = 202;
+	public static final int TREE_FIG = 203;
+	public static final int TREE_OLIVE = 204;
+	public static final int TREE_CEDRUS = 205;
+	public static final int TREE_MAHOGANY = 206;
 	public static final int WOOD = 207;
 	public static final int HARDWOOD = 208;
 	
@@ -77,12 +77,12 @@ public class ItemFactory {
 		this.addPrototype(new Axe());
 		this.addPrototype(new Pickaxe());
 		this.addPrototype(new Scythe());
-		this.addPrototype(new Tree(OAK, "Oak"));
-		this.addPrototype(new Tree(PINE, "Pine"));
-		this.addPrototype(new Tree(CYPRESS, "Cypress"));
-		this.addPrototype(new Tree(CEDRUS, "Cedrus"));
-		this.addPrototype(new Tree(FIG, "Fig"));
-		this.addPrototype(new Tree(OLIVE, "Olive"));
+		this.addPrototype(new Tree(TREE_OAK, "Oak"));
+		this.addPrototype(new Tree(TREE_PINE, "Pine"));
+		this.addPrototype(new Tree(TREE_CYPRESS, "Cypress"));
+		this.addPrototype(new Tree(TREE_CEDRUS, "Cedrus"));
+		this.addPrototype(new Tree(TREE_FIG, "Fig"));
+		this.addPrototype(new Tree(TREE_OLIVE, "Olive"));
 		this.addPrototype(new Crop(WHEAT, 4, 10, "Wheat"));
 		this.addPrototype(new Crop(PARSNIP, 4, 10, "Parsnip"));
 		this.addPrototype(new Crop(POTATO, 6, 40, "Potato"));

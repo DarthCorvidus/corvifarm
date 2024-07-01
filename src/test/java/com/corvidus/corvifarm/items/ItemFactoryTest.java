@@ -43,7 +43,7 @@ public class ItemFactoryTest {
 
 	@Test
 	public void testGetPrototypeTree() {
-		Tree tree = (Tree)ItemFactory.getPrototype(ItemFactory.OAK);
+		Tree tree = (Tree)ItemFactory.getPrototype(ItemFactory.TREE_OAK);
 		assertEquals("Oak Seed", tree.getName());
 		assertEquals(1, tree.getAmount());
 	}

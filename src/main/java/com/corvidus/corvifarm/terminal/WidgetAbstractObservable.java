@@ -5,6 +5,8 @@
 package com.corvidus.corvifarm.terminal;
 
 import com.googlecode.lanterna.input.KeyStroke;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,7 +19,8 @@ public class WidgetAbstractObservable extends WidgetAbstract implements Terminal
 
 	@Override
 	public void onInput(KeyStroke keyStroke) {
-		for(WidgetInputObserver obs: this.inputObservers) {
+		List<WidgetInputObserver> copy = new ArrayList<>(this.inputObservers);
+		for(WidgetInputObserver obs: copy) {
 			obs.onInput(this, keyStroke);
 		}
 	}
@@ -29,7 +32,7 @@ public class WidgetAbstractObservable extends WidgetAbstract implements Terminal
 
 	@Override
 	public void removeInputObserver(WidgetInputObserver inputObserver) {
-		this.inputObservers.remove(this.inputObservers);
+		this.inputObservers.remove(inputObserver);
 	}
 
 }

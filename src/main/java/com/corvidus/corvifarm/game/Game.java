@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.corvidus.corvifarm.game;
 
 import com.corvidus.corvifarm.items.Interactive;
@@ -9,8 +5,6 @@ import com.corvidus.corvifarm.items.Item;
 import com.corvidus.corvifarm.items.TileManipulator;
 import com.corvidus.corvifarm.items.wood.Wood;
 import com.corvidus.corvifarm.persistence.Persistence;
-import com.corvidus.corvifarm.room.Farm;
-import com.corvidus.corvifarm.room.Room;
 import com.corvidus.corvifarm.room.Rooms;
 import com.corvidus.corvifarm.terminal.TerminalWidget;
 import com.corvidus.corvifarm.terminal.UserInterface;
@@ -20,23 +14,10 @@ import com.corvidus.corvifarm.terminal.WidgetString;
 import com.corvidus.corvifarm.terminal.select.WASDSelect;
 import com.corvidus.corvifarm.terminal.select.WASDSelectElement;
 import com.corvidus.corvifarm.terminal.select.WASDSelectObserver;
-import com.corvidus.corvifarm.terminal.select.WASDSelectString;
 import com.corvidus.corvifarm.tiles.Tile;
-import com.corvidus.corvifarm.tiles.Tillable;
 import com.corvidus.corvifarm.ui.YesNoQuit;
-import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectObserver {
 	public Calendar calendar;

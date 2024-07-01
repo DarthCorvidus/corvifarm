@@ -73,7 +73,7 @@ public class Farm extends RoomAbstract {
 
 	@Override
 	public void respawn() {
-		int[] debris = {ItemFactory.TREE_CEDRUS, ItemFactory.TREE_CYPRESS, ItemFactory.TREE_OAK, ItemFactory.WOOD, ItemFactory.STONE, ItemFactory.WEEDS};
+		int[] debris = {ItemFactory.TREE_CEDRUS, ItemFactory.TREE_CYPRESS, ItemFactory.TREE_FIG, ItemFactory.TREE_OAK, ItemFactory.TREE_OLIVE, ItemFactory.TREE_PINE, ItemFactory.WOOD, ItemFactory.STONE, ItemFactory.WEEDS};
 		for(Tile tile: this.tiles) {
 			if(tile.hasOverlay()) {
 				continue;

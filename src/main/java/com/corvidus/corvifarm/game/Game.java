@@ -27,10 +27,10 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 	private Player player;
 	private Rooms rooms;
 	private WidgetLog log;
-	private Game() {
+	private Game(UserInterface userInterface) {
 		this.log = new WidgetLog(0, 20, 80, 4);
 		this.debug = new WidgetString(40, 0, 40, "Debug");	
-		this.userInterface = new UserInterface();
+		this.userInterface = userInterface;
 	}
 
 	private void init() {
@@ -48,8 +48,8 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 		this.userInterface.refresh();
 	}
 	
-	public static Game fromScratch() {
-		Game game = new Game();
+	public static Game fromScratch(UserInterface userInterface) {
+		Game game = new Game(userInterface);
 		game.player = Player.fromScratch();
 		game.calendar = Calendar.fromScratch();
 		game.rooms = Rooms.fromScratch();
@@ -58,8 +58,8 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 	return game;
 	}
 	
-	public static Game fromBinary() {
-		Game game = new Game();
+	public static Game fromBinary(UserInterface userInterface) {
+		Game game = new Game(userInterface);
 		Persistence persistence = Persistence.fromFile();
 		game.calendar = persistence.getCalendar();
 		game.player = persistence.getPlayer();

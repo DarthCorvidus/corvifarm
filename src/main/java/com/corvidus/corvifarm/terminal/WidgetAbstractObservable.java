@@ -19,6 +19,7 @@ public class WidgetAbstractObservable extends WidgetAbstract implements Terminal
 
 	@Override
 	public void onInput(KeyStroke keyStroke) {
+		// Prevent ConcurrentModificationException
 		List<WidgetInputObserver> copy = new ArrayList<>(this.inputObservers);
 		for(WidgetInputObserver obs: copy) {
 			obs.onInput(this, keyStroke);

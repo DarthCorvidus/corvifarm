@@ -17,6 +17,12 @@ public class WidgetLog extends WidgetAbstract {
 		}
 	}
 	
+	public void clear() {
+		for(int i = 0; i<this.getHeight();i++) {
+			this.tg.putString(0, i, " ".repeat(this.getWidth()));
+		}
+	}
+	
 	private void addLine(String line) {
 		for(int i = 0; i<this.getHeight()-1;i++) {
 			this.lines[i] = this.lines[i+1];

@@ -103,7 +103,7 @@ public class Inventory implements TerminalWidget {
 		Item item = this.getCurrentItem();
 		item.setAmount(item.getAmount() - 1);
 		if(item.getAmount() == 0) {
-			this.items.remove(this.selected);
+			this.items.remove(this.selected+(this.page*10));
 		}
 		this.refresh();
 	}

@@ -193,7 +193,7 @@ public class Game implements CalendarObserver, WidgetInputObserver, WASDSelectOb
 				this.player.assertEnergy(tm.getBaseEnergyCost());
 				tm.apply(this.player, tile);
 				this.player.subEnergy(tm.getBaseEnergyCost());
-				this.calendar.fastForward(10);
+				this.calendar.fastForward(5);
 				this.rooms.getCurrent().refresh();
 			} catch (InvalidActionException e) {
 				log.addMessage(e.getMessage());
